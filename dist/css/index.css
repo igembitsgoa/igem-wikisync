@@ -1,0 +1,78 @@
+@charset "UTF-8";
+
+/*Adapted from iGEM Peshawar 2016 iGEM Wiki Overrides, used with their Codekit build system*/
+/*Variable for the height of the required iGEM Navbar. Use for sizing your own navbar.
+/* Override iGEM wiki settings, removing everything but the top navbar. */
+#sideMenu,
+#top_title {
+  display: none;
+}
+
+#content {
+  /*Make content behave like one would expect a body to */
+  width: 100vw;
+  padding: 0px;
+  border: none;
+  color: black;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #fff;
+  position: relative;
+}
+
+#globalWrapper {
+  font-size: inherit;
+  padding-bottom: 0;
+}
+
+#top_menu_under {
+  /*Remove spacer between iGEM navbar and content */
+  height: 0px;
+}
+
+ul {
+  list-style-image: none;
+  /* removes the iGEM wiki bullets */
+  padding: 0;
+  margin: 0;
+}
+
+#mw-content-text>p {
+  /*make <p> containing <head> tags invisible */
+  width: 0px;
+  height: 0px;
+}
+
+#igem-navbar-placeholder {
+  /*Placeholder that "subs in" for the iGEM navbar on dev builds */
+  height: 16px;
+  position: fixed;
+  display: block;
+  background-color: #383838;
+  border-bottom: solid black 2px;
+  color: white;
+  z-index: 9999;
+  width: 100%;
+  font-size: 0.75em !important;
+  margin: 0;
+  padding: 0;
+}
+
+#igem-navbar-placeholder p {
+  margin: 0;
+}
+
+/*MathJax CSS hack to remove annoyning right-side spans (from 2016 Team Peshwar)*/
+.MathJax nobr>span.math>span {
+  border-left-width: 0 !important;
+}
+
+h1 {
+  color: red;
+}
+ 
+#image {
+  background: url('../assets/img/logo.jpg') no-repeat center;
+  height: 500px;
+  width: 500px;
+}
