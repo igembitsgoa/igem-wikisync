@@ -1,6 +1,6 @@
-def iGEMlogin(browser, username, password):
+from bs4 import BeautifulSoup
 
-    return "No"
+def iGEM_login(browser, username, password):
 
     browser.open("https://igem.org/Login2")
     browser.select_form('form[method="post"]')
@@ -11,13 +11,13 @@ def iGEMlogin(browser, username, password):
     soup = BeautifulSoup(response.text, 'html.parser')
     return soup.text
 
-def iGEMupload(browser, outfile, uploadURL):
+def iGEM_upload_page(browser, path, url):
 
     return "no"
 
-    with open(outfile, 'r') as file:
+    with open(path, 'r') as file:
         contents = file.read()
-    browser.open(uploadURL)
+    browser.open(url)
     
     browser.select_form('form')
     browser['wpTextbox1'] = contents
@@ -26,5 +26,22 @@ def iGEMupload(browser, outfile, uploadURL):
 
     return response.text
 
-if __name__ == '__main__':
-    main()
+def iGEM_upload_file(browser, file_object):
+
+    url = file_object.upload_URL
+    team = file_object.config['team']
+    browser.open(url)
+    
+    browser.select_form('form')
+    browser['wpUploadFile'] = str(file_object.src_path)
+    browser['wpDestFile'] = 'T--' + team + '--' + file_object.filename
+    # browser['wpUploadDescription'] = 'BITSPilani-Goa_India team logo'
+    browser['wpIgnoreWarning'] = "1"
+    response = browser.submit_selected()
+    relative_link = browser.get_current_page().find(class_='fullMedia').find('a')['href']
+    file_object.set_upload_URL('https://2020.igem.org' + relative_link)
+
+    print('Uploaded', file_object.upload_filename, 'to', file_object.upload_URL)
+    
+    return response
+
