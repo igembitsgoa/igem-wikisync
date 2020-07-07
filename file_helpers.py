@@ -1,62 +1,85 @@
-import os
+from file_parsers import HTMLparser
 from pathlib import Path
-import cssutils
-from jsmin import jsmin
-from bs4 import BeautifulSoup
-from helpers import URLreplace, getUploadURL
-
+import hashlib
 
 class BaseFile:
+    """
+        Base class for all file objects. Not to be used directly.
+        Use HTMLfile, CSSfile, JSfile or OtherFile instead.
+    """
+
+    # pylint: disable=too-many-instance-attributes
+    # Eight is reasonable in this case.
+
     def __init__(self, path, config):
         self._config = config
 
         self._path = Path(path).relative_to(self._config['src_dir'])
+
         self._stem = str(self._path.stem)
         self._extension = str(self._path.suffix[1:])
         self._filename = str(self._stem + '.' + self._extension)
         self._parent = self._path.parent
+        self._src_path = self._config['src_dir'] / self._path
         self._build_path = self._config["build_dir"] / self._path
+        self._upload_URL = None  # URL of the upload form for file
+        self._link_URL = None   # URL where the file will live
+        self._contents = None   # file contents
 
     @property
     def path(self):
-        """ Returns path of the file relative to src_dir. """
+        """ Path of the file relative to src_dir. """
         return self._path
 
     @property
+    def config(self):
+        """ Run configuration. """
+        return self._config
+
+    @property
     def filename(self):
-        ''' Returns filename with extension. '''
+        ''' Filename with extension. '''
         return self._filename
 
     @property
     def extension(self):
-        ''' Returns extension of the file. '''
+        ''' File extension. '''
         return self._extension
 
     @property
     def parent(self):
-        ''' Returns path without the filename and terminal /. '''
+        ''' Path without the filename and terminal /. '''
         return self._parent
 
     @property
+    def src_path(self):
+        ''' Build path relative to src_dir. '''
+        return self._src_path
+
+    @property
     def build_path(self):
-        ''' Returns build path. '''
+        ''' Build path relative to build_dir. '''
         return self._build_path
+
+    @property
+    def upload_URL(self):
+        ''' URL of the upload form for this file. '''
+        return self._upload_URL
+
+    @property
+    def link_URL(self):
+        ''' URL which can be used to link to this file. '''
+        return self._link_URL
 
 
 class HTMLfile(BaseFile):
+    """ HTML file object. """
+
     def __init__(self, path, config):
         BaseFile.__init__(self, path, config)
         self._upload_path = self._generate_upload_path()
         self._upload_URL = self._generate_upload_URL()
         self._link_URL = self._generate_link_URL()
-
-    @property
-    def upload_URL(self):
-        return self._upload_URL
-
-    @property
-    def link_URL(self):
-        return self._link_URL
 
     def _generate_upload_path(self):
         """
@@ -77,14 +100,26 @@ class HTMLfile(BaseFile):
             Private function. Use upload_URL to access instead.
         """
         return 'https://2020.igem.org/wiki/index.php?title=Team:' + \
-            self._config["team"] + self._upload_path + '&action=edit'
+            self.config["team"] + self._upload_path + '&action=edit'
 
     def _generate_link_URL(self):
         """
             Returns the iGEM URL where this page will be found and can be linked to.
+            Private function. Use link_URL to access instead.
         """
-        return 'https://2020.igem.org/Team:' + self._config['team'] + \
+        return 'https://2020.igem.org/Team:' + self.config['team'] + \
             self._upload_path
+
+    def parse_file(self):
+        ''' Processes file contents. '''
+
+        # self.path is relative to src_dir
+        with open(self.config['src_dir'] / self.path, 'r') as file:
+            contents = file.read()
+
+        processed = HTMLparser(self.config, self.path, contents)
+
+        return processed
 
 
 class CSSfile(BaseFile):
@@ -93,14 +128,6 @@ class CSSfile(BaseFile):
         self._upload_path = self._generate_upload_path()
         self._upload_URL = self._generate_upload_URL()
         self._link_URL = self._generate_link_URL()
-
-    @property
-    def upload_URL(self):
-        return self._upload_URL
-
-    @property
-    def link_URL(self):
-        return self._link_URL
 
     def _generate_upload_path(self):
         """
@@ -120,14 +147,14 @@ class CSSfile(BaseFile):
             Private function. Use upload_URL to access instead.
         """
 
-        return 'https://2020.igem.org/wiki/index.php?title=Template:' + self._config['team'] + \
+        return 'https://2020.igem.org/wiki/index.php?title=Template:' + self.config['team'] + \
             self._upload_path + '&action=edit'
 
     def _generate_link_URL(self):
         """
             Returns the iGEM URL where this page will be found and can be linked to.
         """
-        return 'https://2020.igem.org/Template:' + self._config['team'] + \
+        return 'https://2020.igem.org/Template:' + self.config['team'] + \
             self._upload_path + '?action=raw&ctype=text/css'
 
 
@@ -137,14 +164,6 @@ class JSfile(BaseFile):
         self._upload_path = self._generate_upload_path()
         self._upload_URL = self._generate_upload_URL()
         self._link_URL = self._generate_link_URL()
-
-    @property
-    def upload_URL(self):
-        return self._upload_URL
-
-    @property
-    def link_URL(self):
-        return self._link_URL
 
     def _generate_upload_path(self):
         """
@@ -163,54 +182,60 @@ class JSfile(BaseFile):
             Returns the URL of the iGEM page where this file can be uploaded.
             Private function. Use upload_URL to access instead.
         """
-        return 'https://2020.igem.org/wiki/index.php?title=Template:' + self._config['team'] + \
+        return 'https://2020.igem.org/wiki/index.php?title=Template:' + self.config['team'] + \
             self._upload_path + '&action=edit'
 
     def _generate_link_URL(self):
         """
             Returns the iGEM URL where this page will be found and can be linked to.
         """
-        return 'https://2020.igem.org/Template:' + self._config['team'] + \
+        return 'https://2020.igem.org/Template:' + self.config['team'] + \
             self._upload_path + '?action=raw&ctype=text/javascript'
 
 
-# process HTML files
-def HTMLhandler(team, contents):
-    soup = BeautifulSoup(contents, 'html.parser')
+class OtherFile(BaseFile):
+    def __init__(self, path, config):
+        BaseFile.__init__(self, path, config)
+        self._upload_URL = "https://2020.igem.org/Special:Upload"
+        self._upload_filename = self._generate_upload_filename()
+        self._md5_hash = self._generate_md5_hash()
 
-    css_tags = soup.findAll('link')
-    for css_tag in css_tags:
-        css_tag['href'] = URLreplace(team, css_tag['href'])
-        # print(css_tag['href'])
+    @property
+    def upload_filename(self):
+        ''' Filename on iGEM servers. '''
+        return self._upload_filename
 
-    js_tags = soup.findAll('script')
-    for js_tag in js_tags:
-        js_tag['src'] = URLreplace(team, js_tag['src'])
-        # print(js_tag['src'])
+    @property
+    def md5_hash(self):
+        ''' MD5 hash of the file. '''
+        return self._md5_hash
 
-    contents = str(soup)
-    return contents
+    def _generate_upload_filename(self):
+        return 'T--' + self.config['team'] + '--' + self.filename
+
+    def _generate_md5_hash(self):
+        """
+            Returns the MD5 hash of the file passed into it
+        """
+
+        # make a hash object
+        h = hashlib.sha1()
+
+        # open file for reading in binary mode
+        with open(self.src_path,'rb') as file:
+
+            # loop till the end of the file
+            chunk = 0
+            while chunk != b'':
+                # read only 1024 bytes at a time
+                chunk = file.read(1024)
+                h.update(chunk)
+
+        # return the hex representation of digest
+        return h.hexdigest()
+
+    def set_upload_URL(self, url):
+        self._upload_URL = url
 
 
-def CSShandler(team, contents, cssFilePath, src_dir):
-    cssutils.ser.prefs.useMinified()
-    sheet = cssutils.parseString(contents)
-    absoluteSourceDir = Path('.').resolve() / src_dir
 
-    def replacer(url):
-        p = Path(url)
-
-        absoluteLocalURL = (os.path.dirname(cssFilePath) / p).resolve()
-        relativeToSourceDir = absoluteLocalURL.relative_to(absoluteSourceDir)
-
-        return str(relativeToSourceDir)
-
-    cssutils.replaceUrls(sheet, replacer=replacer)
-    contents = sheet.cssText.decode("utf-8")
-    return contents
-
-
-def JShandler(team, contents):
-
-    contents = jsmin(contents)
-    return contents
