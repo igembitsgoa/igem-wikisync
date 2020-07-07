@@ -1,20 +1,14 @@
 import os
-import re
 import ssl
 import shutil
 import yaml
 from pathlib import Path
-import cssutils
-from jsmin import jsmin
 import mechanicalsoup
-from bs4 import BeautifulSoup
-from datetime import datetime
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.poolmanager import PoolManager
 
-from browser_helpers import iGEMlogin, iGEMupload
-from file_helpers import BaseFile, HTMLfile, CSSfile, JSfile, HTMLhandler, CSShandler, JShandler
-from helpers import getUploadURL, URLreplace
+from browser_helpers import iGEM_login, iGEM_upload_page, iGEM_upload_file
+from file_helpers import HTMLfile, CSSfile, JSfile, OtherFile
 
 # https://bitbucket.org/cthedot/cssutils/issues/60/using-units-of-rem-produces-an-invalid
 from cssutils import profile
@@ -47,54 +41,6 @@ def main():
         shutil.rmtree(build_dir)
         os.mkdir(build_dir)
 
-    # for each file in src_dir
-    for root, directories, files in os.walk(src_dir):
-        for filename in files:
-
-            infile = Path(root) / Path(filename)
-            if "html" in infile.suffix:
-                current_file = HTMLfile(infile, config)
-            elif "css" in infile.suffix:
-                current_file = CSSfile(infile, config)
-            elif "js" in infile.suffix:
-                current_file = JSfile(infile, config)
-            else:
-                current_file = BaseFile(infile, config)
-
-            print("hello")
-            # get infile, outfile and upload URLs
-            # relative = ""
-            # outfile = build_dir + relative
-            # uploadURL = getUploadURL(team, relative)
-            # extension = os.path.splitext(filename)[1][1:].lower()
-            # out_dir = os.path.dirname(outfile)
-
-            # # if file is not a text file, copy and continue
-            # if extension not in ["html", "css", "scss", "js"]:
-            #     # create directory if doesn't exist
-            #     if not os.path.isdir(out_dir):
-            #         os.makedirs(out_dir)
-            #     shutil.copyfile(infile, outfile)
-            #     continue
-
-            # # read file
-            # with open(infile, 'r') as file:
-            #     contents = file.read()
-
-            # # process contents according to file extension
-            # if extension == 'html':
-            #     contents = HTMLhandler(team, contents)
-            # elif extension == 'css':
-            #     contents = CSShandler(team, contents, infile, src_dir)
-            # elif extension == 'js':
-            #     contents = JShandler(team, contents)
-
-            # if not os.path.exists(os.path.dirname(outfile)):
-            #     os.makedirs(os.path.dirname(outfile))
-            # with open(outfile, 'w') as file:
-            #     file.write(contents)
-            # # print('Wrote', infile, 'to', outfile)
-
     # get iGEM credentials
     username = os.environ.get('IGEM_USERNAME')
     password = os.environ.get('IGEM_PASSWORD')
@@ -103,20 +49,129 @@ def main():
     browser = mechanicalsoup.StatefulBrowser()
 
     # login to iGEM
-    response = iGEMlogin(browser, username, password)
-    # print(response)
+    response = iGEM_login(browser, username, password)
+    print(response)
 
-    # for each file in build_dir
-    for root, directories, files in os.walk(build_dir):
+    # storage
+    HTMLfiles = {}
+    CSSfiles = {}
+    JSfiles = {}
+    OtherFiles = {}
+
+    # for each file in src_dir
+    for root, _, files in os.walk(src_dir):
         for filename in files:
 
-            # get infile, outfile and upload URLs
-            outfile = root + '/' + filename
-            relative = infile[len(build_dir):]
-            uploadURL = getUploadURL(team, relative)
+            infile = Path(root) / Path(filename)
+            extension = infile.suffix[1:]
 
-            iGEMupload(browser, outfile, uploadURL)
-            # print('Uploaded', infile, 'to', uploadURL)
+            if extension == "html":
+
+                file_object = HTMLfile(infile, config)
+
+                HTMLfiles[file_object.path] = file_object
+
+            elif extension == "css":
+
+                file_object = CSSfile(infile, config)
+
+                CSSfiles[file_object.path] = file_object
+
+            elif extension == "js":
+
+                file_object = JSfile(infile, config)
+
+                JSfiles[file_object.path] = file_object
+
+            elif extension in ['png', 'gif', 'jpg', 'jpeg', 'pdf', 'ppt', 'txt',
+                               'zip', 'mp3', 'mp4', 'webm', 'mov', 'swf', 'xls',
+                               'xlsx', 'docx', 'pptx', 'csv', 'm', 'ogg', 'gb',
+                               'tif', 'tiff', 'fcs', 'otf', 'eot', 'ttf', 'woff', 'svg']:
+
+                file_object = OtherFile(infile, config)
+
+                if file_object.upload_filename in OtherFiles.keys():
+                    print('You have multiple files named', file_object.filename)
+
+                OtherFiles[file_object.upload_filename] = file_object
+
+            else:
+                print(infile, "has an unsupported file extension. Skipping.")
+
+    # check for upload map
+    if os.path.isfile('uploadmap.yml'):
+        with open('uploadmap.yml', 'r') as file:
+            uploadmap = yaml.safe_load(file)
+    else:
+        uploadmap = {
+            'assets': []
+        }
+
+    if uploadmap is None:
+        uploadmap = {
+            'assets': []
+        }
+    elif 'assets' not in uploadmap.keys():
+        uploadmap['assets'] = []
+
+    # Upload all assets and create a map
+    # for file in OtherFiles.keys()
+    for filename in OtherFiles.keys():
+        file_object = OtherFiles[filename]
+        uploaded = False  # flag to keep track of current file upload
+
+        for asset in uploadmap['assets']:
+
+            if asset['upload_filename'] == str(file_object.upload_filename):
+                if file_object.md5_hash == asset['md5']:
+                    uploaded = True
+                else:
+                    # upload file and update hash
+                    response = iGEM_upload_file(browser, file_object)
+                    asset['md5'] = file_object.md5_hash
+                    asset['url'] = file_object.upload_URL
+                    uploaded = True  # repeated here because error handling has to be added
+                break
+
+        if not uploaded:
+            response = iGEM_upload_file(browser, file_object)
+            uploadmap['assets'].append({
+                'path': str(file_object.path),
+                'url': file_object.upload_URL,
+                'md5': file_object.md5_hash,
+                'upload_filename': file_object.upload_filename
+            })
+
+    with open('uploadmap.yml', 'w') as file:
+        yaml.dump(uploadmap, file, sort_keys=True)
+
+    # for file_list in [HTMLfiles, CSSfiles, JSfiles]:
+
+    # for file_object in HTMLfiles:
+
+    #     contents = file_object.parse_file()
+    #     build_path = file_object.build_path
+
+    #     # create directory if doesn't exist
+    #     if not os.path.isdir(build_path.parent):
+    #         os.makedirs(build_path.parent)
+    #     with open(build_path, 'w') as f:
+    #         f.write(contents)
+
+    # if not os.path.exists(os.path.dirname(outfile)):
+    #     os.makedirs(os.path.dirname(outfile))
+
+    # # for each file in build_dir
+    # for root, _, files in os.walk(build_dir):
+    #     for filename in files:
+
+    #         # get infile, outfile and upload URLs
+    #         outfile = root + '/' + filename
+    #         relative = infile[len(build_dir):]
+    #         uploadURL = getUploadURL(team, relative)
+
+    #         iGEMupload(browser, outfile, uploadURL)
+    #         # print('Uploaded', infile, 'to', uploadURL)
 
 
 if __name__ == '__main__':
