@@ -8,7 +8,7 @@ def iGEM_login(browser, username, password):
     browser["password"] = password
     response = browser.submit_selected()
 
-    soup = BeautifulSoup(response.text, 'html.parser')
+    soup = BeautifulSoup(response.text, 'html5lib')
     return soup.text
 
 def iGEM_upload_page(browser, path, url):
@@ -34,7 +34,7 @@ def iGEM_upload_file(browser, file_object):
     
     browser.select_form('form')
     browser['wpUploadFile'] = str(file_object.src_path)
-    browser['wpDestFile'] = 'T--' + team + '--' + file_object.filename
+    browser['wpDestFile'] = file_object.upload_filename
     # browser['wpUploadDescription'] = 'BITSPilani-Goa_India team logo'
     browser['wpIgnoreWarning'] = "1"
     response = browser.submit_selected()
