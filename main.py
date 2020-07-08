@@ -9,6 +9,8 @@ from requests.packages.urllib3.poolmanager import PoolManager
 
 from browser_helpers import iGEM_login, iGEM_upload_page, iGEM_upload_file
 from file_helpers import HTMLfile, CSSfile, JSfile, OtherFile
+from code_parsers import CSSparser, HTMLparser
+from hashlib import md5
 
 # https://bitbucket.org/cthedot/cssutils/issues/60/using-units-of-rem-produces-an-invalid
 from cssutils import profile
@@ -36,6 +38,30 @@ def main():
     src_dir = config['src_dir']
     build_dir = config['build_dir']
 
+    # check for upload map
+    upload_map = None
+
+    if os.path.isfile('upload_map.yml'):
+        with open('upload_map.yml', 'r') as file:
+            upload_map = yaml.safe_load(file)
+
+    if upload_map is None:
+        upload_map = {
+            'assets': {},
+            'html': {},
+            'css': {},
+            'js': {}
+        }
+
+    if 'assets' not in upload_map.keys():
+        upload_map['assets'] = {}
+    if 'html' not in upload_map.keys():
+        upload_map['html'] = {}
+    if 'css' not in upload_map.keys():
+        upload_map['css'] = {}
+    if 'js' not in upload_map.keys():
+        upload_map['js'] = {}
+
     # clear build_dir
     if os.path.isdir(build_dir):
         shutil.rmtree(build_dir)
@@ -49,8 +75,8 @@ def main():
     browser = mechanicalsoup.StatefulBrowser()
 
     # login to iGEM
-    response = iGEM_login(browser, username, password)
-    print(response)
+    # response = iGEM_login(browser, username, password)
+    # print(response)
 
     # storage
     HTMLfiles = {}
@@ -71,17 +97,35 @@ def main():
 
                 HTMLfiles[file_object.path] = file_object
 
+                if file_object.path not in upload_map['html'].keys():
+                    upload_map['html'][str(file_object.path)] = {
+                        'md5': '',
+                        'link_URL': file_object.link_URL
+                    }
+
             elif extension == "css":
 
                 file_object = CSSfile(infile, config)
 
                 CSSfiles[file_object.path] = file_object
 
+                if file_object.path not in upload_map['css'].keys():
+                    upload_map['css'][str(file_object.path)] = {
+                        'md5': '',
+                        'link_URL': file_object.link_URL
+                    }
+
             elif extension == "js":
 
                 file_object = JSfile(infile, config)
 
                 JSfiles[file_object.path] = file_object
+
+                if file_object.path not in upload_map['js'].keys():
+                    upload_map['js'][str(file_object.path)] = {
+                        'md5': '',
+                        'link_URL': file_object.link_URL
+                    }
 
             elif extension in ['png', 'gif', 'jpg', 'jpeg', 'pdf', 'ppt', 'txt',
                                'zip', 'mp3', 'mp4', 'webm', 'mov', 'swf', 'xls',
@@ -90,88 +134,78 @@ def main():
 
                 file_object = OtherFile(infile, config)
 
-                if file_object.upload_filename in OtherFiles.keys():
-                    print('You have multiple files named', file_object.filename)
-
-                OtherFiles[file_object.upload_filename] = file_object
+                OtherFiles[file_object.path] = file_object
 
             else:
                 print(infile, "has an unsupported file extension. Skipping.")
 
-    # check for upload map
-    if os.path.isfile('uploadmap.yml'):
-        with open('uploadmap.yml', 'r') as file:
-            uploadmap = yaml.safe_load(file)
-    else:
-        uploadmap = {
-            'assets': []
-        }
-
-    if uploadmap is None:
-        uploadmap = {
-            'assets': []
-        }
-    elif 'assets' not in uploadmap.keys():
-        uploadmap['assets'] = []
-
     # Upload all assets and create a map
-    # for file in OtherFiles.keys()
-    for filename in OtherFiles.keys():
-        file_object = OtherFiles[filename]
+    for path in OtherFiles.keys():
+        file_object = OtherFiles[path]
         uploaded = False  # flag to keep track of current file upload
 
-        for asset in uploadmap['assets']:
+        for asset_path in upload_map['assets'].keys():
 
-            if asset['upload_filename'] == str(file_object.upload_filename):
+            if asset_path == str(path):
+                asset = upload_map['assets'][asset_path]
                 if file_object.md5_hash == asset['md5']:
-                    uploaded = True
+                    pass
                 else:
                     # upload file and update hash
                     response = iGEM_upload_file(browser, file_object)
                     asset['md5'] = file_object.md5_hash
-                    asset['url'] = file_object.upload_URL
-                    uploaded = True  # repeated here because error handling has to be added
+                    asset['link_URL'] = file_object.upload_URL
+                    # add error handling
+                uploaded = True
                 break
 
         if not uploaded:
             response = iGEM_upload_file(browser, file_object)
-            uploadmap['assets'].append({
-                'path': str(file_object.path),
-                'url': file_object.upload_URL,
+            upload_map['assets'][str(path)] = {
+                'link_URL': file_object.upload_URL,
                 'md5': file_object.md5_hash,
                 'upload_filename': file_object.upload_filename
-            })
+            }
 
-    with open('uploadmap.yml', 'w') as file:
-        yaml.dump(uploadmap, file, sort_keys=True)
+    # for file_dictionary in [HTMLfiles, CSSfiles, JSfiles]:
+    for file_dictionary in [HTMLfiles, CSSfiles]:
+        for path in file_dictionary.keys():
+            file_object = file_dictionary[path]
+            path_str = str(file_object.path)
+            ext = file_object.extension
 
-    # for file_list in [HTMLfiles, CSSfiles, JSfiles]:
+            # open file
+            with open(file_object.src_path, 'r') as file:
+                contents = file.read()
 
-    # for file_object in HTMLfiles:
+            processed = contents
+            # parse and modify contents
+            if ext == 'html':
+                processed = HTMLparser(
+                    config, file_object.path, contents, upload_map)
+            elif ext == 'css':
+                processed = CSSparser(
+                    config, file_object.path, contents, upload_map)
 
-    #     contents = file_object.parse_file()
-    #     build_path = file_object.build_path
+            # calculate and store md5 hash of the modified contents
+            build_hash = md5(processed.encode('utf-8')).hexdigest()
 
-    #     # create directory if doesn't exist
-    #     if not os.path.isdir(build_path.parent):
-    #         os.makedirs(build_path.parent)
-    #     with open(build_path, 'w') as f:
-    #         f.write(contents)
+            if upload_map[ext][path_str]['md5'] == build_hash:
+                print("Contents of", file_object.path,
+                      "have been uploaded previously. Skipping.")
+            else:
+                upload_map[ext][path_str]['md5'] = build_hash
+                build_path = file_object.build_path
+                # create directory if doesn't exist
+                if not os.path.isdir(build_path.parent):
+                    os.makedirs(build_path.parent)
+                with open(build_path, 'w') as f:
+                    f.write(processed)
 
-    # if not os.path.exists(os.path.dirname(outfile)):
-    #     os.makedirs(os.path.dirname(outfile))
+                # upload
 
-    # # for each file in build_dir
-    # for root, _, files in os.walk(build_dir):
-    #     for filename in files:
-
-    #         # get infile, outfile and upload URLs
-    #         outfile = root + '/' + filename
-    #         relative = infile[len(build_dir):]
-    #         uploadURL = getUploadURL(team, relative)
-
-    #         iGEMupload(browser, outfile, uploadURL)
-    #         # print('Uploaded', infile, 'to', uploadURL)
+    with open('upload_map.yml', 'w') as file:
+        yaml.dump(upload_map, file, sort_keys=True)
 
 
 if __name__ == '__main__':
