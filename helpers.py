@@ -1,6 +1,7 @@
+from file_helpers import CSSfile, HTMLfile, JSfile
+import os
 import re
 from pathlib import Path
-import hashlib
 
 
 def is_relative(url):
@@ -9,35 +10,71 @@ def is_relative(url):
     return not bool(re.match('(?:^[a-z][a-z0-9+.-]*:|\/\/)', url))
 
 
-def resolve_relative_URL(config, parent, url):
-    """ 
-        Resolves a given relative URL to it's absolute counterpart, 
-        based on the build_dir and location of the folder where 
-        the URL was found.
+def resolve_relative_URL(config: dict, parent: Path, url: str) -> Path:
+    """
+        Resolves a given relative URL to it's absolute local counterpart.
+        Returned URL is relative to src_dir.
     """
 
-    build_dir = Path(config['build_dir']).resolve()
-    p = (build_dir / parent / url).resolve().relative_to(build_dir)
+    # TODO: Simplify this
+    src_dir = Path(config['src_dir']).resolve()
 
-    return p
+    # remove leading /
+    if url[0] == '/':
+        url = url[1:]
+
+    # remove trailing /
+    if url[-1] == '/':
+        url = url[:-1]
+
+    full_path = (src_dir / parent / url).resolve()
+
+    if full_path.is_dir():
+        return (full_path / 'index.html').relative_to(src_dir)
+    else:
+        return full_path.relative_to(src_dir)
 
 
-def iGEM_URL(config, path):
-    """ 
+def iGEM_URL(config:dict, path:Path, upload_map:dict, url:str) -> str:
+    """
         Replaces a given absolute local URL with it's iGEM counterpart.
     """
 
-    return path
+    if not is_relative(url):
+        return url
 
-    # if extension == 'CSS':
-    #     filetype = 'css'
-    # elif extension == 'JS':
-    #     filetype = 'javascript'
+    old_path = url
+    resolved_path = resolve_relative_URL(config, path.parent, url)
 
-    # absolute = os.path.splitext(relative)[0] + extension
-    # if absolute[0] != '/':
-    #     absolute = '/' + absolute
-    # absolute = 'https://2020.igem.org/Template:' + team + absolute + '?action=raw&ctype=text/' + filetype
+    # check upload_map
+    found = False
+    for filetype in upload_map.keys():
+        if str(resolved_path) in upload_map[filetype].keys():
+            url = upload_map[filetype][str(resolved_path)]['link_URL']
+            found = True
+            break
 
-    # return absolute
+    if not found:
+        # check if file exists
+        filepath = config['src_dir'] / resolved_path
+        if not os.path.isfile(filepath):
+            print("Warning:", filepath, "is referenced in",
+                    config['src_dir'] / path, "but was not found.")
 
+        extension = os.path.splitext(url)[1][1:].lower()
+
+
+        # create file object
+        if extension == 'html':
+            file_object = HTMLfile(config['src_dir'] / resolved_path, config)
+            url = file_object.link_URL
+        elif extension == 'css':
+            file_object = CSSfile(config['src_dir'] / resolved_path, config)
+            url = file_object.link_URL
+        elif extension == 'js':
+            file_object = JSfile(config['src_dir'] / resolved_path, config)
+            url = file_object.link_URL
+
+    print(old_path, "was changed to", url, "in", path)
+
+    return url
