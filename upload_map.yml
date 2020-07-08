@@ -1,0 +1,24 @@
+assets:
+  assets/img/logo.jpg:
+    link_URL: https://2020.igem.org/wiki/images/1/11/T--BITSPilani-Goa_India--img--logo.jpg
+    md5: ee88e4dbceeb72378be60f79a18aef5033c7f480
+    upload_filename: T--BITSPilani-Goa_India--img--logo.jpg
+  assets/img/sample.jpg:
+    link_URL: https://2020.igem.org/wiki/images/8/8c/T--BITSPilani-Goa_India--img--sample.jpg
+    md5: f0fee71865babe4df97088370e44b7aa76d949d0
+    upload_filename: T--BITSPilani-Goa_India--img--sample.jpg
+css:
+  css/index.css:
+    link_URL: https://2020.igem.org/Template:BITSPilani-Goa_India/css/indexCSS?action=raw&ctype=text/css
+    md5: 7e5eb841b66b25af37a46b8afb87e993
+html:
+  Description/index.html:
+    link_URL: https://2020.igem.org/Team:BITSPilani-Goa_India/Description
+    md5: ca827a4f6240b2aa3158c7df18064fbb
+  index.html:
+    link_URL: https://2020.igem.org/Team:BITSPilani-Goa_India
+    md5: 32b1b68f5f917402de75b038f5113409
+js:
+  js/index.js:
+    link_URL: https://2020.igem.org/Template:BITSPilani-Goa_India/js/indexJS?action=raw&ctype=text/javascript
+    md5: ''
