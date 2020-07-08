@@ -1,6 +1,6 @@
-from file_parsers import HTMLparser
 from pathlib import Path
 import hashlib
+
 
 class BaseFile:
     """
@@ -17,7 +17,7 @@ class BaseFile:
         self._path = Path(path).relative_to(self._config['src_dir'])
 
         self._stem = str(self._path.stem)
-        self._extension = str(self._path.suffix[1:])
+        self._extension = str(self._path.suffix[1:]).lower()
         self._filename = str(self._stem + '.' + self._extension)
         self._parent = self._path.parent
         self._src_path = self._config['src_dir'] / self._path
@@ -110,17 +110,6 @@ class HTMLfile(BaseFile):
         return 'https://2020.igem.org/Team:' + self.config['team'] + \
             self._upload_path
 
-    def parse_file(self):
-        ''' Processes file contents. '''
-
-        # self.path is relative to src_dir
-        with open(self.config['src_dir'] / self.path, 'r') as file:
-            contents = file.read()
-
-        processed = HTMLparser(self.config, self.path, contents)
-
-        return processed
-
 
 class CSSfile(BaseFile):
     def __init__(self, path, config):
@@ -205,24 +194,32 @@ class OtherFile(BaseFile):
         ''' Filename on iGEM servers. '''
         return self._upload_filename
 
+    # Only OtherFile objects have this property because 
+    # md5 hashes of other objects are hashes of the modified
+    # content, while OtherFiles don't require any modification.
+    # Besides, OtherFile md5_hash is a file hash while other 
+    # hashes are computed on strings (modified file contents)
     @property
     def md5_hash(self):
         ''' MD5 hash of the file. '''
         return self._md5_hash
 
     def _generate_upload_filename(self):
-        return 'T--' + self.config['team'] + '--' + self.filename
+        if len(self.config['assets']) == 1:
+            return 'T--' + self.config['team'] + '--' + '--'.join(self.path.parts[1:])
+        else:
+            return 'T--' + self.config['team'] + '--' + '--'.join(self.path.parts)
 
     def _generate_md5_hash(self):
         """
-            Returns the MD5 hash of the file passed into it
+            Returns the MD5 hash of the file
         """
 
         # make a hash object
         h = hashlib.sha1()
 
         # open file for reading in binary mode
-        with open(self.src_path,'rb') as file:
+        with open(self.src_path, 'rb') as file:
 
             # loop till the end of the file
             chunk = 0
@@ -236,6 +233,3 @@ class OtherFile(BaseFile):
 
     def set_upload_URL(self, url):
         self._upload_URL = url
-
-
-
