@@ -31,10 +31,10 @@ class BaseFile:
         """ Path of the file relative to src_dir. """
         return self._path
 
-    @property
-    def config(self):
-        """ Run configuration. """
-        return self._config
+    # @property
+    # def config(self):
+    #     """ Run configuration. """
+    #     return self._config
 
     @property
     def filename(self):
@@ -46,10 +46,10 @@ class BaseFile:
         ''' File extension. '''
         return self._extension
 
-    @property
-    def parent(self):
-        ''' Path without the filename and terminal /. '''
-        return self._parent
+    # @property
+    # def parent(self):
+    #     ''' Path without the filename and terminal /. '''
+    #     return self._parent
 
     @property
     def src_path(self):
@@ -100,14 +100,14 @@ class HTMLfile(BaseFile):
             Private function. Use upload_URL to access instead.
         """
         return 'https://2020.igem.org/wiki/index.php?title=Team:' + \
-            self.config["team"] + self._upload_path + '&action=edit'
+            self._config["team"] + self._upload_path + '&action=edit'
 
     def _generate_link_URL(self):
         """
             Returns the iGEM URL where this page will be found and can be linked to.
             Private function. Use link_URL to access instead.
         """
-        return 'https://2020.igem.org/Team:' + self.config['team'] + \
+        return 'https://2020.igem.org/Team:' + self._config['team'] + \
             self._upload_path
 
 
@@ -136,14 +136,14 @@ class CSSfile(BaseFile):
             Private function. Use upload_URL to access instead.
         """
 
-        return 'https://2020.igem.org/wiki/index.php?title=Template:' + self.config['team'] + \
+        return 'https://2020.igem.org/wiki/index.php?title=Template:' + self._config['team'] + \
             self._upload_path + '&action=edit'
 
     def _generate_link_URL(self):
         """
             Returns the iGEM URL where this page will be found and can be linked to.
         """
-        return 'https://2020.igem.org/Template:' + self.config['team'] + \
+        return 'https://2020.igem.org/Template:' + self._config['team'] + \
             self._upload_path + '?action=raw&ctype=text/css'
 
 
@@ -171,14 +171,14 @@ class JSfile(BaseFile):
             Returns the URL of the iGEM page where this file can be uploaded.
             Private function. Use upload_URL to access instead.
         """
-        return 'https://2020.igem.org/wiki/index.php?title=Template:' + self.config['team'] + \
+        return 'https://2020.igem.org/wiki/index.php?title=Template:' + self._config['team'] + \
             self._upload_path + '&action=edit'
 
     def _generate_link_URL(self):
         """
             Returns the iGEM URL where this page will be found and can be linked to.
         """
-        return 'https://2020.igem.org/Template:' + self.config['team'] + \
+        return 'https://2020.igem.org/Template:' + self._config['team'] + \
             self._upload_path + '?action=raw&ctype=text/javascript'
 
 
@@ -205,10 +205,10 @@ class OtherFile(BaseFile):
         return self._md5_hash
 
     def _generate_upload_filename(self):
-        if len(self.config['assets']) == 1:
-            return 'T--' + self.config['team'] + '--' + '--'.join(self.path.parts[1:])
+        if len(self._config['assets']) == 1:
+            return 'T--' + self._config['team'] + '--' + '--'.join(self.path.parts[1:])
         else:
-            return 'T--' + self.config['team'] + '--' + '--'.join(self.path.parts)
+            return 'T--' + self._config['team'] + '--' + '--'.join(self.path.parts)
 
     def _generate_md5_hash(self):
         """
