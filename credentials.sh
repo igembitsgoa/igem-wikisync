@@ -1,2 +1,0 @@
-export IGEM_USERNAME=ballaneypranav
-export IGEM_PASSWORD=xWTs5wUKxb2Njx
