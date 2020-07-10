@@ -12,12 +12,13 @@ from file_helpers import HTMLfile, CSSfile, JSfile, OtherFile
 from code_parsers import CSSparser, HTMLparser, JSparser
 from hashlib import md5
 
-# https://bitbucket.org/cthedot/cssutils/issues/60/using-units-of-rem-produces-an-invalid
-from cssutils import profile
-profile._MACROS['length'] = r'0|{num}(em|ex|px|in|cm|mm|pt|pc|q|ch|rem|vw|vh|vmin|vmax)'
-profile._MACROS['positivelength'] = r'0|{positivenum}(em|ex|px|in|cm|mm|pt|pc|q|ch|rem|vw|vh|vmin|vmax)'
-profile._MACROS['angle'] = r'0|{num}(deg|grad|rad|turn)'
-profile._resetProperties()
+# * Not using cssutils anymore
+# # https://bitbucket.org/cthedot/cssutils/issues/60/using-units-of-rem-produces-an-invalid
+# from cssutils import profile
+# profile._MACROS['length'] = r'0|{num}(em|ex|px|in|cm|mm|pt|pc|q|ch|rem|vw|vh|vmin|vmax)'
+# profile._MACROS['positivelength'] = r'0|{positivenum}(em|ex|px|in|cm|mm|pt|pc|q|ch|rem|vw|vh|vmin|vmax)'
+# profile._MACROS['angle'] = r'0|{num}(deg|grad|rad|turn)'
+# profile._resetProperties()
 
 
 # For TLSv1.0 support
@@ -81,6 +82,8 @@ def main():
 
     # login to iGEM
     response = iGEM_login(browser, credentials)
+    print(response)
+    sys.exit(1)
     # TODO: add error handling
 
     # storage
