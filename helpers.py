@@ -7,7 +7,9 @@ from pathlib import Path
 def is_relative(url):
     """ Returns whether given URL is relative. """
     # https://stackoverflow.com/a/31991870/1907830
-    return not bool(re.match('(?:^[a-z][a-z0-9+.-]*:|\/\/)', url))
+    absolute = bool(re.match('(?:^[a-z][a-z0-9+.-]*:|\/\/)', url))
+    hashtag = url[0] == '#'
+    return not absolute and not hashtag
 
 
 def resolve_relative_URL(config: dict, parent: Path, url: str) -> Path:
@@ -19,17 +21,18 @@ def resolve_relative_URL(config: dict, parent: Path, url: str) -> Path:
     # TODO: Simplify this
     src_dir = Path(config['src_dir']).resolve()
 
-    # remove leading /
-    if url[0] == '/':
-        url = url[1:]
-
     # remove trailing /
     if url[-1] == '/':
         url = url[:-1]
 
-    full_path = (src_dir / parent / url).resolve()
+    # remove leading /
+    if url[0] == '/':
+        url = url[1:]
+        full_path = (src_dir / url).resolve()
+    else:
+        full_path = (src_dir / parent / url).resolve()
 
-    if full_path.is_dir():
+    if full_path.is_dir() or full_path.suffix == '':
         return (full_path / 'index.html').relative_to(src_dir)
     else:
         return full_path.relative_to(src_dir)
@@ -42,6 +45,9 @@ def iGEM_URL(config:dict, path:Path, upload_map:dict, url:str) -> str:
 
     if not is_relative(url):
         return url
+
+    if url == '/':
+        return 'https://2020.igem.org/Team:' + config['team']
 
     old_path = url
     resolved_path = resolve_relative_URL(config, path.parent, url)
@@ -57,12 +63,12 @@ def iGEM_URL(config:dict, path:Path, upload_map:dict, url:str) -> str:
     if not found:
         # check if file exists
         filepath = config['src_dir'] / resolved_path
+
         if not os.path.isfile(filepath):
             print("Warning:", filepath, "is referenced in",
                     config['src_dir'] / path, "but was not found.")
 
-        extension = os.path.splitext(url)[1][1:].lower()
-
+        extension = resolved_path.suffix[1:].lower()
 
         # create file object
         if extension == 'html':

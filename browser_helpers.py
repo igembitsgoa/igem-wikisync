@@ -1,36 +1,49 @@
+from datetime import datetime
 from bs4 import BeautifulSoup
 
-def iGEM_login(browser, username, password):
+def iGEM_login(browser, credentials):
 
     browser.open("https://igem.org/Login2")
     browser.select_form('form[method="post"]')
-    browser["username"] = username
-    browser["password"] = password
+    browser["username"] = credentials['username']
+    browser["password"] = credentials['password']
     response = browser.submit_selected()
 
     soup = BeautifulSoup(response.text, 'html5lib')
     return soup.text
 
-def iGEM_upload_page(browser, path, url):
+def iGEM_upload_page(browser, credentials, contents, url):
 
-    return "no"
-
-    with open(path, 'r') as file:
-        contents = file.read()
-    browser.open(url)
+    # except runs if try fails
+    # else runs if try succeeds
+    for attempt in range(3):
+        try:
+            browser.open(url)
+        except:
+            iGEM_login(browser, credentials)
+        else:
+            break
     
     browser.select_form('form')
     browser['wpTextbox1'] = contents
-    browser['wpSummary'] = 'Uploaded at ' + str(datetime.now())
     response = browser.submit_selected()
+
+    print('Uploaded to', url)
 
     return response.text
 
-def iGEM_upload_file(browser, file_object):
+def iGEM_upload_file(browser, credentials, file_object):
 
     url = file_object.upload_URL
-    team = file_object.config['team']
-    browser.open(url)
+    # except runs if try fails
+    # else runs if try succeeds
+    for attempt in range(3):
+        try:
+            browser.open(url)
+        except ConnectionError:
+            iGEM_login(browser, credentials)
+        else:
+            break
     
     browser.select_form('form')
     browser['wpUploadFile'] = str(file_object.src_path)

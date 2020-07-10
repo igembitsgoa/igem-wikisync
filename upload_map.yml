@@ -1,24 +1,347 @@
 assets:
+  assets/fonts/lato-v16-latin/lato-v16-latin-700.eot:
+    link_URL: https://2020.igem.org/wiki/images/8/8c/T--BITSPilani-Goa_India--fonts--lato-v16-latin--lato-v16-latin-700.eot
+    md5: 72fa95666b149318d4e1d7af033fd9b8b4184611
+    upload_filename: T--BITSPilani-Goa_India--fonts--lato-v16-latin--lato-v16-latin-700.eot
+  assets/fonts/lato-v16-latin/lato-v16-latin-700.svg:
+    link_URL: https://2020.igem.org/wiki/images/c/c2/T--BITSPilani-Goa_India--fonts--lato-v16-latin--lato-v16-latin-700.svg
+    md5: 5a7f7bdf803bd0096aed62b1160156ab1d947013
+    upload_filename: T--BITSPilani-Goa_India--fonts--lato-v16-latin--lato-v16-latin-700.svg
+  assets/fonts/lato-v16-latin/lato-v16-latin-700.ttf:
+    link_URL: https://2020.igem.org/wiki/images/9/99/T--BITSPilani-Goa_India--fonts--lato-v16-latin--lato-v16-latin-700.ttf
+    md5: a5157c874fd0699ecd452f917a357588e83032a3
+    upload_filename: T--BITSPilani-Goa_India--fonts--lato-v16-latin--lato-v16-latin-700.ttf
+  assets/fonts/lato-v16-latin/lato-v16-latin-700.woff:
+    link_URL: https://2020.igem.org/wiki/images/c/c2/T--BITSPilani-Goa_India--fonts--lato-v16-latin--lato-v16-latin-700.woff
+    md5: b7ac18bd6d3acecdfa5931fa4a59c005adb02f38
+    upload_filename: T--BITSPilani-Goa_India--fonts--lato-v16-latin--lato-v16-latin-700.woff
+  assets/fonts/lato-v16-latin/lato-v16-latin-900.eot:
+    link_URL: https://2020.igem.org/wiki/images/8/80/T--BITSPilani-Goa_India--fonts--lato-v16-latin--lato-v16-latin-900.eot
+    md5: c6fcfe3096457095232e3bb7207456b3d3303133
+    upload_filename: T--BITSPilani-Goa_India--fonts--lato-v16-latin--lato-v16-latin-900.eot
+  assets/fonts/lato-v16-latin/lato-v16-latin-900.svg:
+    link_URL: https://2020.igem.org/wiki/images/3/38/T--BITSPilani-Goa_India--fonts--lato-v16-latin--lato-v16-latin-900.svg
+    md5: ff9397151971f89c77faeb725f9b2ca84f86e010
+    upload_filename: T--BITSPilani-Goa_India--fonts--lato-v16-latin--lato-v16-latin-900.svg
+  assets/fonts/lato-v16-latin/lato-v16-latin-900.ttf:
+    link_URL: https://2020.igem.org/wiki/images/e/ee/T--BITSPilani-Goa_India--fonts--lato-v16-latin--lato-v16-latin-900.ttf
+    md5: 54dc18ebf2744eb52509ef2276cafb6438d38530
+    upload_filename: T--BITSPilani-Goa_India--fonts--lato-v16-latin--lato-v16-latin-900.ttf
+  assets/fonts/lato-v16-latin/lato-v16-latin-900.woff:
+    link_URL: https://2020.igem.org/wiki/images/8/87/T--BITSPilani-Goa_India--fonts--lato-v16-latin--lato-v16-latin-900.woff
+    md5: 80f8216f458f74ebb649641fa617195dfc8bf836
+    upload_filename: T--BITSPilani-Goa_India--fonts--lato-v16-latin--lato-v16-latin-900.woff
+  assets/fonts/lato-v16-latin/lato-v16-latin-regular.eot:
+    link_URL: https://2020.igem.org/wiki/images/2/2d/T--BITSPilani-Goa_India--fonts--lato-v16-latin--lato-v16-latin-regular.eot
+    md5: cdf7f3e2389b52c4cb8dc16244c1e7410fc3b26d
+    upload_filename: T--BITSPilani-Goa_India--fonts--lato-v16-latin--lato-v16-latin-regular.eot
+  assets/fonts/lato-v16-latin/lato-v16-latin-regular.svg:
+    link_URL: https://2020.igem.org/wiki/images/8/86/T--BITSPilani-Goa_India--fonts--lato-v16-latin--lato-v16-latin-regular.svg
+    md5: b45bb4b30e028e6aaefcbc29060d572a4a1744e7
+    upload_filename: T--BITSPilani-Goa_India--fonts--lato-v16-latin--lato-v16-latin-regular.svg
+  assets/fonts/lato-v16-latin/lato-v16-latin-regular.ttf:
+    link_URL: https://2020.igem.org/wiki/images/3/34/T--BITSPilani-Goa_India--fonts--lato-v16-latin--lato-v16-latin-regular.ttf
+    md5: 761db15dde3b60c01db8dbf64394d62afeb24534
+    upload_filename: T--BITSPilani-Goa_India--fonts--lato-v16-latin--lato-v16-latin-regular.ttf
+  assets/fonts/lato-v16-latin/lato-v16-latin-regular.woff:
+    link_URL: https://2020.igem.org/wiki/images/d/d8/T--BITSPilani-Goa_India--fonts--lato-v16-latin--lato-v16-latin-regular.woff
+    md5: 7d8bff4143a36aa9cc1c2801f60fa0e99969e3f6
+    upload_filename: T--BITSPilani-Goa_India--fonts--lato-v16-latin--lato-v16-latin-regular.woff
+  assets/fonts/merriweather-v21-latin/merriweather-v21-latin-300.eot:
+    link_URL: https://2020.igem.org/wiki/images/1/13/T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-300.eot
+    md5: b0d4715cb0c2a0313d55481a5dd89dd0f685658a
+    upload_filename: T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-300.eot
+  assets/fonts/merriweather-v21-latin/merriweather-v21-latin-300.svg:
+    link_URL: https://2020.igem.org/wiki/images/d/d4/T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-300.svg
+    md5: 0aee9aae73cad29a5a4ae561ed77caa857383d8e
+    upload_filename: T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-300.svg
+  assets/fonts/merriweather-v21-latin/merriweather-v21-latin-300.ttf:
+    link_URL: https://2020.igem.org/wiki/images/c/cd/T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-300.ttf
+    md5: a1226c437683cd799eb9c6ffaf6a371a81a3ded0
+    upload_filename: T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-300.ttf
+  assets/fonts/merriweather-v21-latin/merriweather-v21-latin-300.woff:
+    link_URL: https://2020.igem.org/wiki/images/3/36/T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-300.woff
+    md5: 180e3f90c3752515599f4c66e23ed0ce6b9ec873
+    upload_filename: T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-300.woff
+  assets/fonts/merriweather-v21-latin/merriweather-v21-latin-300italic.eot:
+    link_URL: https://2020.igem.org/wiki/images/5/50/T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-300italic.eot
+    md5: 7144c66fb1205e8717bbefb76e6455a5975efa67
+    upload_filename: T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-300italic.eot
+  assets/fonts/merriweather-v21-latin/merriweather-v21-latin-300italic.svg:
+    link_URL: https://2020.igem.org/wiki/images/1/1a/T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-300italic.svg
+    md5: 7ea243bb1f9f440503e405c24e84b194555ad4c0
+    upload_filename: T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-300italic.svg
+  assets/fonts/merriweather-v21-latin/merriweather-v21-latin-300italic.ttf:
+    link_URL: https://2020.igem.org/wiki/images/d/d0/T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-300italic.ttf
+    md5: 07ac64726a769831b6151c04d4985f859edee48b
+    upload_filename: T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-300italic.ttf
+  assets/fonts/merriweather-v21-latin/merriweather-v21-latin-300italic.woff:
+    link_URL: https://2020.igem.org/wiki/images/c/ca/T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-300italic.woff
+    md5: ae7576e01be2c733ef3af16cc483b78b425ab9ee
+    upload_filename: T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-300italic.woff
+  assets/fonts/merriweather-v21-latin/merriweather-v21-latin-700.eot:
+    link_URL: https://2020.igem.org/wiki/images/5/54/T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-700.eot
+    md5: 1c09873cd8bda0fd8df084142185f2ec52f64540
+    upload_filename: T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-700.eot
+  assets/fonts/merriweather-v21-latin/merriweather-v21-latin-700.svg:
+    link_URL: https://2020.igem.org/wiki/images/1/18/T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-700.svg
+    md5: 13dfece3b6fc6a35f49da71c741781cb877e3347
+    upload_filename: T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-700.svg
+  assets/fonts/merriweather-v21-latin/merriweather-v21-latin-700.ttf:
+    link_URL: https://2020.igem.org/wiki/images/e/ec/T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-700.ttf
+    md5: 54b1d393bb340e1451dc6f65f5cec582f103a00f
+    upload_filename: T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-700.ttf
+  assets/fonts/merriweather-v21-latin/merriweather-v21-latin-700.woff:
+    link_URL: https://2020.igem.org/wiki/images/c/c3/T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-700.woff
+    md5: 799c0c07912f6996b80459937ac097813b6b461c
+    upload_filename: T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-700.woff
+  assets/fonts/merriweather-v21-latin/merriweather-v21-latin-700italic.eot:
+    link_URL: https://2020.igem.org/wiki/images/1/19/T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-700italic.eot
+    md5: 46a6b4dc15c30bcfdaa2da235cc415205c7302d0
+    upload_filename: T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-700italic.eot
+  assets/fonts/merriweather-v21-latin/merriweather-v21-latin-700italic.svg:
+    link_URL: https://2020.igem.org/wiki/images/0/04/T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-700italic.svg
+    md5: 3f6bc7401ea4090014f3e81219eed1f7ab83d10a
+    upload_filename: T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-700italic.svg
+  assets/fonts/merriweather-v21-latin/merriweather-v21-latin-700italic.ttf:
+    link_URL: https://2020.igem.org/wiki/images/1/10/T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-700italic.ttf
+    md5: d2bb6645629705124e52fabd2978386ba2d63bc0
+    upload_filename: T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-700italic.ttf
+  assets/fonts/merriweather-v21-latin/merriweather-v21-latin-700italic.woff:
+    link_URL: https://2020.igem.org/wiki/images/b/b9/T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-700italic.woff
+    md5: ec9cefeebfedaa2725ef245403084f0fcb675ae8
+    upload_filename: T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-700italic.woff
+  assets/fonts/merriweather-v21-latin/merriweather-v21-latin-900.eot:
+    link_URL: https://2020.igem.org/wiki/images/9/98/T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-900.eot
+    md5: 74136c6842fc31776eea6359f2d39b8383f6afe6
+    upload_filename: T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-900.eot
+  assets/fonts/merriweather-v21-latin/merriweather-v21-latin-900.svg:
+    link_URL: https://2020.igem.org/wiki/images/8/8b/T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-900.svg
+    md5: d45fb950cc8dba7d787a7d2cbfcc06b8ee567edc
+    upload_filename: T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-900.svg
+  assets/fonts/merriweather-v21-latin/merriweather-v21-latin-900.ttf:
+    link_URL: https://2020.igem.org/wiki/images/d/d5/T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-900.ttf
+    md5: 297ecda7a14f1dfe434348319f1f4f3bfa1adaf3
+    upload_filename: T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-900.ttf
+  assets/fonts/merriweather-v21-latin/merriweather-v21-latin-900.woff:
+    link_URL: https://2020.igem.org/wiki/images/5/52/T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-900.woff
+    md5: 30c92f7abfdeb85f355b7dfbb90da3617593a699
+    upload_filename: T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-900.woff
+  assets/fonts/merriweather-v21-latin/merriweather-v21-latin-900italic.eot:
+    link_URL: https://2020.igem.org/wiki/images/1/12/T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-900italic.eot
+    md5: 15d45a465dc7af10cd0c07cd11109e246d9c9204
+    upload_filename: T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-900italic.eot
+  assets/fonts/merriweather-v21-latin/merriweather-v21-latin-900italic.svg:
+    link_URL: https://2020.igem.org/wiki/images/9/96/T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-900italic.svg
+    md5: 0aa0ad78d669dc147477a261210444808379b6a6
+    upload_filename: T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-900italic.svg
+  assets/fonts/merriweather-v21-latin/merriweather-v21-latin-900italic.ttf:
+    link_URL: https://2020.igem.org/wiki/images/0/0b/T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-900italic.ttf
+    md5: 434ed987712804c044be68f49fcfa1217003299e
+    upload_filename: T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-900italic.ttf
+  assets/fonts/merriweather-v21-latin/merriweather-v21-latin-900italic.woff:
+    link_URL: https://2020.igem.org/wiki/images/4/4f/T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-900italic.woff
+    md5: 5ba8d5b439a5d9d70688e5480f6f453754c5b9f8
+    upload_filename: T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-900italic.woff
+  assets/fonts/merriweather-v21-latin/merriweather-v21-latin-italic.eot:
+    link_URL: https://2020.igem.org/wiki/images/b/b6/T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-italic.eot
+    md5: a0111a84f5e21edceffc48242360f327802e4176
+    upload_filename: T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-italic.eot
+  assets/fonts/merriweather-v21-latin/merriweather-v21-latin-italic.svg:
+    link_URL: https://2020.igem.org/wiki/images/d/d4/T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-italic.svg
+    md5: 243918b9a8f55f7c84d77b8dcd9fdbd42880c2d0
+    upload_filename: T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-italic.svg
+  assets/fonts/merriweather-v21-latin/merriweather-v21-latin-italic.ttf:
+    link_URL: https://2020.igem.org/wiki/images/6/62/T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-italic.ttf
+    md5: 4c6db89001d70bf4eade80a7ce72bc997788c988
+    upload_filename: T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-italic.ttf
+  assets/fonts/merriweather-v21-latin/merriweather-v21-latin-italic.woff:
+    link_URL: https://2020.igem.org/wiki/images/f/f1/T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-italic.woff
+    md5: 411b65b85bbebeaf5a4ec7b815eaf59ff805466b
+    upload_filename: T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-italic.woff
+  assets/fonts/merriweather-v21-latin/merriweather-v21-latin-regular.eot:
+    link_URL: https://2020.igem.org/wiki/images/d/d8/T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-regular.eot
+    md5: 6f91a2666a0dfc03046fe6575f08394f11e9ed9a
+    upload_filename: T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-regular.eot
+  assets/fonts/merriweather-v21-latin/merriweather-v21-latin-regular.svg:
+    link_URL: https://2020.igem.org/wiki/images/8/8e/T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-regular.svg
+    md5: a7907316f214c859ffa7c41d5265617e5050c05d
+    upload_filename: T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-regular.svg
+  assets/fonts/merriweather-v21-latin/merriweather-v21-latin-regular.ttf:
+    link_URL: https://2020.igem.org/wiki/images/5/5e/T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-regular.ttf
+    md5: 050f728ad60f28c05fd9ce3236170399c46d6eea
+    upload_filename: T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-regular.ttf
+  assets/fonts/merriweather-v21-latin/merriweather-v21-latin-regular.woff:
+    link_URL: https://2020.igem.org/wiki/images/7/77/T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-regular.woff
+    md5: 5c889b1bee3d4e75a5fc0749617a15c0e6922072
+    upload_filename: T--BITSPilani-Goa_India--fonts--merriweather-v21-latin--merriweather-v21-latin-regular.woff
+  assets/fonts/montserrat-v14-latin/montserrat-v14-latin-300.eot:
+    link_URL: https://2020.igem.org/wiki/images/d/de/T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-300.eot
+    md5: 79ffc50c09de54d30478eb89c6984bbcb41ba5f9
+    upload_filename: T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-300.eot
+  assets/fonts/montserrat-v14-latin/montserrat-v14-latin-300.svg:
+    link_URL: https://2020.igem.org/wiki/images/7/74/T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-300.svg
+    md5: 3b19cf1b5993dc957823374160cf69755191d0a5
+    upload_filename: T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-300.svg
+  assets/fonts/montserrat-v14-latin/montserrat-v14-latin-300.ttf:
+    link_URL: https://2020.igem.org/wiki/images/e/eb/T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-300.ttf
+    md5: fa13735b7d7ded9465b8767bb8db107c0a3251fe
+    upload_filename: T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-300.ttf
+  assets/fonts/montserrat-v14-latin/montserrat-v14-latin-300.woff:
+    link_URL: https://2020.igem.org/wiki/images/b/bf/T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-300.woff
+    md5: fa51afc9a31f67078faa9124bef881655df4317b
+    upload_filename: T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-300.woff
+  assets/fonts/montserrat-v14-latin/montserrat-v14-latin-500.eot:
+    link_URL: https://2020.igem.org/wiki/images/8/8e/T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-500.eot
+    md5: 77cbbe7c836b2d400d29a4bce489c7dfb0caa230
+    upload_filename: T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-500.eot
+  assets/fonts/montserrat-v14-latin/montserrat-v14-latin-500.svg:
+    link_URL: https://2020.igem.org/wiki/images/4/49/T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-500.svg
+    md5: a09fdd3324cc5868d8451300b60d96836c698cc1
+    upload_filename: T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-500.svg
+  assets/fonts/montserrat-v14-latin/montserrat-v14-latin-500.ttf:
+    link_URL: https://2020.igem.org/wiki/images/a/af/T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-500.ttf
+    md5: a282bab2ebc8e3a0636eefa018fe1c1e709b29d0
+    upload_filename: T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-500.ttf
+  assets/fonts/montserrat-v14-latin/montserrat-v14-latin-500.woff:
+    link_URL: https://2020.igem.org/wiki/images/6/6a/T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-500.woff
+    md5: e85e6898c8fd8b095bd694b3f1350342c7bb3f35
+    upload_filename: T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-500.woff
+  assets/fonts/montserrat-v14-latin/montserrat-v14-latin-600.eot:
+    link_URL: https://2020.igem.org/wiki/images/3/38/T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-600.eot
+    md5: 0ba9a0bb70d79ca49d4303e867046332626b7992
+    upload_filename: T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-600.eot
+  assets/fonts/montserrat-v14-latin/montserrat-v14-latin-600.svg:
+    link_URL: https://2020.igem.org/wiki/images/7/7c/T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-600.svg
+    md5: 516ff26cca2d96bda61402a5907827bf64d631ae
+    upload_filename: T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-600.svg
+  assets/fonts/montserrat-v14-latin/montserrat-v14-latin-600.ttf:
+    link_URL: https://2020.igem.org/wiki/images/e/e1/T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-600.ttf
+    md5: 3b0d325c652fe6508abae0aadbd04e6176dcb125
+    upload_filename: T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-600.ttf
+  assets/fonts/montserrat-v14-latin/montserrat-v14-latin-600.woff:
+    link_URL: https://2020.igem.org/wiki/images/3/37/T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-600.woff
+    md5: 09fc9f1ca6b859952a3641edbfb1424e1c873f5d
+    upload_filename: T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-600.woff
+  assets/fonts/montserrat-v14-latin/montserrat-v14-latin-700.eot:
+    link_URL: https://2020.igem.org/wiki/images/0/0b/T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-700.eot
+    md5: edcfe30ee0216d026b1dcd2ccde14d508904ff42
+    upload_filename: T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-700.eot
+  assets/fonts/montserrat-v14-latin/montserrat-v14-latin-700.svg:
+    link_URL: https://2020.igem.org/wiki/images/8/8d/T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-700.svg
+    md5: 25df101deabbbaa13c04bcb9b6a0878fd822f89c
+    upload_filename: T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-700.svg
+  assets/fonts/montserrat-v14-latin/montserrat-v14-latin-700.ttf:
+    link_URL: https://2020.igem.org/wiki/images/0/0c/T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-700.ttf
+    md5: cb9cce51cf48e88ac61871ec397dc5c509055616
+    upload_filename: T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-700.ttf
+  assets/fonts/montserrat-v14-latin/montserrat-v14-latin-700.woff:
+    link_URL: https://2020.igem.org/wiki/images/c/c9/T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-700.woff
+    md5: 46f6d60d4ac25fc1aa385513c42a58d89bab45ba
+    upload_filename: T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-700.woff
+  assets/fonts/montserrat-v14-latin/montserrat-v14-latin-800.eot:
+    link_URL: https://2020.igem.org/wiki/images/4/48/T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-800.eot
+    md5: 16153df0559aba1f49b062d8ed8d5d649db60897
+    upload_filename: T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-800.eot
+  assets/fonts/montserrat-v14-latin/montserrat-v14-latin-800.svg:
+    link_URL: https://2020.igem.org/wiki/images/0/04/T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-800.svg
+    md5: 270d364aac4fa043e12c38731e4d83baa1527a21
+    upload_filename: T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-800.svg
+  assets/fonts/montserrat-v14-latin/montserrat-v14-latin-800.ttf:
+    link_URL: https://2020.igem.org/wiki/images/7/71/T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-800.ttf
+    md5: d2ae6745b4456bc1aae5a800602880b96c3dca57
+    upload_filename: T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-800.ttf
+  assets/fonts/montserrat-v14-latin/montserrat-v14-latin-800.woff:
+    link_URL: https://2020.igem.org/wiki/images/5/55/T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-800.woff
+    md5: 1dad9d9efe7bc0b3ba089be10b8f9741a02312a3
+    upload_filename: T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-800.woff
+  assets/fonts/montserrat-v14-latin/montserrat-v14-latin-regular.eot:
+    link_URL: https://2020.igem.org/wiki/images/b/b1/T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-regular.eot
+    md5: 2a47f07ae10a8febb09428908b0a1e576e20f281
+    upload_filename: T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-regular.eot
+  assets/fonts/montserrat-v14-latin/montserrat-v14-latin-regular.svg:
+    link_URL: https://2020.igem.org/wiki/images/9/92/T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-regular.svg
+    md5: 0c3903258fd9750d143ccdb3ec0885ab46bce1dd
+    upload_filename: T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-regular.svg
+  assets/fonts/montserrat-v14-latin/montserrat-v14-latin-regular.ttf:
+    link_URL: https://2020.igem.org/wiki/images/8/8d/T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-regular.ttf
+    md5: 1f3ed7fd6d8b0db9e94bc15a6dc56728f23d4fda
+    upload_filename: T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-regular.ttf
+  assets/fonts/montserrat-v14-latin/montserrat-v14-latin-regular.woff:
+    link_URL: https://2020.igem.org/wiki/images/4/48/T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-regular.woff
+    md5: 5af1938d1327395f47c84e57b6ba7756234d2262
+    upload_filename: T--BITSPilani-Goa_India--fonts--montserrat-v14-latin--montserrat-v14-latin-regular.woff
+  assets/icons/envelope-open-text-solid.svg:
+    link_URL: https://2020.igem.org/wiki/images/4/4a/T--BITSPilani-Goa_India--icons--envelope-open-text-solid.svg
+    md5: 804a1e2c381be76a77331b5447ee6da2e587854c
+    upload_filename: T--BITSPilani-Goa_India--icons--envelope-open-text-solid.svg
+  assets/icons/instagram-brands.svg:
+    link_URL: https://2020.igem.org/wiki/images/c/c7/T--BITSPilani-Goa_India--icons--instagram-brands.svg
+    md5: 43b5b86d446f96d850ca1d724fcc26b16523c633
+    upload_filename: T--BITSPilani-Goa_India--icons--instagram-brands.svg
+  assets/icons/link-solid.svg:
+    link_URL: https://2020.igem.org/wiki/images/4/43/T--BITSPilani-Goa_India--icons--link-solid.svg
+    md5: c51370f7a5507d866a909427b444f1c38f42f7ba
+    upload_filename: T--BITSPilani-Goa_India--icons--link-solid.svg
+  assets/icons/twitter-brands.svg:
+    link_URL: https://2020.igem.org/wiki/images/0/03/T--BITSPilani-Goa_India--icons--twitter-brands.svg
+    md5: 1a9a930cc91cb75903252235eef7a3a8e2a205dd
+    upload_filename: T--BITSPilani-Goa_India--icons--twitter-brands.svg
+  assets/img/Biosensor.PNG:
+    link_URL: https://2020.igem.org/wiki/images/e/ef/T--BITSPilani-Goa_India--img--Biosensor.PNG
+    md5: c4a7e90640c2588989aa6cae8250a17a0943449a
+    upload_filename: T--BITSPilani-Goa_India--img--Biosensor.PNG
+  assets/img/Description--calgary.jpg:
+    link_URL: https://2020.igem.org/wiki/images/4/47/T--BITSPilani-Goa_India--img--Description--calgary.jpg
+    md5: bd77a93e70ca2a4aa4f84d8c662974efacdee662
+    upload_filename: T--BITSPilani-Goa_India--img--Description--calgary.jpg
+  assets/img/Description--giphy.gif:
+    link_URL: https://2020.igem.org/wiki/images/9/9f/T--BITSPilani-Goa_India--img--Description--giphy.gif
+    md5: fbc037a32e32bebba0ee55d3cdaef496f366e9b4
+    upload_filename: T--BITSPilani-Goa_India--img--Description--giphy.gif
+  assets/img/Description--josh-withers.jpg:
+    link_URL: https://2020.igem.org/wiki/images/3/3c/T--BITSPilani-Goa_India--img--Description--josh-withers.jpg
+    md5: ff43ac58f66123024ccd3edad434f2485733314a
+    upload_filename: T--BITSPilani-Goa_India--img--Description--josh-withers.jpg
+  assets/img/Sample--calgary.jpg:
+    link_URL: https://2020.igem.org/wiki/images/2/27/T--BITSPilani-Goa_India--img--Sample--calgary.jpg
+    md5: bd77a93e70ca2a4aa4f84d8c662974efacdee662
+    upload_filename: T--BITSPilani-Goa_India--img--Sample--calgary.jpg
   assets/img/logo.jpg:
     link_URL: https://2020.igem.org/wiki/images/1/11/T--BITSPilani-Goa_India--img--logo.jpg
-    md5: ee88e4dbceeb72378be60f79a18aef5033c7f480
+    md5: 1f43f07ffb7056e484f523846e8e198d35571235
     upload_filename: T--BITSPilani-Goa_India--img--logo.jpg
-  assets/img/sample.jpg:
-    link_URL: https://2020.igem.org/wiki/images/8/8c/T--BITSPilani-Goa_India--img--sample.jpg
-    md5: f0fee71865babe4df97088370e44b7aa76d949d0
-    upload_filename: T--BITSPilani-Goa_India--img--sample.jpg
+  assets/img/photo-1513360371669-4adf3dd7dff8.jpeg:
+    link_URL: https://2020.igem.org/wiki/images/5/5a/T--BITSPilani-Goa_India--img--photo-1513360371669-4adf3dd7dff8.jpeg
+    md5: 5952c1cd3e8ccfe4585761970e5fb7b6123da8cf
+    upload_filename: T--BITSPilani-Goa_India--img--photo-1513360371669-4adf3dd7dff8.jpeg
 css:
+  css/content.css:
+    link_URL: https://2020.igem.org/Template:BITSPilani-Goa_India/css/contentCSS?action=raw&ctype=text/css
+    md5: ade2049408dd878041ffd4587a4bdbd3
   css/index.css:
     link_URL: https://2020.igem.org/Template:BITSPilani-Goa_India/css/indexCSS?action=raw&ctype=text/css
-    md5: 7e5eb841b66b25af37a46b8afb87e993
+    md5: 8a45a13f907bfe9ad5ff60c71582235f
 html:
   Description/index.html:
     link_URL: https://2020.igem.org/Team:BITSPilani-Goa_India/Description
-    md5: ca827a4f6240b2aa3158c7df18064fbb
+    md5: 57c6dbc98b1365b590258062ad5a8244
+  Design/index.html:
+    link_URL: https://2020.igem.org/Team:BITSPilani-Goa_India/Design
+    md5: f0f141b3a5d1360c98307eeca49c83d5
+  Modelling/index.html:
+    link_URL: https://2020.igem.org/Team:BITSPilani-Goa_India/Modelling
+    md5: 6fabed5c7bbdb6412ef0add79d5ad4cb
+  Sample/index.html:
+    link_URL: https://2020.igem.org/Team:BITSPilani-Goa_India/Sample
+    md5: 737f634bcd65b23de46ac174515bfdfe
   index.html:
     link_URL: https://2020.igem.org/Team:BITSPilani-Goa_India
-    md5: 32b1b68f5f917402de75b038f5113409
+    md5: af8befb9224700449ac5ec3cbc4809bf
 js:
-  js/index.js:
-    link_URL: https://2020.igem.org/Template:BITSPilani-Goa_India/js/indexJS?action=raw&ctype=text/javascript
-    md5: ''
+  content.bundle.js:
+    link_URL: https://2020.igem.org/Template:BITSPilani-Goa_India/content-bundleJS?action=raw&ctype=text/javascript
+    md5: aacb28612ff6063a0ebcfac43a4b76b0
+  index.bundle.js:
+    link_URL: https://2020.igem.org/Template:BITSPilani-Goa_India/index-bundleJS?action=raw&ctype=text/javascript
+    md5: 8a6acd588cbf91b35829de7961c51d45

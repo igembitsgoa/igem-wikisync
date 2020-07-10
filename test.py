@@ -1,30 +1,15 @@
-# To add a new cell, type '# %%'
-# To add a new markdown cell, type '# %% [markdown]'
-# %%
-import esprima
+import re
 
-
-# %%
-esprima.tokenize
-
-
-# %%
-with open('dist/js/index.js', 'r') as file:
+with open('dist/css/index.css') as file:
     contents = file.read()
 
 
-# %%
-contents
+exp = r'url\(\'?([(..)/].*?)\'?\)'
+links = re.findall(exp, contents)
 
+for i in range(len(links)):
+    links[i] = links[i].split('?')[0]
+    links[i] = links[i].split('#')[0]
 
-# %%
-parsed = esprima.parseScript(contents)
-
-
-# %%
-print(parsed)
-
-
-# %%
-
-
+# 2) Clear all duplicates
+links = list(dict.fromkeys(links))

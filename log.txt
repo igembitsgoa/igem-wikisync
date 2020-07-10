@@ -1,0 +1,174 @@
+
+body { background-color: black; }
+#login_form {
+   font-family: arial;
+   color:  white;
+}
+#name_and_pass {
+   position:    relative;
+   top: 5px;
+   font-size:   18px;
+   padding:     10px;
+   cursor:      pointer;
+   text-decoration: none;
+   height:      25px;
+}
+#name_and_pass span {
+   padding: 0 5px;
+}
+#name_and_pass input {
+   width: 170px;
+   font-size: 12px;
+}
+#submit_controls {
+   position:    relative;
+   top: 5px;
+   font-size:   18px;
+   padding:     10px;
+   cursor:      pointer;
+   text-decoration: none;
+   height:      40px;
+}
+.submit {
+   position: absolute;
+   top:      5px;
+   right:    41px;
+   font-size: 18px;
+   height:   30px;
+   width:    100px;
+   cursor:      pointer;
+   background-color: #88bb88;
+}
+.submit:hover {
+   background-color: #008800;
+}
+.link_text {
+   color:   rgb(140,190,255);
+   font-style:  italic;
+   font-family: arial;
+   font-weight: 200;
+   font-size:   15px;
+   padding:     3px 20px;
+   cursor:      pointer;
+   text-decoration: none;
+   border: none;
+   background-color: transparent;
+}
+.link_text:hover {
+   color: rgb(200,255, 255);
+}
+#login_error {
+ position: absolute;
+ top: -3px;
+ left: 10px;
+   color: rgb(255, 100, 100);
+   font-family: arial, helvetica, sans-serif;
+   font-weight: normal;
+   font-size: 15px;
+}
+
+
+
+That username is not valid. Please try again or use the search function below.
+
+Username
+Password
+
+
+
+
+
+
+hello
+css/index.css was changed to https://2020.igem.org/Template:BITSPilani-Goa_India/css/indexCSS?action=raw&ctype=text/css in index.html
+index.bundle.js was changed to https://2020.igem.org/Template:BITSPilani-Goa_India/index-bundleJS?action=raw&ctype=text/javascript in index.html
+/Description was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Description in index.html
+/Design was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Design in index.html
+Warning: dist/Results/index.html is referenced in dist/index.html but was not found.
+/Results was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Results in index.html
+Warning: dist/Experiments/index.html is referenced in dist/index.html but was not found.
+/Experiments was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Experiments in index.html
+Warning: dist/Notebook/index.html is referenced in dist/index.html but was not found.
+/Notebook was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Notebook in index.html
+/Modelling was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Modelling in index.html
+Warning: dist/Contribution/index.html is referenced in dist/index.html but was not found.
+/Contribution was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Contribution in index.html
+Warning: dist/Improve/index.html is referenced in dist/index.html but was not found.
+/Improve was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Improve in index.html
+Warning: dist/Overview/index.html is referenced in dist/index.html but was not found.
+/Overview was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Overview in index.html
+Warning: dist/Basic_Parts/index.html is referenced in dist/index.html but was not found.
+/Basic_Parts was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Basic_Parts in index.html
+Warning: dist/Composite_Parts/index.html is referenced in dist/index.html but was not found.
+/Composite_Parts was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Composite_Parts in index.html
+Warning: dist/Parts_Collection/index.html is referenced in dist/index.html but was not found.
+/Parts_Collection was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Parts_Collection in index.html
+Warning: dist/Human_Practices/index.html is referenced in dist/index.html but was not found.
+/Human_Practices was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Human_Practices in index.html
+Warning: dist/Outreach/index.html is referenced in dist/index.html but was not found.
+/Outreach was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Outreach in index.html
+Warning: dist/Team_Members/index.html is referenced in dist/index.html but was not found.
+/Team_Members was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Team_Members in index.html
+Warning: dist/Attributions/index.html is referenced in dist/index.html but was not found.
+/Attributions was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Attributions in index.html
+Warning: dist/Collaborations/index.html is referenced in dist/index.html but was not found.
+/Collaborations was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Collaborations in index.html
+Warning: dist/Entrepreneurship/index.html is referenced in dist/index.html but was not found.
+/Entrepreneurship was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Entrepreneurship in index.html
+Warning: dist/Model/index.html is referenced in dist/index.html but was not found.
+/Model was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Model in index.html
+Warning: dist/Plant/index.html is referenced in dist/index.html but was not found.
+/Plant was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Plant in index.html
+Warning: dist/Software/index.html is referenced in dist/index.html but was not found.
+/Software was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Software in index.html
+Warning: dist/href/index.html is referenced in dist/index.html but was not found.
+href was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/href in index.html
+/Description was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Description in index.html
+/Design was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Design in index.html
+Warning: dist/Safety/index.html is referenced in dist/index.html but was not found.
+/Safety was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Safety in index.html
+Warning: dist/Human_Practices/index.html is referenced in dist/index.html but was not found.
+/Human_Practices was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Human_Practices in index.html
+Warning: dist/Collaborations/index.html is referenced in dist/index.html but was not found.
+/Collaborations was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Collaborations in index.html
+Warning: dist/Communication/index.html is referenced in dist/index.html but was not found.
+/Communication was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Communication in index.html
+/Description was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Description in index.html
+/Design was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Design in index.html
+Warning: dist/Results/index.html is referenced in dist/index.html but was not found.
+/Results was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Results in index.html
+Warning: dist/Experiments/index.html is referenced in dist/index.html but was not found.
+/Experiments was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Experiments in index.html
+Warning: dist/Notebook/index.html is referenced in dist/index.html but was not found.
+/Notebook was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Notebook in index.html
+/Modelling was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Modelling in index.html
+Warning: dist/Contribution/index.html is referenced in dist/index.html but was not found.
+/Contribution was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Contribution in index.html
+Warning: dist/Improve/index.html is referenced in dist/index.html but was not found.
+/Improve was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Improve in index.html
+Warning: dist/Overview/index.html is referenced in dist/index.html but was not found.
+/Overview was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Overview in index.html
+Warning: dist/Basic_Parts/index.html is referenced in dist/index.html but was not found.
+/Basic_Parts was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Basic_Parts in index.html
+Warning: dist/Composite_Parts/index.html is referenced in dist/index.html but was not found.
+/Composite_Parts was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Composite_Parts in index.html
+Warning: dist/Parts_Collection/index.html is referenced in dist/index.html but was not found.
+/Parts_Collection was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Parts_Collection in index.html
+Warning: dist/Human_Practices/index.html is referenced in dist/index.html but was not found.
+/Human_Practices was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Human_Practices in index.html
+Warning: dist/Outreach/index.html is referenced in dist/index.html but was not found.
+/Outreach was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Outreach in index.html
+Warning: dist/Team_Members/index.html is referenced in dist/index.html but was not found.
+/Team_Members was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Team_Members in index.html
+Warning: dist/Attributions/index.html is referenced in dist/index.html but was not found.
+/Attributions was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Attributions in index.html
+Warning: dist/Collaborations/index.html is referenced in dist/index.html but was not found.
+/Collaborations was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Collaborations in index.html
+Warning: dist/Entrepreneurship/index.html is referenced in dist/index.html but was not found.
+/Entrepreneurship was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Entrepreneurship in index.html
+Warning: dist/Model/index.html is referenced in dist/index.html but was not found.
+/Model was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Model in index.html
+Warning: dist/Plant/index.html is referenced in dist/index.html but was not found.
+/Plant was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Plant in index.html
+Warning: dist/Software/index.html is referenced in dist/index.html but was not found.
+/Software was changed to https://2020.igem.org/Team:BITSPilani-Goa_India/Software in index.html

@@ -126,7 +126,7 @@ class CSSfile(BaseFile):
         # remove file extension
         upload_path = self.path.parent / self.path.stem
         # add 'CSS'
-        upload_path = str(upload_path) + 'CSS'
+        upload_path = str(upload_path).replace('.', '-') + 'CSS'
 
         return "/" + upload_path
 
@@ -162,7 +162,7 @@ class JSfile(BaseFile):
         # remove file extension
         upload_path = self.path.parent / self.path.stem
         # add 'CSS'
-        upload_path = str(upload_path) + 'JS'
+        upload_path = str(upload_path).replace('.', '-') + 'JS'
 
         return "/" + upload_path
 

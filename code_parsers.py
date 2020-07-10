@@ -1,12 +1,11 @@
 from bs4 import BeautifulSoup
 from helpers import is_relative, iGEM_URL, resolve_relative_URL
-import cssutils
 from pathlib import Path
 import os
+import re
 from jsmin import jsmin
 
 # process HTML files
-
 
 def HTMLparser(config, path, contents, upload_map):
 
@@ -38,18 +37,29 @@ def HTMLparser(config, path, contents, upload_map):
 
 
 def CSSparser(config, path, contents, upload_map):
-    cssutils.ser.prefs.useMinified()
-    sheet = cssutils.parseString(contents)
 
-    def replacer(url:str) -> str:
-        return iGEM_URL(config, path, upload_map, url)
+    css = contents
 
-    cssutils.replaceUrls(sheet, replacer=replacer)
-    contents = sheet.cssText.decode("utf-8")
-    return contents
+    # 1) Find all css links
+    exp = r'url\(\'?([(..)/].*?)\'?\)'
+    links = re.findall(exp, css)
+
+    for i in range(len(links)):
+        links[i] = links[i].split('?')[0]
+        links[i] = links[i].split('#')[0]
+
+    # 2) Clear all duplicates
+    links = list(dict.fromkeys(links))
+
+    # print(links)
+    # 3) Replace all links with the absolute path
+    for link in links:
+        css = css.replace(link, iGEM_URL(config, path, upload_map, link))
+
+    return css
 
 
-def JSparser(config, path, contents):
+def JSparser(contents):
 
     contents = jsmin(contents)
     return contents
