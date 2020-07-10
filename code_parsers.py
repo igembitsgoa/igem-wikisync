@@ -26,11 +26,14 @@ def HTMLparser(config, path, contents, upload_map):
                ('html', 'manifest'), ('input', 'formaction'), ('source', 'src'),
                ('track', 'src'), ('video', 'poster'), ('video', 'src')]
 
+    # TODO: Replace URLs for AJAX loads as well
+
     for (tag_name, attr) in queries:
         query = soup.findAll(tag_name, attrs={attr: True})
         for tag in query:
-
+            # TODO: Add data-nosub
             tag[attr] = iGEM_URL(config, path, upload_map, tag[attr])
+            # TODO: Add error handling
 
     contents = str(soup)
     return contents
@@ -51,6 +54,8 @@ def CSSparser(config, path, contents, upload_map):
     # 2) Clear all duplicates
     links = list(dict.fromkeys(links))
 
+    # TODO: Think of a way to do replicate data-nosub for CSS
+
     # print(links)
     # 3) Replace all links with the absolute path
     for link in links:
@@ -62,4 +67,6 @@ def CSSparser(config, path, contents, upload_map):
 def JSparser(contents):
 
     contents = jsmin(contents)
+    # TODO: URL replacement in JS
+    # look at Virginia's tasks/unit/html.js for this
     return contents

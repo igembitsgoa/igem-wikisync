@@ -18,7 +18,6 @@ def resolve_relative_URL(config: dict, parent: Path, url: str) -> Path:
         Returned URL is relative to src_dir.
     """
 
-    # TODO: Simplify this
     src_dir = Path(config['src_dir']).resolve()
 
     # remove trailing /

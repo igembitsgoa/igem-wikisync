@@ -24,7 +24,6 @@ class BaseFile:
         self._build_path = self._config["build_dir"] / self._path
         self._upload_URL = None  # URL of the upload form for file
         self._link_URL = None   # URL where the file will live
-        self._contents = None   # file contents
 
     @property
     def path(self):
