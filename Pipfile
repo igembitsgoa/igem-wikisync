@@ -5,8 +5,6 @@ name = "pypi"
 
 [packages]
 mechanicalsoup = "*"
-html5lib = "*"
-pathlib = "*"
 jsmin = "*"
 
 [dev-packages]
