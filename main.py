@@ -1,4 +1,5 @@
 import os
+import sys
 import ssl
 import shutil
 import yaml
@@ -34,20 +35,29 @@ class MyAdapter(HTTPAdapter):
 def main():
 
     # read config file
-    with open('config.yml', 'r') as file:
-        config = yaml.safe_load(file)
+    try:
+        with open('config.yml', 'r') as file:
+            config = yaml.safe_load(file)
+    except:
+        print("No config.yml file found. Exiting.")
+        sys.exit(1)
 
     src_dir = config['src_dir']
     build_dir = config['build_dir']
 
     # load or create upload_map
-    upload_map = None
-    if os.path.isfile('upload_map.yml'):
+    try:
         with open('upload_map.yml', 'r') as file:
             upload_map = yaml.safe_load(file)
-            # TODO: add error handling
 
-    if upload_map is None:
+        # make sure upload map has all the keys
+        for key in ['assets', 'html', 'css', 'js']:
+            if key not in upload_map.keys():
+                upload_map[key] = {}
+            elif type(upload_map[key]) != dict:
+                print("config.yml has an invalid format.")
+                raise SystemExit
+    except:
         upload_map = {
             'assets': {},
             'html': {},
@@ -55,36 +65,28 @@ def main():
             'js': {}
         }
 
-    if 'assets' not in upload_map.keys():
-        upload_map['assets'] = {}
-    if 'html' not in upload_map.keys():
-        upload_map['html'] = {}
-    if 'css' not in upload_map.keys():
-        upload_map['css'] = {}
-    if 'js' not in upload_map.keys():
-        upload_map['js'] = {}
-
     # clear build_dir
     if os.path.isdir(build_dir):
         shutil.rmtree(build_dir)
         os.mkdir(build_dir)
-        # TODO: add error handling
+        # ? error handling here?
 
     # get iGEM credentials
     credentials = {
         'username': os.environ.get('IGEM_USERNAME'),
         'password': os.environ.get('IGEM_PASSWORD')
+        # 'username': 'ballaneypranav',
+        # 'password': 'pranavhello'
     }
 
     # declare a global browser instance
     browser = mechanicalsoup.StatefulBrowser()
-    # TODO: add error handling
+    # ? error handling here?
 
     # login to iGEM
-    response = iGEM_login(browser, credentials)
-    print(response)
-    sys.exit(1)
-    # TODO: add error handling
+    login = iGEM_login(browser, credentials)
+    if login:
+        print("Successfully logged in as " + credentials['username'] + ".")
 
     # storage
     HTMLfiles = {}
@@ -100,12 +102,12 @@ def main():
             extension = infile.suffix[1:]
 
             # create appropriate file object
-            # file objects contain corresponding paths and URLs 
+            # file objects contain corresponding paths and URLs
             if extension == "html":
 
                 file_object = HTMLfile(infile, config)
 
-                # and store it 
+                # and store it
                 HTMLfiles[file_object.path] = file_object
 
                 # and add it to the upload map
@@ -150,10 +152,10 @@ def main():
 
             else:
                 print(infile, "has an unsupported file extension. Skipping.")
-                #? Do we want to support other text files?
+                # ? Do we want to support other text files?
 
-    #*Upload all assets and create a map
-    # files have to be uploaded before everything else because 
+    # *Upload all assets and create a map
+    # files have to be uploaded before everything else because
     # the URLs iGEM assigns are random
     for path in OtherFiles.keys():
         file_object = OtherFiles[path]
@@ -165,32 +167,50 @@ def main():
             if asset_path == str(path):
                 asset = upload_map['assets'][asset_path]
                 if file_object.md5_hash == asset['md5']:
+                    # ? Can't do anything about renames. iGEM API doesn't allow.
+                    # ? Can find the previous URL and use that itself
+                    # ? but is it worth the effort?
                     pass
                 else:
                     # if file has changed, upload file and update hash
-                    response = iGEM_upload_file(
-                        browser, credentials, file_object)
+                    try:
+                        iGEM_upload_file(browser, credentials, file_object)
+                    except BaseException:
+                        # print upload map to save the current state
+                        write_upload_map(upload_map)
+                        print("Couldn't upload " + str(file_object.path) + ".")
+                        print("We've saved the current upload map " +
+                              "so you won't have to upload everything again.")
+                        raise SystemExit
+
                     # TODO: add error handling
                     asset['md5'] = file_object.md5_hash
                     asset['link_URL'] = file_object.upload_URL
+
                 uploaded = True
                 break
-        
+
         # if new file, upload and add to map
         if not uploaded:
-            response = iGEM_upload_file(browser, credentials, file_object)
-            # TODO: add error handling
+            try:
+                iGEM_upload_file(browser, credentials, file_object)
+            except BaseException:
+                # print upload map to save the current state
+                write_upload_map(upload_map)
+                print("Couldn't upload " + str(file_object.path) + ".")
+                print("We've saved the current upload map " +
+                      "so you won't have to upload everything again.")
+                raise SystemExit
+
             upload_map['assets'][str(path)] = {
                 'link_URL': file_object.upload_URL,
                 'md5': file_object.md5_hash,
                 'upload_filename': file_object.upload_filename
             }
 
-    # write upload map just in case 
-    # things go wrong while dealing with 
-    with open('upload_map_files.yml', 'w') as file:
-        yaml.dump(upload_map, file, sort_keys=True)
-        # TODO: add error handling
+    # write upload map just in case
+    # things go wrong while dealing with code
+    write_upload_map(upload_map)
 
     # loop through all code files
     for file_dictionary in [HTMLfiles, CSSfiles, JSfiles]:
@@ -200,23 +220,27 @@ def main():
             ext = file_object.extension
 
             # open file
-            with open(file_object.src_path, 'r') as file:
-                contents = file.read()
-                # TODO: add error handling
+            try:
+                with open(file_object.src_path, 'r') as file:
+                    contents = file.read()
+            except:
+                print("Couldn't open/read", file_object.path, ". Skipping.")
+                continue
+                # FIXME Can this be improved?
 
-            processed = None # just so the linter doesn't freak out
+            processed = None  # just so the linter doesn't freak out
             # parse and modify contents
             if ext == 'html':
                 processed = HTMLparser(
                     config, file_object.path, contents, upload_map)
-                #? error handling here?
+                # FIXME error handling here?
             elif ext == 'css':
                 processed = CSSparser(
                     config, file_object.path, contents, upload_map)
-                #? error handling here?
+                # FIXME error handling here?
             elif ext == 'js':
                 processed = JSparser(contents)
-                #? error handling here?
+                # FIXME error handling here?
 
             # calculate and store md5 hash of the modified contents
             build_hash = md5(processed.encode('utf-8')).hexdigest()
@@ -227,24 +251,39 @@ def main():
             else:
                 upload_map[ext][path_str]['md5'] = build_hash
                 build_path = file_object.build_path
-                # create directory if doesn't exist
-                if not os.path.isdir(build_path.parent):
-                    os.makedirs(build_path.parent)
-                    # TODO: add error handling
-                # and write the processed contents
-                with open(build_path, 'w') as f:
-                    f.write(processed)
-                    # TODO: add error handling
+                try:
+                    # create directory if doesn't exist
+                    if not os.path.isdir(build_path.parent):
+                        os.makedirs(build_path.parent)
+                    # and write the processed contents
+                    with open(build_path, 'w') as f:
+                        f.write(processed)
+                except:
+                    print("Couldn't write", build_dir + '/' +
+                          str(file_object.path) + ". Skipping.")
+                    continue
+                    # FIXME Can this be improved?
 
                 # upload
-                response = iGEM_upload_page(
-                    browser, credentials, processed, file_object.upload_URL)
-                # TODO: add error handling
+                try:
+                    iGEM_upload_page(browser, credentials,
+                                     processed, file_object.upload_URL)
+                except:
+                    print("Couldn't upload", str(file_object.path) + ". Skipping.")
+                    continue
+                    # FIXME Can this be improved?
 
     # write final upload map
-    with open('upload_map.yml', 'w') as file:
-        yaml.dump(upload_map, file, sort_keys=True)
-    # TODO: add error handling
+    write_upload_map(upload_map)
+
+
+def write_upload_map(upload_map, filename='upload_map.yml'):
+    try:
+        with open('upload_map.yml', 'w') as file:
+            yaml.dump(upload_map, file, sort_keys=True)
+    except:
+        print("Tried to write upload_map.yml but couldn't.")
+        # FIXME Can this be improved?
 
 
 if __name__ == '__main__':
