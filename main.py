@@ -34,6 +34,7 @@ class MyAdapter(HTTPAdapter):
 
 def main():
 
+
     # read config file
     try:
         with open('config.yml', 'r') as file:
@@ -44,6 +45,11 @@ def main():
 
     src_dir = config['src_dir']
     build_dir = config['build_dir']
+
+    print(f"src_dir: {src_dir}")
+    print(f"build_dir: {build_dir}")
+    print(f"Heyy format strings work!")
+    raise SystemExit
 
     # load or create upload_map
     try:
