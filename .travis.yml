@@ -9,4 +9,4 @@ install:
   - pipenv install
 # command to run tests
 script:
-  - python api.py
+  - python main.py
