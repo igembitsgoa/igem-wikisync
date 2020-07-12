@@ -2,3 +2,5 @@ credentials.sh
 __pycache__
 dist
 igem
+igem_dist
+.vscode
