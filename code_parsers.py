@@ -27,13 +27,18 @@ def HTMLparser(config, path, contents, upload_map):
                ('track', 'src'), ('video', 'poster'), ('video', 'src')]
 
     # TODO: Replace URLs for AJAX loads as well
+    # TODO: img srcset
 
     for (tag_name, attr) in queries:
         query = soup.findAll(tag_name, attrs={attr: True, 'data-nosub': False})
         for tag in query:
-            # TODO: Add data-nosub
             tag[attr] = iGEM_URL(config, path, upload_map, tag[attr])
             # TODO: Add error handling
+
+    inline_styles = soup.findAll('style')
+    for style in inline_styles:
+        style.string = CSSparser(config, path, style.string, upload_map)
+        pass
 
     contents = str(soup)
     return contents
@@ -41,10 +46,12 @@ def HTMLparser(config, path, contents, upload_map):
 
 def CSSparser(config, path, contents, upload_map):
 
+    # TODO: Replace URLs in image(), image-set() and cross-fade()
+
     css = contents
 
     # 1) Find all css links
-    exp = r'url\(\'?([(..)/].*?)\'?\)'
+    exp = r'url\([\'\"]?([^\)\'\"]*)[\'\"]?\)'
     links = re.findall(exp, css)
 
     for i in range(len(links)):
