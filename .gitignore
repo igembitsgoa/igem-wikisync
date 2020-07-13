@@ -3,3 +3,5 @@ __pycache__
 igem
 igem_dist
 .vscode
+*.cookies
+*.log
