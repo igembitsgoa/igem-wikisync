@@ -29,7 +29,7 @@ def HTMLparser(config, path, contents, upload_map):
     # TODO: Replace URLs for AJAX loads as well
 
     for (tag_name, attr) in queries:
-        query = soup.findAll(tag_name, attrs={attr: True})
+        query = soup.findAll(tag_name, attrs={attr: True, 'data-nosub': False})
         for tag in query:
             # TODO: Add data-nosub
             tag[attr] = iGEM_URL(config, path, upload_map, tag[attr])
