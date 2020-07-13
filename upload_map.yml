@@ -1,4 +1,14 @@
-assets: {}
-css: {}
-html: {}
+assets:
+  assets/test/img/logo.jpg:
+    link_URL: https://2020.igem.org/wiki/images/a/aa/T--BITSPilani-Goa_India--test--img--logo.jpg
+    md5: 1f43f07ffb7056e484f52346e8e198d35571235
+    upload_filename: T--BITSPilani-Goa_India--test--img--logo.jpg
+css:
+  Test/style.css:
+    link_URL: https://2020.igem.org/Template:BITSPilani-Goa_India/Test/styleCSS?action=raw&ctype=text/css
+    md5: ''
+html:
+  Test/index.html:
+    link_URL: https://2020.igem.org/Team:BITSPilani-Goa_India/Test
+    md5: ''
 js: {}
