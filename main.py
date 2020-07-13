@@ -5,6 +5,7 @@ import shutil
 import yaml
 from pathlib import Path
 import mechanicalsoup
+from http.cookiejar import LWPCookieJar
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.poolmanager import PoolManager
 
@@ -13,17 +14,12 @@ from file_helpers import HTMLfile, CSSfile, JSfile, OtherFile
 from code_parsers import CSSparser, HTMLparser, JSparser
 from hashlib import md5
 
-# * Not using cssutils anymore
-# # https://bitbucket.org/cthedot/cssutils/issues/60/using-units-of-rem-produces-an-invalid
-# from cssutils import profile
-# profile._MACROS['length'] = r'0|{num}(em|ex|px|in|cm|mm|pt|pc|q|ch|rem|vw|vh|vmin|vmax)'
-# profile._MACROS['positivelength'] = r'0|{positivenum}(em|ex|px|in|cm|mm|pt|pc|q|ch|rem|vw|vh|vmin|vmax)'
-# profile._MACROS['angle'] = r'0|{num}(deg|grad|rad|turn)'
-# profile._resetProperties()
-
+from logger import logger
 
 # For TLSv1.0 support
 # https://lukasa.co.uk/2013/01/Choosing_SSL_Version_In_Requests/
+
+
 class MyAdapter(HTTPAdapter):
     def init_poolmanager(self, connections, maxsize, block=False):
         self.poolmanager = PoolManager(num_pools=connections,
@@ -34,22 +30,16 @@ class MyAdapter(HTTPAdapter):
 
 def main():
 
-
     # read config file
     try:
         with open('config.yml', 'r') as file:
             config = yaml.safe_load(file)
     except:
-        print("No config.yml file found. Exiting.")
-        sys.exit(1)
+        logger.critical("No config.yml file found. Exiting.")
+        raise SystemExit
 
     src_dir = config['src_dir']
     build_dir = config['build_dir']
-
-    print(f"src_dir: {src_dir}")
-    print(f"build_dir: {build_dir}")
-    print(f"Heyy format strings work!")
-    raise SystemExit
 
     # load or create upload_map
     try:
@@ -61,7 +51,7 @@ def main():
             if key not in upload_map.keys():
                 upload_map[key] = {}
             elif type(upload_map[key]) != dict:
-                print("config.yml has an invalid format.")
+                logger.critical("config.yml has an invalid format. Exiting.")
                 raise SystemExit
     except:
         upload_map = {
@@ -80,19 +70,33 @@ def main():
     # get iGEM credentials
     credentials = {
         'username': os.environ.get('IGEM_USERNAME'),
-        'password': os.environ.get('IGEM_PASSWORD')
-        # 'username': 'ballaneypranav',
-        # 'password': 'pranavhello'
+        'password': os.environ.get('IGEM_PASSWORD'),
+        'team': config['team']
     }
 
     # declare a global browser instance
     browser = mechanicalsoup.StatefulBrowser()
     # ? error handling here?
 
+    # Load cookies from file or create new cookie file
+    cookie_file = 'igemwiki-upload.cookies'
+    cookiejar = LWPCookieJar(cookie_file)
+    if os.path.exists(cookie_file):
+        try:
+            cookiejar.load()  # in case file is empty
+        except:
+            pass
+    browser.set_cookiejar(cookiejar)
+
     # login to iGEM
     login = iGEM_login(browser, credentials)
-    if login:
-        print("Successfully logged in as " + credentials['username'] + ".")
+    if not login:
+        message = "Failed to login."
+        logger.error(message)
+        raise SystemExit
+
+    # Save cookies
+    cookiejar.save()
 
     # storage
     HTMLfiles = {}
@@ -105,7 +109,7 @@ def main():
         for filename in files:
 
             infile = Path(root) / Path(filename)
-            extension = infile.suffix[1:]
+            extension = infile.suffix[1:].lower()
 
             # create appropriate file object
             # file objects contain corresponding paths and URLs
@@ -157,7 +161,7 @@ def main():
                 OtherFiles[file_object.path] = file_object
 
             else:
-                print(infile, "has an unsupported file extension. Skipping.")
+                logger.info(f"{infile} has an unsupported file extension. Skipping.")
                 # ? Do we want to support other text files?
 
     # *Upload all assets and create a map
@@ -180,13 +184,13 @@ def main():
                 else:
                     # if file has changed, upload file and update hash
                     try:
-                        iGEM_upload_file(browser, credentials, file_object)
+                        iGEM_upload_file(browser, file_object)
                     except BaseException:
                         # print upload map to save the current state
                         write_upload_map(upload_map)
-                        print("Couldn't upload " + str(file_object.path) + ".")
-                        print("We've saved the current upload map " +
-                              "so you won't have to upload everything again.")
+                        message = f"Failed to upload {str(file_object.path)}. The current upload map has been saved so you won't have to upload everything again."
+                        logger.debug(message, exc_info=True)
+                        logger.error(message)
                         raise SystemExit
 
                     # TODO: add error handling
@@ -199,13 +203,13 @@ def main():
         # if new file, upload and add to map
         if not uploaded:
             try:
-                iGEM_upload_file(browser, credentials, file_object)
+                iGEM_upload_file(browser, file_object)
             except BaseException:
                 # print upload map to save the current state
                 write_upload_map(upload_map)
-                print("Couldn't upload " + str(file_object.path) + ".")
-                print("We've saved the current upload map " +
-                      "so you won't have to upload everything again.")
+                message = f"Failed to upload {str(file_object.path)}. The current upload map has been saved so you won't have to upload everything again."
+                logger.debug(message, exc_info=True)
+                logger.error(message)
                 raise SystemExit
 
             upload_map['assets'][str(path)] = {
@@ -230,7 +234,8 @@ def main():
                 with open(file_object.src_path, 'r') as file:
                     contents = file.read()
             except:
-                print("Couldn't open/read", file_object.path, ". Skipping.")
+                message = f"Couldn't open/read {file_object.path}. Skipping."
+                logger.error(message)
                 continue
                 # FIXME Can this be improved?
 
@@ -252,8 +257,8 @@ def main():
             build_hash = md5(processed.encode('utf-8')).hexdigest()
 
             if upload_map[ext][path_str]['md5'] == build_hash:
-                print("Contents of", file_object.path,
-                      "have been uploaded previously. Skipping.")
+                message = f"Contents of {file_object.path} have been uploaded previously. Skipping."
+                logger.info(message)
             else:
                 upload_map[ext][path_str]['md5'] = build_hash
                 build_path = file_object.build_path
@@ -265,17 +270,18 @@ def main():
                     with open(build_path, 'w') as f:
                         f.write(processed)
                 except:
-                    print("Couldn't write", build_dir + '/' +
-                          str(file_object.path) + ". Skipping.")
+                    message = f"Couldn't write {build_dir}/{str(file_object.path)}. Skipping."
+                    logger.info(message)
                     continue
                     # FIXME Can this be improved?
 
                 # upload
                 try:
-                    iGEM_upload_page(browser, credentials,
-                                     processed, file_object.upload_URL)
+                    iGEM_upload_page(browser, processed,
+                                     file_object.upload_URL)
                 except:
-                    print("Couldn't upload", str(file_object.path) + ". Skipping.")
+                    message = f"Couldn't upload {str(file_object.path)}. Skipping."
+                    logger.info(message)
                     continue
                     # FIXME Can this be improved?
 
@@ -285,10 +291,10 @@ def main():
 
 def write_upload_map(upload_map, filename='upload_map.yml'):
     try:
-        with open('upload_map.yml', 'w') as file:
+        with open(filename, 'w') as file:
             yaml.dump(upload_map, file, sort_keys=True)
     except:
-        print("Tried to write upload_map.yml but couldn't.")
+        logger.error(f"Tried to write {filename} but couldn't.")
         # FIXME Can this be improved?
 
 

@@ -61,9 +61,6 @@ def CSSparser(config, path, contents, upload_map):
     # 2) Clear all duplicates
     links = list(dict.fromkeys(links))
 
-    # TODO: Think of a way to do replicate data-nosub for CSS
-
-    # print(links)
     # 3) Replace all links with the absolute path
     for link in links:
         css = css.replace(link, iGEM_URL(config, path, upload_map, link))
@@ -75,5 +72,4 @@ def JSparser(contents):
 
     contents = jsmin(contents)
     # TODO: URL replacement in JS
-    # look at Virginia's tasks/unit/html.js for this
     return contents

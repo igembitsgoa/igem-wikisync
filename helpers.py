@@ -2,7 +2,7 @@ from file_helpers import CSSfile, HTMLfile, JSfile
 import os
 import re
 from pathlib import Path
-
+from logger import logger
 
 def is_relative(url):
     """ Returns whether given URL is relative. """
@@ -37,7 +37,7 @@ def resolve_relative_URL(config: dict, parent: Path, url: str) -> Path:
         return full_path.relative_to(src_dir)
 
 
-def iGEM_URL(config:dict, path:Path, upload_map:dict, url:str) -> str:
+def iGEM_URL(config: dict, path: Path, upload_map: dict, url: str) -> str:
     """
         Replaces a given absolute local URL with it's iGEM counterpart.
     """
@@ -64,8 +64,8 @@ def iGEM_URL(config:dict, path:Path, upload_map:dict, url:str) -> str:
         filepath = config['src_dir'] / resolved_path
 
         if not os.path.isfile(filepath):
-            print("Warning:", filepath, "is referenced in",
-                    config['src_dir'] / path, "but was not found.")
+            message = f"Warning: {filepath} is referenced in {config['src_dir'] / path} but was not found."
+            logger.error(message)
 
         extension = resolved_path.suffix[1:].lower()
 
@@ -80,6 +80,6 @@ def iGEM_URL(config:dict, path:Path, upload_map:dict, url:str) -> str:
             file_object = JSfile(config['src_dir'] / resolved_path, config)
             url = file_object.link_URL
 
-    print(old_path, "was changed to", url, "in", path)
+    logger.info(f"{old_path} was changed to {url} in {path}.")
 
     return url
