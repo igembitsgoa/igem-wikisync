@@ -118,7 +118,7 @@ def iGEM_upload_page(browser, contents, url):
         logger.error(message)
         raise SystemExit
 
-    logger.info(f'Uploaded {file_object.upload_filename} to {file_object.upload_URL}.')
+    logger.info(f'Uploaded to {url}.')
 
     return response.text
 

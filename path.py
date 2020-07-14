@@ -1,4 +1,4 @@
-from file_helpers import CSSfile, HTMLfile, JSfile
+from files import CSSfile, HTMLfile, JSfile
 import os
 import re
 from pathlib import Path

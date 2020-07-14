@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-from helpers import is_relative, iGEM_URL, resolve_relative_URL
+from path import is_relative, iGEM_URL, resolve_relative_URL
 from pathlib import Path
 import os
 import re

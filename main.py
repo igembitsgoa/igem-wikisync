@@ -1,5 +1,4 @@
 import os
-import sys
 import ssl
 import shutil
 import yaml
@@ -9,9 +8,9 @@ from http.cookiejar import LWPCookieJar
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.poolmanager import PoolManager
 
-from browser_helpers import iGEM_login, iGEM_upload_page, iGEM_upload_file
-from file_helpers import HTMLfile, CSSfile, JSfile, OtherFile
-from code_parsers import CSSparser, HTMLparser, JSparser
+from browser import iGEM_login, iGEM_upload_page, iGEM_upload_file
+from files import HTMLfile, CSSfile, JSfile, OtherFile
+from code import CSSparser, HTMLparser, JSparser
 from hashlib import md5
 
 from logger import logger
