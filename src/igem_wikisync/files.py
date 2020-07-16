@@ -193,10 +193,10 @@ class OtherFile(BaseFile):
         ''' Filename on iGEM servers. '''
         return self._upload_filename
 
-    # Only OtherFile objects have this property because 
+    # Only OtherFile objects have this property because
     # md5 hashes of other objects are hashes of the modified
     # content, while OtherFiles don't require any modification.
-    # Besides, OtherFile md5_hash is a file hash while other 
+    # Besides, OtherFile md5_hash is a file hash while other
     # hashes are computed on strings (modified file contents)
     @property
     def md5_hash(self):

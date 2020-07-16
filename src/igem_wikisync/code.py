@@ -7,6 +7,7 @@ from jsmin import jsmin
 
 # process HTML files
 
+
 def HTMLparser(config, path, contents, upload_map):
 
     # https://stackoverflow.com/questions/2725156/complete-list-of-html-tag-attributes-which-have-a-url-value

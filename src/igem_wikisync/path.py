@@ -4,6 +4,7 @@ import re
 from pathlib import Path
 from igem_wikisync.logger import logger
 
+
 def is_relative(url):
     """ Returns whether given URL is relative. """
     # https://stackoverflow.com/a/31991870/1907830

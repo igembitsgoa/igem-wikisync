@@ -295,7 +295,3 @@ def write_upload_map(upload_map, filename='upload_map.yml'):
     except:
         logger.error(f"Tried to write {filename} but couldn't.")
         # FIXME Can this be improved?
-
-
-if __name__ == '__main__':
-    main()
