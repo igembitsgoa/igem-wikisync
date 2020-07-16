@@ -34,18 +34,43 @@ class MyAdapter(HTTPAdapter):
                                        ssl_version=ssl.PROTOCOL_TLSv1)
 
 
-def wikisync():
+def wikisync(team, src_dir, build_dir, assets,  config=None):
 
-    # read config file
-    try:
-        with open('config.yml', 'r') as file:
-            config = yaml.safe_load(file)
-    except Exception:
-        logger.critical("No config.yml file found. Exiting.")
+    if team is None:
+        logger.critical("Please specify your team name.")
         raise SystemExit
 
-    src_dir = config['src_dir']
-    build_dir = config['build_dir']
+    if src_dir is None:
+        logger.critical('Please specify where we should look for your code using the src_dir argument.')
+        raise SystemExit
+
+    if build_dir is None:
+        logger.critical('Please specify where we should build your code using the build_dir argument.')
+        raise SystemExit
+
+    if assets is None:
+        logger.critical('Please specify where your assets are using the assets argument.')
+        raise SystemExit
+
+    if type(assets) != list:
+        logger.critical('The assets argument should point to a list of directories.')
+        raise SystemExit
+
+    if config is None:
+        config = {
+            'team':      team,
+            'src_dir':   src_dir,
+            'build_dir': build_dir
+        }
+    else:
+        # read config file
+        try:
+            with open(config, 'r') as file:
+                config = yaml.safe_load(file)
+        except Exception:
+            logger.critical(f"No {config} file found. Exiting.")
+            raise SystemExit
+
 
     # load or create upload_map
     try:
@@ -77,7 +102,7 @@ def wikisync():
     credentials = {
         'username': os.environ.get('IGEM_USERNAME'),
         'password': os.environ.get('IGEM_PASSWORD'),
-        'team': config['team']
+        'team': team
     }
 
     # declare a global browser instance
