@@ -1,8 +1,8 @@
-from files import CSSfile, HTMLfile, JSfile
+from igem_wikisync.files import CSSfile, HTMLfile, JSfile
 import os
 import re
 from pathlib import Path
-from logger import logger
+from igem_wikisync.logger import logger
 
 def is_relative(url):
     """ Returns whether given URL is relative. """

@@ -1,7 +1,7 @@
 from datetime import datetime
 from bs4 import BeautifulSoup
 
-from logger import logger
+from igem_wikisync.logger import logger
 
 
 def iGEM_login(browser, credentials):

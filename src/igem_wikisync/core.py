@@ -8,12 +8,12 @@ from http.cookiejar import LWPCookieJar
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.poolmanager import PoolManager
 
-from browser import iGEM_login, iGEM_upload_page, iGEM_upload_file
-from files import HTMLfile, CSSfile, JSfile, OtherFile
-from code import CSSparser, HTMLparser, JSparser
+from igem_wikisync.browser import iGEM_login, iGEM_upload_page, iGEM_upload_file
+from igem_wikisync.files import HTMLfile, CSSfile, JSfile, OtherFile
+from igem_wikisync.code import CSSparser, HTMLparser, JSparser
 from hashlib import md5
 
-from logger import logger
+from igem_wikisync.logger import logger
 
 # For TLSv1.0 support
 # https://lukasa.co.uk/2013/01/Choosing_SSL_Version_In_Requests/
@@ -27,7 +27,7 @@ class MyAdapter(HTTPAdapter):
                                        ssl_version=ssl.PROTOCOL_TLSv1)
 
 
-def main():
+def wikisync():
 
     # read config file
     try:
