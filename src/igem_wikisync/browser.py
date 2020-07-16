@@ -1,4 +1,5 @@
 from datetime import datetime
+
 from bs4 import BeautifulSoup
 
 from igem_wikisync.logger import logger
@@ -17,7 +18,7 @@ def iGEM_login(browser, credentials):
 
     try:
         response = browser.open(url)
-    except Exception as error:
+    except Exception:
         message = f"Couldn't connect to {url}."
         logger.debug(message, exc_info=True)
         logger.error(message)
@@ -31,7 +32,7 @@ def iGEM_login(browser, credentials):
 
     try:
         browser.select_form('form[method="post"]')
-    except:
+    except Exception:
         message = f"Couldn't find the login form at {url}. " + \
             "Has the login page changed?"
         logger.debug(message, exc_info=True)
@@ -43,8 +44,8 @@ def iGEM_login(browser, credentials):
 
     try:
         response = browser.submit_selected()
-    except Exception as error:
-        message = f"Lost connection to iGEM servers."
+    except Exception:
+        message = "Lost connection to iGEM servers."
         logger.debug(message, exc_info=True)
         logger.error(message)
         raise SystemExit
@@ -55,13 +56,13 @@ def iGEM_login(browser, credentials):
         logger.info(f"Successfully logged in as {credentials['username']}.")
         return True
     elif "That username is not valid" in soup.text:
-        message = f"Your iGEM username is invalid."
+        message = "Your iGEM username is invalid."
         logger.error(message)
     elif "That username is valid, but the password is not" in soup.text:
-        message = f"Your iGEM username is valid but the password is not."
+        message = "Your iGEM username is valid but the password is not."
         logger.error(message)
     else:
-        message = f"An unknown error occured while trying to login."
+        message = "An unknown error occured while trying to login."
         logger.error(message)
 
     raise SystemExit
@@ -75,7 +76,7 @@ def is_logged_in(browser, team):
     try:
         browser.open(url)
     except Exception:
-        message = f"Couldn't connect to iGEM. Please check your internet connection."
+        message = "Couldn't connect to iGEM. Please check your internet connection."
         logger.debug(message, exc_info=True)
         logger.error(message)
         raise SystemExit
@@ -96,14 +97,11 @@ def iGEM_upload_page(browser, contents, url):
 
     # except runs if try fails
     # else runs if try succeeds
-    try:
-        browser.open(url)
-    except:
-        raise ConnectionError
+    browser.open(url)  # TODO: Check this
 
     try:
         browser.select_form('form')
-    except:
+    except Exception:
         message = f"Couldn't find the form at {url}. Has the page changed?"
         logger.debug(message, exc_info=True)
         logger.error(message)
@@ -112,7 +110,7 @@ def iGEM_upload_page(browser, contents, url):
     browser['wpTextbox1'] = contents
     try:
         response = browser.submit_selected()
-    except Exception as error:
+    except Exception:
         message = f"Couldn't upload to {url}."
         logger.debug(message, exc_info=True)
         logger.error(message)
@@ -126,14 +124,11 @@ def iGEM_upload_page(browser, contents, url):
 def iGEM_upload_file(browser, credentials, file_object):
 
     url = file_object.upload_URL
-    try:
-        browser.open(url)
-    except:
-        raise ConnectionError
+    browser.open(url)  # TODO: Check this
 
     try:
         browser.select_form('form')
-    except:
+    except Exception:
         message = f"Couldn't find the form at {url}. Has the page changed?"
         logger.debug(message, exc_info=True)
         logger.error(message)
@@ -148,8 +143,8 @@ def iGEM_upload_file(browser, credentials, file_object):
 
     try:
         response = browser.submit_selected()
-    except Exception as error:
-        message = f"Lost connection to iGEM servers."
+    except Exception:
+        message = "Lost connection to iGEM servers."
         logger.debug(message, exc_info=True)
         logger.error(message)
         raise

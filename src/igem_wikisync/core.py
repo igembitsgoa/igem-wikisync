@@ -1,18 +1,25 @@
 import os
-import ssl
 import shutil
-import yaml
-from pathlib import Path
-import mechanicalsoup
+import ssl
+from hashlib import md5
 from http.cookiejar import LWPCookieJar
+from pathlib import Path
+
+import mechanicalsoup
+import yaml
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.poolmanager import PoolManager
 
-from igem_wikisync.browser import iGEM_login, iGEM_upload_page, iGEM_upload_file
-from igem_wikisync.files import HTMLfile, CSSfile, JSfile, OtherFile
-from igem_wikisync.code import CSSparser, HTMLparser, JSparser
-from hashlib import md5
-
+from igem_wikisync.browser import iGEM_login
+from igem_wikisync.browser import iGEM_upload_file
+from igem_wikisync.browser import iGEM_upload_page
+from igem_wikisync.code import CSSparser
+from igem_wikisync.code import HTMLparser
+from igem_wikisync.code import JSparser
+from igem_wikisync.files import CSSfile
+from igem_wikisync.files import HTMLfile
+from igem_wikisync.files import JSfile
+from igem_wikisync.files import OtherFile
 from igem_wikisync.logger import logger
 
 # For TLSv1.0 support
@@ -33,7 +40,7 @@ def wikisync():
     try:
         with open('config.yml', 'r') as file:
             config = yaml.safe_load(file)
-    except:
+    except Exception:
         logger.critical("No config.yml file found. Exiting.")
         raise SystemExit
 
@@ -52,7 +59,7 @@ def wikisync():
             elif type(upload_map[key]) != dict:
                 logger.critical("config.yml has an invalid format. Exiting.")
                 raise SystemExit
-    except:
+    except BaseException:
         upload_map = {
             'assets': {},
             'html': {},
@@ -83,7 +90,7 @@ def wikisync():
     if os.path.exists(cookie_file):
         try:
             cookiejar.load()  # in case file is empty
-        except:
+        except Exception:
             pass
     browser.set_cookiejar(cookiejar)
 
@@ -187,7 +194,8 @@ def wikisync():
                     except BaseException:
                         # print upload map to save the current state
                         write_upload_map(upload_map)
-                        message = f"Failed to upload {str(file_object.path)}. The current upload map has been saved so you won't have to upload everything again."
+                        message = f"Failed to upload {str(file_object.path)}. " + \
+                            "The current upload map has been saved so you won't have to upload everything again."
                         logger.debug(message, exc_info=True)
                         logger.error(message)
                         raise SystemExit
@@ -206,7 +214,8 @@ def wikisync():
             except BaseException:
                 # print upload map to save the current state
                 write_upload_map(upload_map)
-                message = f"Failed to upload {str(file_object.path)}. The current upload map has been saved so you won't have to upload everything again."
+                message = f"Failed to upload {str(file_object.path)}. " + \
+                    "The current upload map has been saved so you won't have to upload everything again."
                 logger.debug(message, exc_info=True)
                 logger.error(message)
                 raise SystemExit
@@ -232,7 +241,7 @@ def wikisync():
             try:
                 with open(file_object.src_path, 'r') as file:
                     contents = file.read()
-            except:
+            except Exception:
                 message = f"Couldn't open/read {file_object.path}. Skipping."
                 logger.error(message)
                 continue
@@ -268,7 +277,7 @@ def wikisync():
                     # and write the processed contents
                     with open(build_path, 'w') as f:
                         f.write(processed)
-                except:
+                except Exception:
                     message = f"Couldn't write {build_dir}/{str(file_object.path)}. Skipping."
                     logger.info(message)
                     continue
@@ -278,7 +287,7 @@ def wikisync():
                 try:
                     iGEM_upload_page(browser, processed,
                                      file_object.upload_URL)
-                except:
+                except BaseException:
                     message = f"Couldn't upload {str(file_object.path)}. Skipping."
                     logger.info(message)
                     continue
@@ -292,6 +301,6 @@ def write_upload_map(upload_map, filename='upload_map.yml'):
     try:
         with open(filename, 'w') as file:
             yaml.dump(upload_map, file, sort_keys=True)
-    except:
+    except Exception:
         logger.error(f"Tried to write {filename} but couldn't.")
         # FIXME Can this be improved?

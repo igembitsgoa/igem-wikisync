@@ -1,14 +1,18 @@
-from igem_wikisync.files import CSSfile, HTMLfile, JSfile
 import os
 import re
 from pathlib import Path
+
+from igem_wikisync.files import CSSfile
+from igem_wikisync.files import HTMLfile
+from igem_wikisync.files import JSfile
 from igem_wikisync.logger import logger
 
 
 def is_relative(url):
     """ Returns whether given URL is relative. """
     # https://stackoverflow.com/a/31991870/1907830
-    absolute = bool(re.match('(?:^[a-z][a-z0-9+.-]*:|\/\/)', url))
+    absolute = bool(re.match(r'(?:^[a-z][a-z0-9+.-]*:|\/\/)', url))
+    # absolute = bool(re.match('(?:^[a-z][a-z0-9+.-]*:|\/\/)', url))
     hashtag = url[0] == '#'
     return not absolute and not hashtag
 

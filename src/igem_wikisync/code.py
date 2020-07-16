@@ -1,9 +1,9 @@
-from bs4 import BeautifulSoup
-from igem_wikisync.path import is_relative, iGEM_URL, resolve_relative_URL
-from pathlib import Path
-import os
 import re
+
+from bs4 import BeautifulSoup
 from jsmin import jsmin
+
+from igem_wikisync.path import iGEM_URL
 
 # process HTML files
 
