@@ -1,14 +1,11 @@
 import os
 import shutil
-import ssl
 from hashlib import md5
 from http.cookiejar import LWPCookieJar
 from pathlib import Path
 
 import mechanicalsoup
 import yaml
-from requests.adapters import HTTPAdapter
-from requests.packages.urllib3.poolmanager import PoolManager
 
 from igem_wikisync.browser import iGEM_login
 from igem_wikisync.browser import iGEM_upload_file
@@ -21,17 +18,6 @@ from igem_wikisync.files import HTMLfile
 from igem_wikisync.files import JSfile
 from igem_wikisync.files import OtherFile
 from igem_wikisync.logger import logger
-
-# For TLSv1.0 support
-# https://lukasa.co.uk/2013/01/Choosing_SSL_Version_In_Requests/
-
-
-class MyAdapter(HTTPAdapter):
-    def init_poolmanager(self, connections, maxsize, block=False):
-        self.poolmanager = PoolManager(num_pools=connections,
-                                       maxsize=maxsize,
-                                       block=block,
-                                       ssl_version=ssl.PROTOCOL_TLSv1)
 
 
 def wikisync(team, src_dir, build_dir, assets,  config=None):
