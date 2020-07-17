@@ -25,7 +25,7 @@ def read(*names, **kwargs):
 
 setup(
     name='igem-wikisync',
-    version='0.0.0-alpha.5',
+    version='0.0.0-alpha.6',
     license='MIT',
     description='Automatically deploy iGEM Wikis.',
     long_description='%s\n%s' % (
@@ -74,7 +74,9 @@ setup(
     python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*',
     install_requires=[
         'mechanicalsoup',
-        'jsmin'
+        'jsmin',
+        'pyyaml',
+        'pyopenssl'
         # eg: 'aspectlib==1.1.1', 'six>=1.7',
     ],
     extras_require={
