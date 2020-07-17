@@ -1,3 +1,6 @@
+import ssl
+from requests.adapters import HTTPAdapter
+from requests.packages.urllib3.poolmanager import PoolManager
 import os
 import shutil
 from hashlib import md5
@@ -57,7 +60,6 @@ def wikisync(team, src_dir, build_dir, assets,  config=None):
             logger.critical(f"No {config} file found. Exiting.")
             raise SystemExit
 
-
     # load or create upload_map
     try:
         with open('upload_map.yml', 'r') as file:
@@ -92,6 +94,16 @@ def wikisync(team, src_dir, build_dir, assets,  config=None):
     }
 
     # declare a global browser instance
+    # For TLSv1.0 support
+    # https://lukasa.co.uk/2013/01/Choosing_SSL_Version_In_Requests/
+
+
+    class MyAdapter(HTTPAdapter):
+        def init_poolmanager(self, connections, maxsize, block=False):
+            self.poolmanager = PoolManager(num_pools=connections,
+                                        maxsize=maxsize,
+                                        block=block,
+                                        ssl_version=ssl.PROTOCOL_TLSv1)
     browser = mechanicalsoup.StatefulBrowser()
     # ? error handling here?
 
