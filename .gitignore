@@ -1,1 +1,5 @@
 credentials.yml
+__pycache__
+.vscode
+credentials.sh
+igemwiki-upload.log
