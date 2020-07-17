@@ -1,15 +1,15 @@
-from requests.adapters import HTTPAdapter
-from requests.packages.urllib3.poolmanager import PoolManager
-import ssl
+# from requests.adapters import HTTPAdapter
+# from requests.packages.urllib3.poolmanager import PoolManager
+# import ssl
 import mechanicalsoup
 import os
 
-class MyAdapter(HTTPAdapter):
-    def init_poolmanager(self, connections, maxsize, block=False):
-        self.poolmanager = PoolManager(num_pools=connections,
-                                       maxsize=maxsize,
-                                       block=block,
-                                       ssl_version=ssl.PROTOCOL_TLSv1)
+# class MyAdapter(HTTPAdapter):
+#     def init_poolmanager(self, connections, maxsize, block=False):
+#         self.poolmanager = PoolManager(num_pools=connections,
+#                                        maxsize=maxsize,
+#                                        block=block,
+#                                        ssl_version=ssl.PROTOCOL_TLSv1)
 
 username = os.environ['IGEM_USERNAME']
 password = os.environ['IGEM_PASSWORD']
