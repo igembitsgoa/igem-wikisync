@@ -52,12 +52,12 @@ class BaseFile:
 
     @property
     def src_path(self):
-        ''' Build path relative to src_dir. '''
+        ''' Build path with src_dir. (src_dir/..)'''
         return self._src_path
 
     @property
     def build_path(self):
-        ''' Build path relative to build_dir. '''
+        ''' Build path with build_dir (build_dir/..). '''
         return self._build_path
 
     @property
