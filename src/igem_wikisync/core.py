@@ -13,9 +13,9 @@ import yaml
 from igem_wikisync.browser import iGEM_login
 from igem_wikisync.browser import iGEM_upload_file
 from igem_wikisync.browser import iGEM_upload_page
-from igem_wikisync.code import CSSparser
-from igem_wikisync.code import HTMLparser
-from igem_wikisync.code import JSparser
+from igem_wikisync.parsers import CSSparser
+from igem_wikisync.parsers import HTMLparser
+from igem_wikisync.parsers import JSparser
 from igem_wikisync.files import CSSfile
 from igem_wikisync.files import HTMLfile
 from igem_wikisync.files import JSfile
