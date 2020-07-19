@@ -32,8 +32,7 @@ Overview
 
 .. |commits-since| image:: https://img.shields.io/github/commits-since/igembitsgoa/igem-wikisync/v0.0.0.svg
     :alt: Commits since latest release
-    :target: https://github.com/igembitsgoa/igem-wikisync/compare/v0.0.0...master
-
+    :target: https://github.com/igembitsgoa/igem-wikisync/
 
 
 .. end-badges
