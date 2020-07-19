@@ -1,7 +1,6 @@
-from igem_wikisync.parsers import HTMLparser, CSSparser, JSparser
+from igem_wikisync import wikisync
+
 import filecmp
-
-
 
 # def test_wikisync():
 
