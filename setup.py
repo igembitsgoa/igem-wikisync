@@ -75,6 +75,7 @@ setup(
     install_requires=[
         'pyopenssl',
         'mechanicalsoup',
+        'html5lib'
         'jsmin',
         'pyyaml'
         # eg: 'aspectlib==1.1.1', 'six>=1.7',
