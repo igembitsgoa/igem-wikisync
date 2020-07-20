@@ -24,6 +24,32 @@ from igem_wikisync.logger import logger
 
 
 def run(team, src_dir, build_dir, assets,  config=None):
+    '''
+    Hello hello
+
+    [extended_summary]
+
+    :param team: [description]
+    :type team: [type]
+    :param src_dir: [description]
+    :type src_dir: [type]
+    :param build_dir: [description]
+    :type build_dir: [type]
+    :param assets: [description]
+    :type assets: [type]
+    :param config: [description], defaults to None
+    :type config: [type], optional
+    :raises SystemExit: [description]
+    :raises SystemExit: [description]
+    :raises SystemExit: [description]
+    :raises SystemExit: [description]
+    :raises SystemExit: [description]
+    :raises SystemExit: [description]
+    :raises SystemExit: [description]
+    :raises SystemExit: [description]
+    :raises SystemExit: [description]
+    :raises SystemExit: [description]
+    '''
 
     if team is None:
         logger.critical("Please specify your team name.")
