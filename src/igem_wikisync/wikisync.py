@@ -23,7 +23,7 @@ from igem_wikisync.files import OtherFile
 from igem_wikisync.logger import logger
 
 
-def wikisync(team, src_dir, build_dir, assets,  config=None):
+def run(team, src_dir, build_dir, assets,  config=None):
 
     if team is None:
         logger.critical("Please specify your team name.")

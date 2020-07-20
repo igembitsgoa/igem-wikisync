@@ -1,8 +1,10 @@
-from igem_wikisync import wikisync
+# from igem_wikisync import wikisync
 
-import filecmp
+# import filecmp
 
 # def test_wikisync():
+
+#     wikisync.run()
 
 #     team = 'BITSPilani-Goa_India'
 #     src_dir = 'test_src'

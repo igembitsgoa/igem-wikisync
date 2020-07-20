@@ -1,4 +1,3 @@
-__all__ = ['browser', 'core', 'files', 'parsers', 'path']
-__version__ = '0.0.0-alpha.8'
+__all__ = ['wikisync']
 
-from igem_wikisync.core import *
+__version__ = '0.0.0-alpha.8'
