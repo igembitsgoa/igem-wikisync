@@ -3,10 +3,9 @@ from pathlib import Path
 
 
 class BaseFile:
-    """
-        Base class for all file objects. Not to be used directly.
-        Use HTMLfile, CSSfile, JSfile or OtherFile instead.
-    """
+    '''Base class for all file objects. Not to be used directly. 
+    Use HTMLfile, CSSfile, JSfile or OtherFile instead.
+    '''
 
     # pylint: disable=too-many-instance-attributes
     # Eight is reasonable in this case.
@@ -21,19 +20,14 @@ class BaseFile:
         self._filename = str(self._stem + '.' + self._extension)
         self._parent = self._path.parent
         self._src_path = self._config['src_dir'] / self._path
-        self._build_path = self._config["build_dir"] / self._path
+        self._build_path = self._config['build_dir'] / self._path
         self._upload_URL = None  # URL of the upload form for file
         self._link_URL = None   # URL where the file will live
 
     @property
     def path(self):
-        """ Path of the file relative to src_dir. """
+        ''' Path of the file relative to src_dir. '''
         return self._path
-
-    # @property
-    # def config(self):
-    #     """ Run configuration. """
-    #     return self._config
 
     @property
     def filename(self):
@@ -72,7 +66,12 @@ class BaseFile:
 
 
 class HTMLfile(BaseFile):
-    """ HTML file object. """
+    '''
+    Container class that derives file properties for later use.
+
+    :param path: File path relative to the current directory.
+    :type path: str or :class:`pathlib.Path`
+    '''
 
     def __init__(self, path, config):
         BaseFile.__init__(self, path, config)
@@ -81,31 +80,31 @@ class HTMLfile(BaseFile):
         self._link_URL = self._generate_link_URL()
 
     def _generate_upload_path(self):
-        """
+        '''
             Returns upload path, which is the part of the URL after team name
             but before & and all. Includes / if required.
-        """
+        '''
         # remove /index.html
         upload_path = str(self.path.parent)
 
-        if upload_path == ".":
-            return ""
+        if upload_path == '.':
+            return ''
         else:
-            return "/" + upload_path
+            return '/' + upload_path
 
     def _generate_upload_URL(self):
-        """
+        '''
             Returns the URL of the iGEM page where this file can be uploaded.
             Private function. Use upload_URL to access instead.
-        """
+        '''
         return 'https://2020.igem.org/wiki/index.php?title=Team:' + \
-            self._config["team"] + self._upload_path + '&action=edit'
+            self._config['team'] + self._upload_path + '&action=edit'
 
     def _generate_link_URL(self):
-        """
+        '''
             Returns the iGEM URL where this page will be found and can be linked to.
             Private function. Use link_URL to access instead.
-        """
+        '''
         return 'https://2020.igem.org/Team:' + self._config['team'] + \
             self._upload_path
 
@@ -118,30 +117,30 @@ class CSSfile(BaseFile):
         self._link_URL = self._generate_link_URL()
 
     def _generate_upload_path(self):
-        """
+        '''
             Returns upload path, which is the part of the URL after team name
             but before & and ?. Includes / if required.
-        """
+        '''
         # remove file extension
         upload_path = self.path.parent / self.path.stem
         # add 'CSS'
         upload_path = str(upload_path).replace('.', '-') + 'CSS'
 
-        return "/" + upload_path
+        return '/' + upload_path
 
     def _generate_upload_URL(self):
-        """
+        '''
             Returns the URL of the iGEM page where this file can be uploaded.
             Private function. Use upload_URL to access instead.
-        """
+        '''
 
         return 'https://2020.igem.org/wiki/index.php?title=Template:' + self._config['team'] + \
             self._upload_path + '&action=edit'
 
     def _generate_link_URL(self):
-        """
+        '''
             Returns the iGEM URL where this page will be found and can be linked to.
-        """
+        '''
         return 'https://2020.igem.org/Template:' + self._config['team'] + \
             self._upload_path + '?action=raw&ctype=text/css'
 
@@ -154,29 +153,29 @@ class JSfile(BaseFile):
         self._link_URL = self._generate_link_URL()
 
     def _generate_upload_path(self):
-        """
+        '''
             Returns upload path, which is the part of the URL after team name
             but before & and all. Includes / if required.
-        """
+        '''
         # remove file extension
         upload_path = self.path.parent / self.path.stem
         # add 'CSS'
         upload_path = str(upload_path).replace('.', '-') + 'JS'
 
-        return "/" + upload_path
+        return '/' + upload_path
 
     def _generate_upload_URL(self):
-        """
+        '''
             Returns the URL of the iGEM page where this file can be uploaded.
             Private function. Use upload_URL to access instead.
-        """
+        '''
         return 'https://2020.igem.org/wiki/index.php?title=Template:' + self._config['team'] + \
             self._upload_path + '&action=edit'
 
     def _generate_link_URL(self):
-        """
+        '''
             Returns the iGEM URL where this page will be found and can be linked to.
-        """
+        '''
         return 'https://2020.igem.org/Template:' + self._config['team'] + \
             self._upload_path + '?action=raw&ctype=text/javascript'
 
@@ -184,7 +183,7 @@ class JSfile(BaseFile):
 class OtherFile(BaseFile):
     def __init__(self, path, config):
         BaseFile.__init__(self, path, config)
-        self._upload_URL = "https://2020.igem.org/Special:Upload"
+        self._upload_URL = 'https://2020.igem.org/Special:Upload'
         self._upload_filename = self._generate_upload_filename()
         self._md5_hash = self._generate_md5_hash()
 
@@ -210,9 +209,9 @@ class OtherFile(BaseFile):
             return 'T--' + self._config['team'] + '--' + '--'.join(self.path.parts)
 
     def _generate_md5_hash(self):
-        """
+        '''
             Returns the MD5 hash of the file
-        """
+        '''
 
         # make a hash object
         h = hashlib.sha1()
