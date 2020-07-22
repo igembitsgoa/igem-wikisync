@@ -26,7 +26,7 @@ Overview
 ..     :alt: Requirements Status
 ..     :target: https://requires.io/github/igembitsgoa/igem-wikisync/requirements/?branch=master
 
-.. |coveralls| image:: https://coveralls.io/repos/igembitsgoa/igem-wikisync/badge.svg?branch=master&service=github
+.. |coveralls| image:: https://coveralls.io/repos/github/igembitsgoa/igem-wikisync/badge.svg?branch=master
     :alt: Coverage Status
     :target: https://coveralls.io/r/igembitsgoa/igem-wikisync
 
