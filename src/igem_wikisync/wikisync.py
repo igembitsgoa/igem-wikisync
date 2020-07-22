@@ -1,6 +1,3 @@
-import ssl
-from requests.adapters import HTTPAdapter
-from requests.packages.urllib3.poolmanager import PoolManager
 import os
 import shutil
 from hashlib import md5
@@ -10,47 +7,26 @@ from pathlib import Path
 import mechanicalsoup
 import yaml
 
-from igem_wikisync.browser import iGEM_login
-from igem_wikisync.browser import iGEM_upload_file
-from igem_wikisync.browser import iGEM_upload_page
-from igem_wikisync.parsers import CSSparser
-from igem_wikisync.parsers import HTMLparser
-from igem_wikisync.parsers import JSparser
-from igem_wikisync.files import CSSfile
-from igem_wikisync.files import HTMLfile
-from igem_wikisync.files import JSfile
-from igem_wikisync.files import OtherFile
+from igem_wikisync.browser import iGEM_login, iGEM_upload_file, iGEM_upload_page
+from igem_wikisync.parsers import HTMLparser, CSSparser, JSparser
+from igem_wikisync.files import HTMLfile, CSSfile, JSfile, OtherFile
 from igem_wikisync.logger import logger
 
 
-def run(team, src_dir, build_dir, assets,  config=None):
+def run(team: str, src_dir: str, build_dir: str):
     '''
-    Hello hello
+    Runs iGEM-WikiSync and uploads all files to iGEM servers
+    while replacing relative URLs with those on the iGEM server.
 
-    [extended_summary]
-
-    :param team: [description]
-    :type team: [type]
-    :param src_dir: [description]
-    :type src_dir: [type]
-    :param build_dir: [description]
-    :type build_dir: [type]
-    :param assets: [description]
-    :type assets: [type]
-    :param config: [description], defaults to None
-    :type config: [type], optional
-    :raises SystemExit: [description]
-    :raises SystemExit: [description]
-    :raises SystemExit: [description]
-    :raises SystemExit: [description]
-    :raises SystemExit: [description]
-    :raises SystemExit: [description]
-    :raises SystemExit: [description]
-    :raises SystemExit: [description]
-    :raises SystemExit: [description]
-    :raises SystemExit: [description]
+    Arguments:
+        # @param team: iGEM Team Name
+        src_dir: Path to the folder where the source files are present
+        build_dir: Path to the folder where the built files will be stored before uploading
     '''
 
+    # TODO: does it store files in build_dir also?
+
+    #* 1. CHECK AND FORMAT INPUTS
     if team is None:
         logger.critical("Please specify your team name.")
         raise SystemExit
@@ -63,30 +39,13 @@ def run(team, src_dir, build_dir, assets,  config=None):
         logger.critical('Please specify where we should build your code using the build_dir argument.')
         raise SystemExit
 
-    if assets is None:
-        logger.critical('Please specify where your assets are using the assets argument.')
-        raise SystemExit
-
-    if type(assets) != list:
-        logger.critical('The assets argument should point to a list of directories.')
-        raise SystemExit
-
-    if config is None:
-        config = {
-            'team':      team,
-            'src_dir':   src_dir,
-            'build_dir': build_dir
-        }
-    else:
-        # read config file
-        try:
-            with open(config, 'r') as file:
-                config = yaml.safe_load(file)
-        except Exception:
-            logger.critical(f"No {config} file found. Exiting.")
-            raise SystemExit
-
-    # load or create upload_map
+    config = {
+        'team':      team,
+        'src_dir':   src_dir,
+        'build_dir': build_dir
+    }
+    
+    #* 2. Load or create upload_map
     try:
         with open('upload_map.yml', 'r') as file:
             upload_map = yaml.safe_load(file)
@@ -106,34 +65,20 @@ def run(team, src_dir, build_dir, assets,  config=None):
             'js': {}
         }
 
-    # clear build_dir
+    #* 3. Create build directory
     if os.path.isdir(build_dir):
         shutil.rmtree(build_dir)
         os.mkdir(build_dir)
         # ? error handling here?
 
-    # get iGEM credentials
+    #* 4. Get iGEM credentials from environment variables
     credentials = {
         'username': os.environ.get('IGEM_USERNAME'),
         'password': os.environ.get('IGEM_PASSWORD'),
         'team': team
     }
 
-    # declare a global browser instance
-    # For TLSv1.0 support
-    # https://lukasa.co.uk/2013/01/Choosing_SSL_Version_In_Requests/
-
-
-    class MyAdapter(HTTPAdapter):
-        def init_poolmanager(self, connections, maxsize, block=False):
-            self.poolmanager = PoolManager(num_pools=connections,
-                                        maxsize=maxsize,
-                                        block=block,
-                                        ssl_version=ssl.PROTOCOL_TLSv1)
-    browser = mechanicalsoup.StatefulBrowser()
-    # ? error handling here?
-
-    # Load cookies from file or create new cookie file
+    #* 5. Load/create cookie file
     cookie_file = 'igemwiki-upload.cookies'
     cookiejar = LWPCookieJar(cookie_file)
     if os.path.exists(cookie_file):
@@ -141,19 +86,24 @@ def run(team, src_dir, build_dir, assets,  config=None):
             cookiejar.load()  # in case file is empty
         except Exception:
             pass
+
+    #* 6. Set up a browser
+    browser = mechanicalsoup.StatefulBrowser()
+    # ? error handling here?
     browser.set_cookiejar(cookiejar)
 
-    # login to iGEM
+    #* 7. Login to iGEM
     login = iGEM_login(browser, credentials)
     if not login:
         message = "Failed to login."
         logger.error(message)
         raise SystemExit
-
     # Save cookies
     cookiejar.save()
 
-    # storage
+
+    #* 8. Read files
+    # Set up internal storage
     HTMLfiles = {}
     CSSfiles = {}
     JSfiles = {}
@@ -163,6 +113,7 @@ def run(team, src_dir, build_dir, assets,  config=None):
     for root, _, files in os.walk(src_dir):
         for filename in files:
 
+            # Store path and extension
             infile = Path(root) / Path(filename)
             extension = infile.suffix[1:].lower()
 
@@ -219,7 +170,7 @@ def run(team, src_dir, build_dir, assets,  config=None):
                 logger.info(f"{infile} has an unsupported file extension. Skipping.")
                 # ? Do we want to support other text files?
 
-    # *Upload all assets and create a map
+    #* 9. Upload all assets and create a map
     # files have to be uploaded before everything else because
     # the URLs iGEM assigns are random
     for path in OtherFiles.keys():
@@ -238,9 +189,8 @@ def run(team, src_dir, build_dir, assets,  config=None):
                     pass
                 else:
                     # if file has changed, upload file and update hash
-                    try:
-                        iGEM_upload_file(browser, file_object)
-                    except BaseException:
+                    successful = iGEM_upload_file(browser, file_object)
+                    if not successful:
                         # print upload map to save the current state
                         write_upload_map(upload_map)
                         message = f"Failed to upload {str(file_object.path)}. " + \
@@ -258,9 +208,8 @@ def run(team, src_dir, build_dir, assets,  config=None):
 
         # if new file, upload and add to map
         if not uploaded:
-            try:
-                iGEM_upload_file(browser, file_object)
-            except BaseException:
+            successful = iGEM_upload_file(browser, file_object)
+            if not successful:
                 # print upload map to save the current state
                 write_upload_map(upload_map)
                 message = f"Failed to upload {str(file_object.path)}. " + \
@@ -333,10 +282,8 @@ def run(team, src_dir, build_dir, assets,  config=None):
                     # FIXME Can this be improved?
 
                 # upload
-                try:
-                    iGEM_upload_page(browser, processed,
-                                     file_object.upload_URL)
-                except BaseException:
+                successful = iGEM_upload_page(browser, processed, file_object.upload_URL)
+                if not successful:
                     message = f"Couldn't upload {str(file_object.path)}. Skipping."
                     logger.info(message)
                     continue
