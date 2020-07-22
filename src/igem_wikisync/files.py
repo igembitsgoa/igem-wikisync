@@ -159,7 +159,7 @@ class JSfile(BaseFile):
         '''
         # remove file extension
         upload_path = self.path.parent / self.path.stem
-        # add 'CSS'
+        # add 'JS'
         upload_path = str(upload_path).replace('.', '-') + 'JS'
 
         return '/' + upload_path
@@ -203,15 +203,18 @@ class OtherFile(BaseFile):
         return self._md5_hash
 
     def _generate_upload_filename(self):
-        if len(self._config['assets']) == 1:
-            return 'T--' + self._config['team'] + '--' + '--'.join(self.path.parts[1:])
-        else:
-            return 'T--' + self._config['team'] + '--' + '--'.join(self.path.parts)
+        # if len(self._config['assets']) == 1:
+        return 'T--' + self._config['team'] + '--' + '--'.join(self.path.parts[1:])
+        # else:
+            # return 'T--' + self._config['team'] + '--' + '--'.join(self.path.parts)
 
     def _generate_md5_hash(self):
         '''
             Returns the MD5 hash of the file
         '''
+
+        # import os
+        # return os.getcwd()
 
         # make a hash object
         h = hashlib.sha1()
