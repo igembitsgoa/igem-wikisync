@@ -8,7 +8,7 @@ from igem_wikisync.path import iGEM_URL
 # process HTML files
 
 
-def HTMLparser(config: dict, path: Path, contents: str, upload_map: dict) -> str:
+def HTMLparser(config: dict, path, contents: str, upload_map: dict) -> str:
     """
     Parses a given HTML string using bs4 and
     converts relative paths to absolute iGEM URLs.
@@ -62,7 +62,7 @@ def HTMLparser(config: dict, path: Path, contents: str, upload_map: dict) -> str
     return contents
 
 
-def CSSparser(config: dict, path: Path, contents: str, upload_map: dict) -> str:
+def CSSparser(config: dict, path, contents: str, upload_map: dict) -> str:
     """
     Parses a given CSS string and
     converts relative paths to absolute iGEM URLs.
