@@ -59,7 +59,6 @@ def iGEM_URL(config: dict, path: Path, upload_map: dict, url: str) -> str:
     """
     Replaces a given absolute local URL with it's iGEM counterpart.
 
-
     Arguments:
         config: Dictionary containing 'src_dir', 'team' and 'build_dir'.
         path: path to the file where this URL was found
