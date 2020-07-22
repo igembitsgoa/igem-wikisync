@@ -14,7 +14,6 @@ Overview
 
 .. image:: https://img.shields.io/requires/github/igembitsgoa/igem-wikisync?style=for-the-badge
     :alt: Requirements Status
-    :target: https://requires.io/github/igembitsgoa/igem-wikisync/requirements
 
 .. image:: https://img.shields.io/coveralls/github/igembitsgoa/igem-wikisync?logo=coveralls&style=for-the-badge
     :alt: Coverage Status
