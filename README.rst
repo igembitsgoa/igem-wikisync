@@ -30,7 +30,7 @@ Overview
     :alt: Coverage Status
     :target: https://coveralls.io/r/igembitsgoa/igem-wikisync
 
-.. |commits-since| image:: https://img.shields.io/github/commits-since/igembitsgoa/igem-wikisync/v0.0.0a2.svg
+.. |commits-since| image:: https://img.shields.io/github/commits-since/igembitsgoa/igem-wikisync/v0.0.0a9.svg
     :alt: Commits since latest release
     :target: https://github.com/igembitsgoa/igem-wikisync/
 
