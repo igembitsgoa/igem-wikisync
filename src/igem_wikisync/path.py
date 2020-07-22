@@ -17,7 +17,7 @@ def is_relative(url: str) -> bool:
     return not absolute and not hashtag
 
 
-def resolve_relative_path(path: str, parent: pathlib.Path, src_dir: str) -> Path:
+def resolve_relative_path(path: str, parent: Path, src_dir: str) -> Path:
     """
     Resolves a given relative path to it's absolute local counterpart.
     Assumes that the passed path is relative. 
@@ -55,7 +55,7 @@ def resolve_relative_path(path: str, parent: pathlib.Path, src_dir: str) -> Path
         return full_path.relative_to(src_dir)
 
 
-def iGEM_URL(config: dict, path: pathlib.Path, upload_map: dict, url: str) -> str:
+def iGEM_URL(config: dict, path: Path, upload_map: dict, url: str) -> str:
     """
     Replaces a given absolute local URL with it's iGEM counterpart.
 

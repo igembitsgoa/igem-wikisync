@@ -8,7 +8,7 @@ from igem_wikisync.path import iGEM_URL
 # process HTML files
 
 
-def HTMLparser(config: dict, path: pathlib.Path, contents: str, upload_map: dict) -> str:
+def HTMLparser(config: dict, path: Path, contents: str, upload_map: dict) -> str:
     """
     Parses a given HTML string using bs4 and
     converts relative paths to absolute iGEM URLs.
@@ -21,6 +21,8 @@ def HTMLparser(config: dict, path: pathlib.Path, contents: str, upload_map: dict
 
     Return: Contents with replaced URLs
     """
+
+    # TODO: Change Path to pathlib.Path (but do we import the module for this?)
     # https://stackoverflow.com/questions/2725156/complete-list-of-html-tag-attributes-which-have-a-url-value
 
     soup = BeautifulSoup(contents, 'html5lib')
@@ -60,7 +62,7 @@ def HTMLparser(config: dict, path: pathlib.Path, contents: str, upload_map: dict
     return contents
 
 
-def CSSparser(config: dict, path: pathlib.Path, contents: str, upload_map: dict) -> str:
+def CSSparser(config: dict, path: Path, contents: str, upload_map: dict) -> str:
     """
     Parses a given CSS string and
     converts relative paths to absolute iGEM URLs.
