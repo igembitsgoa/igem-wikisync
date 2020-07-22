@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 from igem_wikisync.logger import logger
 
 
-def iGEM_login(browser: mechanicalsoup.browser.Browser, credentials: dict) -> bool:
+def iGEM_login(browser, credentials: dict) -> bool:
     """
     Logs into the iGEM server.
 
@@ -88,7 +88,7 @@ def iGEM_login(browser: mechanicalsoup.browser.Browser, credentials: dict) -> bo
     return False
 
 
-def is_logged_in(browser: mechanicalsoup.browser.Browser, team: str) -> bool:
+def is_logged_in(browser, team: str) -> bool:
     """
     Check if we're logged into iGEM websites.
     Opens a random iGEM page and checks for edit access.
@@ -126,7 +126,7 @@ def is_logged_in(browser: mechanicalsoup.browser.Browser, team: str) -> bool:
     return False
 
 
-def iGEM_upload_page(browser: mechanicalsoup.browser.Browser, contents: str, url: str) -> bool:
+def iGEM_upload_page(browser, contents: str, url: str) -> bool:
     """
     Uploads source code to the iGEM server.
 
@@ -173,7 +173,7 @@ def iGEM_upload_page(browser: mechanicalsoup.browser.Browser, contents: str, url
     return True
 
 
-def iGEM_upload_file(browser: mechanicalsoup.browser.Browser, file_object: igem_wikisync.files.OtherFile):
+def iGEM_upload_file(browser, file_object):
     """
     Upload a file to iGEM servers.
 
