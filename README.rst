@@ -22,9 +22,9 @@ Overview
     :alt: Travis-CI Build Status
     :target: https://travis-ci.org/igembitsgoa/igem-wikisync
 
-.. |requires| image:: https://requires.io/github/igembitsgoa/igem-wikisync/requirements.svg?branch=master
-    :alt: Requirements Status
-    :target: https://requires.io/github/igembitsgoa/igem-wikisync/requirements/?branch=master
+.. .. |requires| image:: https://requires.io/github/igembitsgoa/igem-wikisync/requirements.svg?branch=master
+..     :alt: Requirements Status
+..     :target: https://requires.io/github/igembitsgoa/igem-wikisync/requirements/?branch=master
 
 .. |coveralls| image:: https://coveralls.io/repos/igembitsgoa/igem-wikisync/badge.svg?branch=master&service=github
     :alt: Coverage Status
