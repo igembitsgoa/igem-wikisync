@@ -10,7 +10,7 @@ Overview
 
 .. image:: https://img.shields.io/travis/com/igembitsgoa/igem-wikisync?logo=travis&style=for-the-badge
     :alt: Travis-CI Build Status
-    :target: https://travis-ci.org/igembitsgoa/igem-wikisync
+    :target: https://travis-ci.com/igembitsgoa/igem-wikisync
 
 .. image:: https://img.shields.io/requires/github/igembitsgoa/igem-wikisync?style=for-the-badge
     :alt: Requirements Status
