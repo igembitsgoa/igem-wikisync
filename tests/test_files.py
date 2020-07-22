@@ -20,6 +20,11 @@ def test_HTMLfile(config):
     assert str(html_file.upload_URL) == 'https://2020.igem.org/wiki/index.php?title=Team:BITSPilani-Goa_India&action=edit'
     assert str(html_file.link_URL) == 'https://2020.igem.org/Team:BITSPilani-Goa_India'
 
+    html_file = HTMLfile('tests/src/anotherfolder/index.html', config)
+    assert str(html_file.build_path) == 'tests/build/anotherfolder/index.html'
+    assert str(html_file.upload_URL) == 'https://2020.igem.org/wiki/index.php?title=Team:BITSPilani-Goa_India/anotherfolder&action=edit'
+    assert str(html_file.link_URL) == 'https://2020.igem.org/Team:BITSPilani-Goa_India/anotherfolder'
+
 def test_CSSfile(config):
     css_file = CSSfile('tests/src/css/style.css', config)
 

@@ -68,7 +68,11 @@ def iGEM_URL(config: dict, path: Path, upload_map: dict, url: str) -> str:
 
     Returns:
         URL where this file would be found on iGEM servers.
+        Returns false if URL with an unsupported extension is passed
     """
+    
+    # Convert to path in case a string was passed
+    path = Path(path)
 
     # return if it's already absolute
     if not is_relative(url):
@@ -110,6 +114,10 @@ def iGEM_URL(config: dict, path: Path, upload_map: dict, url: str) -> str:
         elif extension == 'js':
             file_object = JSfile(config['src_dir'] / resolved_path, config)
             url = file_object.link_URL
+        else:
+            # TODO: Handle this case
+            logger.error(f"{old_path} is not a source code file and was not found in the upload map.")
+            return False
 
     logger.info(f"{old_path} was changed to {url} in {path}.")
 
