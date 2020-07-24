@@ -6,27 +6,6 @@ env:
     - LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
     - SEGFAULT_SIGNALS=all
     - LANG=en_US.UTF-8
-# matrix:
-#   include:
-#     - python: '3.6'
-#       env:
-#         - TOXENV=check
-#     - python: '3.6'
-#       env:
-#         - TOXENV=docs
-#     - env:
-#         - TOXENV=py36,coveralls
-#       python: '3.6'
-#     - env:
-#         - TOXENV=py37,coveralls
-#       python: '3.7'
-#     - env:
-#         - TOXENV=py38,coveralls
-#       python: '3.8'
-#     - env:
-#         - TOXENV=pypy3,coveralls
-#         - TOXPYTHON=pypy3
-#       python: 'pypy3'
 before_install:
   - python --version
   - uname -a
@@ -42,10 +21,33 @@ jobs:
     - stage: Check
       python: '3.6'
       env: 
+        - TOXENV=check,coveralls
+      script: tox -v
+    - stage: Docs
+      python: '3.6'
+      env: 
+        - TOXENV=docs,coveralls
+      script: tox -v
+    - stage: Python 3.6
+      python: '3.6'
+      env: 
         - TOXENV=py36,coveralls
       script: tox -v
-# script:
-#   - tox -v
+    - stage: Python 3.7
+      python: '3.7'
+      env: 
+        - TOXENV=py37,coveralls
+      script: tox -v
+    - stage: Python 3.8
+      python: '3.8'
+      env: 
+        - TOXENV=py38,coveralls
+      script: tox -v
+    - stage: Pypy3
+      python: 'pypy3'
+      env: 
+        - TOXENV=pypy3,coveralls
+      script: tox -v
 after_failure:
   - more .tox/log/* | cat
   - more .tox/*/log/* | cat
