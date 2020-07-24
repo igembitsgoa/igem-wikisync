@@ -14,12 +14,6 @@ matrix:
     - python: '3.6'
       env:
         - TOXENV=docs
-    # - env:
-    #     - TOXENV=py27,coveralls
-    #   python: '2.7'
-    # - env:
-    #     - TOXENV=py35,coveralls
-    #   python: '3.5'
     - env:
         - TOXENV=py36,coveralls
       python: '3.6'
@@ -29,13 +23,10 @@ matrix:
     - env:
         - TOXENV=py38,coveralls
       python: '3.8'
-    # - env:
-    #     - TOXENV=pypy,coveralls
-    #   python: 'pypy'
-    # - env:
-    #     - TOXENV=pypy3,coveralls
-    #     - TOXPYTHON=pypy3
-    #   python: 'pypy3'
+    - env:
+        - TOXENV=pypy3,coveralls
+        - TOXPYTHON=pypy3
+      python: 'pypy3'
 before_install:
   - python --version
   - uname -a
@@ -47,7 +38,12 @@ install:
   - pip --version
   - tox --version
 script:
-  - tox -v
+  - tox -v -e check
+  - tox -v -e docs
+  - tox -v -e py36
+  - tox -v -e py37
+  - tox -v -e py38
+  - tox -v -e pypy3
 after_failure:
   - more .tox/log/* | cat
   - more .tox/*/log/* | cat
