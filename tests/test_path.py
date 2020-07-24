@@ -40,7 +40,7 @@ def test_resolve_relative_path():
 
 def test_iGEM_URL():
     config = {
-        'src_dir': 'tests/src',
+        'src_dir': 'tests/data',
         'build_dir': 'tests/build',
         'team': 'BITSPilani-Goa_India'
     }

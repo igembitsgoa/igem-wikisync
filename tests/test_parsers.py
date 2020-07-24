@@ -6,9 +6,12 @@ import hashlib
 def config():
     return {
         'team': 'BITSPilani-Goa_India',
-        'src_dir': 'tests/src',
+        'src_dir': 'tests/data',
         'build_dir': 'tests/build'
     }
+
+def md5hash(text):
+    return hashlib.md5(text.encode('UTF-8')).hexdigest()
 
 @pytest.fixture
 def upload_map():
@@ -21,21 +24,22 @@ def upload_map():
     }
 
 def test_HTMLparser(config, upload_map):
-    with open('tests/src/index.html', 'r') as file:
+    with open('tests/data/Test/index.html', 'r') as file:
         contents = file.read()
 
     parsed = HTMLparser(config, 'index.html', contents, upload_map)
 
     # assert parsed == 'hello'
 
-    assert hashlib.md5(parsed.encode('UTF-8')).hexdigest() == 'ec80a71cc644c2494d9bdf29681f0386'
+    assert md5hash(parsed) == 'ec80a71cc644c2494d9bdf29681f0386'
+
 
 def test_JSparser():
-    with open('tests/src/index.js', 'r') as file:
+    with open('tests/data/Test/js/index.js', 'r') as file:
         contents = file.read()
 
     parsed = JSparser(contents)
 
     # assert parsed == 'hello'
 
-    assert hashlib.md5(parsed.encode('UTF-8')).hexdigest() == '1379876862c68797d5f9ab3edd60a7f9'
+    assert md5hash(parsed) == '1379876862c68797d5f9ab3edd60a7f9'
