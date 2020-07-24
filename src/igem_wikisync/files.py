@@ -217,7 +217,7 @@ class OtherFile(BaseFile):
         # return os.getcwd()
 
         # make a hash object
-        h = hashlib.sha1()
+        h = hashlib.md5()
 
         # open file for reading in binary mode
         with open(self.src_path, 'rb') as file:
