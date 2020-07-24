@@ -63,12 +63,20 @@ class BaseFile:
     def link_URL(self):
         ''' URL which can be used to link to this file. '''
         return self._link_URL
+    
+    @property
+    def raw_URL(self):
+        ''' URL where raw content can be found.
+        Same as link_URL for JS and CSS.
+        For HTML files, raw page content will be found,
+        without wrapper iGEM HTML.
+        '''
+        return self._raw_URL
 
 
 class HTMLfile(BaseFile):
     '''
     Container class that derives file properties for later use.
-
     :param path: File path relative to the current directory.
     :type path: str or :class:`pathlib.Path`
     '''
@@ -78,14 +86,19 @@ class HTMLfile(BaseFile):
         self._upload_path = self._generate_upload_path()
         self._upload_URL = self._generate_upload_URL()
         self._link_URL = self._generate_link_URL()
+        self._raw_URL = self._generate_raw_URL()
 
     def _generate_upload_path(self):
         '''
             Returns upload path, which is the part of the URL after team name
             but before & and all. Includes / if required.
         '''
+
         # remove /index.html
-        upload_path = str(self.path.parent)
+        if 'index.html' in str(self.path):
+            upload_path = str(self.path.parent)
+        else:
+            upload_path = str(self.path.parent / self.path.stem)
 
         if upload_path == '.':
             return ''
@@ -108,6 +121,14 @@ class HTMLfile(BaseFile):
         return 'https://2020.igem.org/Team:' + self._config['team'] + \
             self._upload_path
 
+    def _generate_raw_URL(self):
+        '''
+            Returns the iGEM URL where this page will be found and can be linked to.
+            Private function. Use link_URL to access instead.
+        '''
+        return 'https://2020.igem.org/wiki/index.php?title=Team:' + \
+            self._config['team'] + self._upload_path + '&action=raw'
+
 
 class CSSfile(BaseFile):
     def __init__(self, path, config):
@@ -115,6 +136,7 @@ class CSSfile(BaseFile):
         self._upload_path = self._generate_upload_path()
         self._upload_URL = self._generate_upload_URL()
         self._link_URL = self._generate_link_URL()
+        self._raw_URL = self._link_URL
 
     def _generate_upload_path(self):
         '''
@@ -151,6 +173,7 @@ class JSfile(BaseFile):
         self._upload_path = self._generate_upload_path()
         self._upload_URL = self._generate_upload_URL()
         self._link_URL = self._generate_link_URL()
+        self._raw_URL = self._link_URL
 
     def _generate_upload_path(self):
         '''
