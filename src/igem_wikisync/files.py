@@ -13,7 +13,7 @@ class BaseFile:
     def __init__(self, path, config):
         self._config = config
 
-        self._path = Path(path).relative_to(self._config['src_dir'])
+        self._path = Path(path)
 
         self._stem = str(self._path.stem)
         self._extension = str(self._path.suffix[1:]).lower()

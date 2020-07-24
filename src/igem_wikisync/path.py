@@ -84,6 +84,7 @@ def iGEM_URL(config: dict, path: Path, upload_map: dict, url: str) -> str:
     old_path = url
     resolved_path = resolve_relative_path(url, path.parent, config['src_dir'])
 
+
     # check upload_map
     found = False
     for filetype in upload_map.keys():
@@ -92,6 +93,7 @@ def iGEM_URL(config: dict, path: Path, upload_map: dict, url: str) -> str:
             found = True
             break
 
+    
     if not found:
         # check if file exists
         filepath = config['src_dir'] / resolved_path
@@ -105,13 +107,13 @@ def iGEM_URL(config: dict, path: Path, upload_map: dict, url: str) -> str:
         # create imaginary file object and 
         # let the functions in that class handle creating URLs
         if extension == 'html':
-            file_object = HTMLfile(config['src_dir'] / resolved_path, config)
+            file_object = HTMLfile(resolved_path, config)
             url = file_object.link_URL
         elif extension == 'css':
-            file_object = CSSfile(config['src_dir'] / resolved_path, config)
+            file_object = CSSfile(resolved_path, config)
             url = file_object.link_URL
         elif extension == 'js':
-            file_object = JSfile(config['src_dir'] / resolved_path, config)
+            file_object = JSfile(resolved_path, config)
             url = file_object.link_URL
         else:
             # TODO: Handle this case
