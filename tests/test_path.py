@@ -111,7 +111,7 @@ def test_iGEM_URL():
             '.',
             upload_map,
             'assets/img/logo.xyz') \
-        
+
 
     assert \
         iGEM_URL(
