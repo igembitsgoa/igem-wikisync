@@ -43,11 +43,6 @@ jobs:
       env: 
         - TOXENV=py38
       script: tox -v
-    - stage: Pypy3
-      python: 'pypy3'
-      env: 
-        - TOXENV=pypy3
-      script: tox -v
 after_failure:
   - more .tox/log/* | cat
   - more .tox/*/log/* | cat
