@@ -34,8 +34,9 @@ def test_HTMLparser(config, upload_map):
     with open('tests/data/Test/index.html', 'r') as file:
         contents = file.read()
 
-    parsed = HTMLparser(config, 'index.html', contents, upload_map)
-    assert md5hash(parsed) == 'ec80a71cc644c2494d9bdf29681f0386'
+    parsed = HTMLparser(config, 'Test/index.html', contents, upload_map)
+    
+    assert md5hash(parsed) == 'b60c03b1765bdb7657d91ae0a3951581'
 
 
 def test_HTMLparser_link(config, upload_map):

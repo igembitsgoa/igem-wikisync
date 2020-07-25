@@ -57,6 +57,10 @@ def test_is_logged_in_before(config):
     assert not is_logged_in(pytest.browser, config['team'])
 
 
+def test_credentials(credentials):
+    assert credentials['username'] is not None
+
+
 def test_iGEM_login(credentials, caplog):
     # Login for the first time
     assert iGEM_login(pytest.browser, credentials)
