@@ -1,5 +1,4 @@
 from igem_wikisync.wikisync import run, get_upload_map, write_upload_map
-from igem_wikisync.wikisync import get_browser_with_cookies, cache_files, upload_assets, build_and_upload
 
 import os
 import yaml
