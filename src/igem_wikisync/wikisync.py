@@ -273,6 +273,9 @@ def upload_and_write_assets(other_files, browser, upload_map):
                 else:
                     # If file has changed, write to build_dir
                     try:
+                        # create directory if doesn't exist
+                        if not os.path.isdir(file_object.build_path.parent):
+                            os.makedirs(file_object.build_path.parent)
                         shutil.copyfile(file_object.src_path, file_object.build_path)
                     except Exception:
                         # print upload map to save the current state
@@ -310,6 +313,9 @@ def upload_and_write_assets(other_files, browser, upload_map):
         if not uploaded:
             # write to build_dir
             try:
+                # create directory if doesn't exist
+                if not os.path.isdir(file_object.build_path.parent):
+                    os.makedirs(file_object.build_path.parent)
                 shutil.copyfile(file_object.src_path, file_object.build_path)
             except Exception:
                 # print upload map to save the current state
