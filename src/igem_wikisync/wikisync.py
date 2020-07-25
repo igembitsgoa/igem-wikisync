@@ -1,4 +1,5 @@
 import os
+import shutil
 from hashlib import md5
 from http.cookiejar import LWPCookieJar
 from pathlib import Path
@@ -81,7 +82,7 @@ def run(team: str, src_dir: str, build_dir: str):
     files = cache_files(upload_map, config)
 
     # * 9. Upload all assets and create a map
-    upload_assets(files['other'], browser, upload_map)
+    upload_and_write_assets(files['other'], browser, upload_map)
 
     # * 10. write upload map just in case
     # things go wrong while dealing with code
@@ -239,9 +240,9 @@ def cache_files(upload_map, config):
     return cache
 
 
-def upload_assets(other_files, browser, upload_map):
+def upload_and_write_assets(other_files, browser, upload_map):
     """"
-    Uploads all files and stores URLs in upload_map.
+    Uploads and writes all files and stores URLs in upload_map.
 
     Arguments:
         other_files: dictionary containing OtherFile objects
@@ -270,7 +271,21 @@ def upload_assets(other_files, browser, upload_map):
                     # Team lead says no.
                     pass
                 else:
-                    # if file has changed, upload file and update hash
+                    # If file has changed, write to build_dir
+                    try:
+                        shutil.copyfile(file_object.src_path, file_object.build_path)
+                    except Exception:
+                        # print upload map to save the current state
+                        write_upload_map(upload_map)
+                        message = f'Failed to write {str(file_object.path)} to build_dir. ' + \
+                            'The current upload map has been saved. ' + \
+                            'You will not have to upload everything again.'
+                        logger.debug(message, exc_info=True)
+                        logger.error(message)
+                        raise SystemExit
+                        
+
+                    # And upload file and update hash
                     successful = iGEM_upload_file(browser, file_object)
                     if not successful:
                         # print upload map to save the current state
@@ -286,11 +301,27 @@ def upload_assets(other_files, browser, upload_map):
                     asset['md5'] = file_object.md5_hash
                     asset['link_URL'] = file_object.upload_URL
 
+                    
+
                 uploaded = True
                 break
 
-        # if new file, upload and add to map
+        # if new file
         if not uploaded:
+            # write to build_dir
+            try:
+                shutil.copyfile(file_object.src_path, file_object.build_path)
+            except Exception:
+                # print upload map to save the current state
+                write_upload_map(upload_map)
+                message = f'Failed to write {str(file_object.path)} to build_dir. ' + \
+                    'The current upload map has been saved. ' + \
+                    'You will not have to upload everything again.'
+                logger.debug(message, exc_info=True)
+                logger.error(message)
+                raise SystemExit
+
+            # and then upload
             successful = iGEM_upload_file(browser, file_object)
             if not successful:
                 # print upload map to save the current state
