@@ -1,5 +1,4 @@
 from igem_wikisync.path import is_relative, resolve_relative_path, iGEM_URL
-import pytest
 
 
 def test_is_relative():
@@ -16,7 +15,7 @@ def test_is_relative():
     ]
 
     for url in absolute_URLs:
-        assert is_relative(url) == False
+        assert not is_relative(url)
 
     relative_URLs = [
         'index.html',
@@ -27,7 +26,7 @@ def test_is_relative():
     ]
 
     for url in relative_URLs:
-        assert is_relative(url) == True
+        assert is_relative(url)
 
 
 def test_resolve_relative_path():
@@ -106,13 +105,13 @@ def test_iGEM_URL():
         == \
         'https://2020.igem.org/somerandomURLthatiGEMgives'
 
-    assert \
+    assert not \
         iGEM_URL(
             config,
             '.',
             upload_map,
             'assets/img/logo.xyz') \
-        == False
+        
 
     assert \
         iGEM_URL(

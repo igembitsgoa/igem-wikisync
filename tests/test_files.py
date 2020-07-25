@@ -32,7 +32,8 @@ def test_CSSfile(config):
     assert str(css_file.extension) == 'css'
     assert str(css_file.src_path) == 'tests/data/Test/css/style.css'
     assert str(css_file.build_path) == 'tests/build/Test/css/style.css'
-    assert str(css_file.upload_URL) == 'https://2020.igem.org/wiki/index.php?title=Template:BITSPilani-Goa_India/Test/css/styleCSS&action=edit'
+    assert str(css_file.upload_URL) == \
+        'https://2020.igem.org/wiki/index.php?title=Template:BITSPilani-Goa_India/Test/css/styleCSS&action=edit'
     assert str(css_file.link_URL) == 'https://2020.igem.org/Template:BITSPilani-Goa_India/Test/css/styleCSS?action=raw&ctype=text/css'
     assert str(css_file.raw_URL) == 'https://2020.igem.org/Template:BITSPilani-Goa_India/Test/css/styleCSS?action=raw&ctype=text/css'
 

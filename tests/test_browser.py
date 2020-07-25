@@ -52,18 +52,18 @@ def md5hash_file(url):
 
 
 def test_is_logged_in_before(config):
-    assert is_logged_in(pytest.browser, config['team']) == False
+    assert not is_logged_in(pytest.browser, config['team'])
 
 
 def test_iGEM_login(credentials, config, caplog):
     # Login for the first time
-    assert iGEM_login(pytest.browser, credentials) == True
+    assert iGEM_login(pytest.browser, credentials)
     assert 'Successfully logged in' in caplog.text
 
 
 def test_is_logged_in_after(credentials, caplog):
     # Check that once we're logged in, it doesn't login again
-    assert iGEM_login(pytest.browser, credentials) == True
+    assert iGEM_login(pytest.browser, credentials)
     assert 'Already logged in' in caplog.text
 
 
@@ -93,7 +93,7 @@ def test_iGEM_upload_page(config, caplog):
 def test_iGEM_upload_file(config):
     file_object = OtherFile('assets/img/test.jpg', config)
 
-    upload_response = iGEM_upload_file(pytest.browser, file_object)
+    iGEM_upload_file(pytest.browser, file_object)
 
     url = "https://2020.igem.org/wiki/images/5/57/T--BITSPilani-Goa_India--img--test.jpg"
 

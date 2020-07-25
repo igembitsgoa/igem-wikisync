@@ -291,7 +291,7 @@ def upload_assets(other_files, browser, upload_map):
             if not successful:
                 # print upload map to save the current state
                 write_upload_map(upload_map)
-                message  = f'Failed to upload {str(file_object.path)}. '
+                message = f'Failed to upload {str(file_object.path)}. '
                 message += 'The current upload map has been saved. '
                 message += 'You will not have to upload everything again.'
                 logger.debug(message, exc_info=True)
