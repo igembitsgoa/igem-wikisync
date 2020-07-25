@@ -23,6 +23,9 @@ def test_HTMLfile(config):
     assert str(html_file.link_URL) == 'https://2020.igem.org/Team:BITSPilani-Goa_India/Test'
     assert str(html_file.raw_URL) == 'https://2020.igem.org/wiki/index.php?title=Team:BITSPilani-Goa_India/Test&action=raw'
 
+    html_file2 = HTMLfile('index.html', config)
+    assert str(html_file2.upload_URL) == 'https://2020.igem.org/wiki/index.php?title=Team:BITSPilani-Goa_India&action=edit'
+
 
 def test_CSSfile(config):
     css_file = CSSfile('Test/css/style.css', config)

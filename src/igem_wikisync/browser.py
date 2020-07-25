@@ -73,11 +73,11 @@ def iGEM_login(browser, credentials: dict) -> bool:
         return True
     # Invalid username
     elif "That username is not valid" in soup.text:
-        message = "Your iGEM username is invalid."
+        message = "This iGEM username is invalid."
         logger.error(message)
     # Invalid password
     elif "That username is valid, but the password is not" in soup.text:
-        message = "Your iGEM username is valid but the password is not."
+        message = "This iGEM username is valid but the password is not."
         logger.error(message)
     # Unknown error
     else:

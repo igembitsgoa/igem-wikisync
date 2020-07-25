@@ -1,4 +1,6 @@
 import os
+
+import mechanicalsoup
 import pytest
 import requests
 import random
@@ -55,7 +57,7 @@ def test_is_logged_in_before(config):
     assert not is_logged_in(pytest.browser, config['team'])
 
 
-def test_iGEM_login(credentials, config, caplog):
+def test_iGEM_login(credentials, caplog):
     # Login for the first time
     assert iGEM_login(pytest.browser, credentials)
     assert 'Successfully logged in' in caplog.text
@@ -98,3 +100,19 @@ def test_iGEM_upload_file(config):
     url = "https://2020.igem.org/wiki/images/5/57/T--BITSPilani-Goa_India--img--test.jpg"
 
     assert file_object.md5_hash == md5hash_file(url)
+
+
+def test_iGEM_login_invalid_username(credentials, caplog):
+    credentials['username'] = 'helloinvalidusername'
+
+    browser = mechanicalsoup.StatefulBrowser()
+    assert not iGEM_login(browser, credentials)
+    assert 'username is invalid' in caplog.text
+
+
+def test_iGEM_login_invalid_password(credentials, caplog):
+    credentials['password'] = 'incorrect_password'
+
+    browser = mechanicalsoup.StatefulBrowser()
+    assert not iGEM_login(browser, credentials)
+    assert 'the password is not' in caplog.text
