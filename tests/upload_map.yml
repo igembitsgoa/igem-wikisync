@@ -3,6 +3,10 @@ assets:
     link_URL: https://2020.igem.org/wiki/images/f/f7/T--BITSPilani-Goa_India--img--test-test.jpg
     md5: d47d3629a83090c33e94c961e03a03d2
     upload_filename: T--BITSPilani-Goa_India--img--test-test.jpg
+  assets/img/test.jpg:
+    link_URL: https://2020.igem.org/wiki/images/5/57/T--BITSPilani-Goa_India--img--test.jpg
+    md5: e94c961e03a03d2
+    upload_filename: T--BITSPilani-Goa_India--img--test.jpg
 css:
   Test/css/double_quotes.css:
     link_URL: https://2020.igem.org/Template:BITSPilani-Goa_India/Test/css/double_quotesCSS?action=raw&ctype=text/css
