@@ -1,5 +1,4 @@
 import os
-import shutil
 from hashlib import md5
 from http.cookiejar import LWPCookieJar
 from pathlib import Path
@@ -53,8 +52,7 @@ def run(team: str, src_dir: str, build_dir: str):
     upload_map = get_upload_map()
 
     # * 3. Create build directory
-    if os.path.isdir(build_dir):
-        shutil.rmtree(build_dir)
+    if not os.path.isdir(build_dir):
         os.mkdir(build_dir)
         # ? error handling here?
 
