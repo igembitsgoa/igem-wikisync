@@ -113,9 +113,12 @@ def get_upload_map():
             logger.critical('Please fix/delete the file and run the program again.')
             raise SystemExit
 
+        if isinstance(upload_map, type(None)):
+            upload_map = {}
+
         # make sure upload map has all the keys
         for key in ['assets', 'html', 'css', 'js']:
-            if key not in upload_map.keys():
+            if key not in upload_map.keys() or isinstance(upload_map[key], type(None)):
                 upload_map[key] = {}
             elif not isinstance(upload_map[key], dict):
                 logger.critical('upload_map.yml has an invalid format.')
@@ -141,6 +144,9 @@ def write_upload_map(upload_map: dict, filename='upload_map.yml'):
     except Exception:
         logger.error(f'Tried to write {filename} but could not.')
         # FIXME Can this be improved?
+        return False
+
+    return True
 
 
 def get_browser_with_cookies():
@@ -226,7 +232,7 @@ def cache_files(upload_map, config):
                 # Team lead says no.
 
             if extension in ['html', 'css', 'js']:
-                if file_object.path not in upload_map[extension].keys():
+                if str(file_object.path) not in upload_map[extension].keys():
                     upload_map[extension][str(file_object.path)] = {
                         'md5': '',
                         'link_URL': file_object.link_URL
