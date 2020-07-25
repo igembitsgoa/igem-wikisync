@@ -1,5 +1,6 @@
 import requests
 
+
 def test_connection():
     """Runs a basic test to check connection. """
 

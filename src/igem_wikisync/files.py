@@ -3,7 +3,7 @@ from pathlib import Path
 
 
 class BaseFile:
-    '''Base class for all file objects. Not to be used directly. 
+    '''Base class for all file objects. Not to be used directly.
     Use HTMLfile, CSSfile, JSfile or OtherFile instead.
     '''
 
@@ -63,7 +63,7 @@ class BaseFile:
     def link_URL(self):
         ''' URL which can be used to link to this file. '''
         return self._link_URL
-    
+
     @property
     def raw_URL(self):
         ''' URL where raw content can be found.
@@ -229,7 +229,7 @@ class OtherFile(BaseFile):
         # if len(self._config['assets']) == 1:
         return 'T--' + self._config['team'] + '--' + '--'.join(self.path.parts[1:])
         # else:
-            # return 'T--' + self._config['team'] + '--' + '--'.join(self.path.parts)
+        #   return 'T--' + self._config['team'] + '--' + '--'.join(self.path.parts)
 
     def _generate_md5_hash(self):
         '''

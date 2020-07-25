@@ -34,13 +34,13 @@ def run(team: str, src_dir: str, build_dir: str):
         raise SystemExit
 
     if src_dir is None or not isinstance(src_dir, str):
-        logger.critical('Please specify where we should look for your code ' + \
-            'using the src_dir argument.')
+        logger.critical('Please specify where we should look for your code ' +
+                        'using the src_dir argument.')
         raise SystemExit
 
     if build_dir is None or not isinstance(build_dir, str):
-        logger.critical('Please specify where we should build your code ' + \
-            'using the build_dir argument.')
+        logger.critical('Please specify where we should build your code ' +
+                        'using the build_dir argument.')
         raise SystemExit
 
     config = {
@@ -291,9 +291,9 @@ def upload_assets(other_files, browser, upload_map):
             if not successful:
                 # print upload map to save the current state
                 write_upload_map(upload_map)
-                message = f'Failed to upload {str(file_object.path)}. ' + \
-                            'The current upload map has been saved. ' + \
-                            'You will not have to upload everything again.'
+                message  = f'Failed to upload {str(file_object.path)}. '
+                message += 'The current upload map has been saved. '
+                message += 'You will not have to upload everything again.'
                 logger.debug(message, exc_info=True)
                 logger.error(message)
                 raise SystemExit

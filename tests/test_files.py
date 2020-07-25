@@ -1,6 +1,7 @@
 from igem_wikisync.files import HTMLfile, CSSfile, JSfile, OtherFile
 import pytest
 
+
 @pytest.fixture
 def config():
     return {
@@ -8,6 +9,7 @@ def config():
         'src_dir': 'tests/data',
         'build_dir': 'tests/build'
     }
+
 
 def test_HTMLfile(config):
     html_file = HTMLfile('Test/index.html', config)
@@ -34,6 +36,7 @@ def test_CSSfile(config):
     assert str(css_file.link_URL) == 'https://2020.igem.org/Template:BITSPilani-Goa_India/Test/css/styleCSS?action=raw&ctype=text/css'
     assert str(css_file.raw_URL) == 'https://2020.igem.org/Template:BITSPilani-Goa_India/Test/css/styleCSS?action=raw&ctype=text/css'
 
+
 def test_JSfile(config):
     js_file = JSfile('Test/js/index.js', config)
 
@@ -45,6 +48,7 @@ def test_JSfile(config):
     assert str(js_file.upload_URL) == 'https://2020.igem.org/wiki/index.php?title=Template:BITSPilani-Goa_India/Test/js/indexJS&action=edit'
     assert str(js_file.link_URL) == 'https://2020.igem.org/Template:BITSPilani-Goa_India/Test/js/indexJS?action=raw&ctype=text/javascript'
     assert str(js_file.raw_URL) == 'https://2020.igem.org/Template:BITSPilani-Goa_India/Test/js/indexJS?action=raw&ctype=text/javascript'
+
 
 def test_OtherFile(config):
     other_file = OtherFile('assets/img/test.jpg', config)
@@ -62,4 +66,3 @@ def test_OtherFile(config):
     url = 'hello'
     other_file.set_upload_URL(url)
     assert str(other_file.upload_URL) == 'hello'
-

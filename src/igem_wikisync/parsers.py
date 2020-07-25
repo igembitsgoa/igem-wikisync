@@ -92,7 +92,7 @@ def CSSparser(config: dict, path, contents: str, upload_map: dict) -> str:
 
     # 3) Replace all links with the absolute path
     for link in links:
-        
+
         css = css.replace(link, iGEM_URL(config, path, upload_map, link))
 
     return css
@@ -105,12 +105,12 @@ def JSparser(contents: str) -> str:
 
     Arguments:
         contents: JS string
-    
+
     Returns:
         Minified JS string
 
     """
-    
+
     contents = jsmin(contents)
     # TODO: URL replacement
     return contents

@@ -20,12 +20,12 @@ def is_relative(url: str) -> bool:
 def resolve_relative_path(path: str, parent: Path, src_dir: str) -> Path:
     """
     Resolves a given relative path to it's absolute local counterpart.
-    Assumes that the passed path is relative. 
+    Assumes that the passed path is relative.
     Returned path is relative to src_dir.
 
     Arguments:
         path:    path to be resolved.
-        parent: Path to the folder where the passed in path was found. 
+        parent: Path to the folder where the passed in path was found.
             This can be relative to the directory where the function
             call originates, or an absolute path.
         src_dir: Directory where all input files are stored.
@@ -69,7 +69,7 @@ def iGEM_URL(config: dict, path: Path, upload_map: dict, url: str) -> str:
         URL where this file would be found on iGEM servers.
         Returns false if URL with an unsupported extension is passed
     """
-    
+
     # Convert to path in case a string was passed
     path = Path(path)
 
@@ -84,7 +84,6 @@ def iGEM_URL(config: dict, path: Path, upload_map: dict, url: str) -> str:
     old_path = url
     resolved_path = resolve_relative_path(url, path.parent, config['src_dir'])
 
-
     # check upload_map
     found = False
     for filetype in upload_map.keys():
@@ -93,7 +92,6 @@ def iGEM_URL(config: dict, path: Path, upload_map: dict, url: str) -> str:
             found = True
             break
 
-    
     if not found:
         # check if file exists
         filepath = config['src_dir'] / resolved_path
@@ -104,7 +102,7 @@ def iGEM_URL(config: dict, path: Path, upload_map: dict, url: str) -> str:
 
         extension = resolved_path.suffix[1:].lower()
 
-        # create imaginary file object and 
+        # create imaginary file object and
         # let the functions in that class handle creating URLs
         if extension == 'html':
             file_object = HTMLfile(resolved_path, config)

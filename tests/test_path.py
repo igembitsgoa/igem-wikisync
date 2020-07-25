@@ -1,6 +1,7 @@
 from igem_wikisync.path import is_relative, resolve_relative_path, iGEM_URL
 import pytest
 
+
 def test_is_relative():
 
     absolute_URLs = [
@@ -28,6 +29,7 @@ def test_is_relative():
     for url in relative_URLs:
         assert is_relative(url) == True
 
+
 def test_resolve_relative_path():
 
     assert str(resolve_relative_path('style.css', '.', 'src')) == 'style.css'
@@ -37,6 +39,7 @@ def test_resolve_relative_path():
     assert str(resolve_relative_path('Description/', '.', 'src')) == 'Description/index.html'
     assert str(resolve_relative_path('/Description', '.', 'src')) == 'Description/index.html'
     assert str(resolve_relative_path('/Description/', '.', 'src')) == 'Description/index.html'
+
 
 def test_iGEM_URL():
     config = {
@@ -60,71 +63,71 @@ def test_iGEM_URL():
 
     assert \
         iGEM_URL(
-            config, 
-            'index.html', 
-            upload_map, 
+            config,
+            'index.html',
+            upload_map,
             'css/style.css') \
         == \
         'https://2020.igem.org/Template:BITSPilani-Goa_India/css/styleCSS?action=raw&ctype=text/css'
 
     assert \
         iGEM_URL(
-            config, 
-            'index.html', 
-            upload_map, 
+            config,
+            'index.html',
+            upload_map,
             'index.js') \
         == \
         'https://2020.igem.org/Template:BITSPilani-Goa_India/indexJS?action=raw&ctype=text/javascript'
 
     assert \
         iGEM_URL(
-            config, 
-            '.', 
-            upload_map, 
+            config,
+            '.',
+            upload_map,
             'index.html') \
         == \
         'https://2020.igem.org/Team:BITSPilani-Goa_India'
 
     assert \
         iGEM_URL(
-            config, 
-            'index.html', 
-            upload_map, 
+            config,
+            'index.html',
+            upload_map,
             'Description/') \
         == \
         'https://2020.igem.org/Team:BITSPilani-Goa_India/Description'
 
     assert \
         iGEM_URL(
-            config, 
-            '.', 
-            upload_map, 
+            config,
+            '.',
+            upload_map,
             'assets/img/logo.jpg') \
         == \
         'https://2020.igem.org/somerandomURLthatiGEMgives'
 
     assert \
         iGEM_URL(
-            config, 
-            '.', 
-            upload_map, 
+            config,
+            '.',
+            upload_map,
             'assets/img/logo.xyz') \
         == False
 
     assert \
         iGEM_URL(
-            config, 
-            '.', 
-            upload_map, 
+            config,
+            '.',
+            upload_map,
             'https://2020.igem.org') \
         == \
         'https://2020.igem.org'
 
     assert \
         iGEM_URL(
-            config, 
-            '.', 
-            upload_map, 
+            config,
+            '.',
+            upload_map,
             '/') \
         == \
         'https://2020.igem.org/Team:BITSPilani-Goa_India'

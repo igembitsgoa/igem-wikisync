@@ -13,7 +13,7 @@ def iGEM_login(browser, credentials: dict) -> bool:
         browser: mechanicalsoup.Browser instance
         credentials: dictionary containing 'username'
             and 'password'
-    
+
     Returns:
         True if login is successful.
         False along with an error message otherwise.
@@ -23,7 +23,6 @@ def iGEM_login(browser, credentials: dict) -> bool:
     if is_logged_in(browser, credentials['team']):
         logger.info(f"Already logged in as {credentials['username']}.")
         return True
-
 
     # Try opening the login page
     url = "https://igem.org/Login2"
@@ -43,7 +42,7 @@ def iGEM_login(browser, credentials: dict) -> bool:
         return False
 
     # Select the form we have to fill.
-    # This might fail if the page changes. 
+    # This might fail if the page changes.
     try:
         browser.select_form('form[method="post"]')
     except Exception:
@@ -161,7 +160,7 @@ def iGEM_upload_page(browser, contents: str, url: str) -> bool:
     # Submit the form
     browser['wpTextbox1'] = contents
     try:
-        response = browser.submit_selected()
+        browser.submit_selected()
     except Exception:
         message = f"Couldn't upload to {url}."
         logger.debug(message, exc_info=True)
@@ -214,7 +213,7 @@ def iGEM_upload_file(browser, file_object):
 
     # Submit the form
     try:
-        response = browser.submit_selected()
+        browser.submit_selected()
     except Exception:
         message = "Lost connection to iGEM servers."
         logger.debug(message, exc_info=True)
