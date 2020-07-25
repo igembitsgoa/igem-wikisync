@@ -91,6 +91,6 @@ def test_write_upload_map():
 def test_run(config):
 
     shutil.copyfile('tests/upload_map.yml', 'upload_map.yml')
-    # run(config['team'], config['src_dir'], config['build_dir'])
+    run(config['team'], config['src_dir'], config['build_dir'])
 
     os.remove('upload_map.yml')
