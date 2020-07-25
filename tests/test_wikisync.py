@@ -3,6 +3,7 @@ from igem_wikisync.wikisync import run, get_upload_map, write_upload_map
 import os
 import yaml
 import pytest
+import shutil
 
 
 @pytest.fixture
@@ -89,4 +90,7 @@ def test_write_upload_map():
 
 def test_run(config):
 
-    run(config['team'], config['src_dir'], config['build_dir'])
+    shutil.copyfile('tests/upload_map.yml', 'upload_map.yml')
+    # run(config['team'], config['src_dir'], config['build_dir'])
+
+    os.remove('upload_map.yml')
