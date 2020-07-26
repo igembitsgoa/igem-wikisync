@@ -286,7 +286,6 @@ def upload_and_write_assets(other_files, browser, upload_map):
                         logger.debug(message, exc_info=True)
                         logger.error(message)
                         raise SystemExit
-                        
 
                     # And upload file and update hash
                     successful = iGEM_upload_file(browser, file_object)
@@ -303,8 +302,6 @@ def upload_and_write_assets(other_files, browser, upload_map):
                     # TODO: add error handling
                     asset['md5'] = file_object.md5_hash
                     asset['link_URL'] = file_object.upload_URL
-
-                    
 
                 uploaded = True
                 break
