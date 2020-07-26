@@ -74,10 +74,10 @@ setup(
     # python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*',
     python_requires='>=3.6, <=3.8',
     install_requires=[
-        'pyopenssl',
-        'mechanicalsoup',
-        'html5lib',
-        'pyyaml'
+        'pyopenssl>=19.1.0',
+        'mechanicalsoup>=0.12.0',
+        'html5lib>=1.1',
+        'pyyaml>=5.3.1'
         # eg: 'aspectlib==1.1.1', 'six>=1.7',
     ],
     extras_require={

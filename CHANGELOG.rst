@@ -2,6 +2,12 @@
 Changelog
 =========
 
+0.0.4 (2020-07-25)
+------------------
+
+* Drop jsmin.
+* Add version specifiers to dependencies.
+
 0.0.3 (2020-07-25)
 ------------------
 
