@@ -5,5 +5,5 @@ igem_wikisync
 
     from igem_wikisync import *
 
-.. automodule:: igem_wikisync
+.. automodule:: igem_wikisync.wikisync
     :members:

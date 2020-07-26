@@ -1,3 +1,4 @@
-# __all__ = ['wikisync']
-
 __version__ = '0.0.4'
+from .wikisync import run
+
+__all__ = ['run']
