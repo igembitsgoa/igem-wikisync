@@ -2,6 +2,9 @@ Overview
 ========
 
 <p align='center'>
+    <a href="https://https://pypi.org/project/igem-wikisync/">
+        <img alt="PyPI" src="https://img.shields.io/pypi/v/igem-wikisync?style=for-the-badge">
+    </a> 
     <a href="https://readthedocs.org/projects/igem-wikisync">
         <img src="https://img.shields.io/readthedocs/igem-wikisync?logo=Read%20The%20Docs&style=for-the-badge" alt="Documentation Status">
     </a> 
@@ -17,11 +20,12 @@ Overview
     <a href="https://github.com/igembitsgoa/igem-wikisync/">
         <img src="https://img.shields.io/github/commits-since/igembitsgoa/igem-wikisync/v0.0.0?logo=github&style=for-the-badge" alt="Commits since latest release">
     </a>
+    <img src="https://img.shields.io/pypi/l/igem-wikisync?style=for-the-badge" alt="License: MIT">
 </p>
 
 Automatically deploy iGEM Wikis.
 
--   Free software: MIT license
+*   Free software: MIT license
 
 Installation
 ------------
@@ -43,4 +47,3 @@ Development
 To run the all tests run:
 
     tox
-

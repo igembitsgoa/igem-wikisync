@@ -1,21 +1,25 @@
 language: python
 dist: xenial
 cache: false
+
 env:
   global:
     - LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
     - SEGFAULT_SIGNALS=all
     - LANG=en_US.UTF-8
+
 before_install:
   - python --version
   - uname -a
   - lsb_release -a || true
+
 install:
   - python -mpip install --progress-bar=off tox -rci/requirements.txt
   - virtualenv --version
   - easy_install --version
   - pip --version
   - tox --version
+
 jobs:
   include:
     - stage: Check
@@ -43,9 +47,11 @@ jobs:
       env: 
         - TOXENV=py38
       script: tox -v
+
 after_failure:
   - more .tox/log/* | cat
   - more .tox/*/log/* | cat
+  
 notifications:
   email:
     on_success: never
