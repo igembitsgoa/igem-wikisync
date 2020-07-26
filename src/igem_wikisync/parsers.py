@@ -1,7 +1,6 @@
 import re
 
 from bs4 import BeautifulSoup
-from jsmin import jsmin
 
 from igem_wikisync.path import iGEM_URL
 
@@ -101,16 +100,14 @@ def CSSparser(config: dict, path, contents: str, upload_map: dict) -> str:
 def JSparser(contents: str) -> str:
     """
     Is supposed to replace URLs in JS.
-    Only minifies it for now.
 
     Arguments:
         contents: JS string
 
     Returns:
-        Minified JS string
+        Input JS string
 
     """
 
-    contents = jsmin(contents)
     # TODO: URL replacement
     return contents

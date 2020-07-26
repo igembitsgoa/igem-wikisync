@@ -107,6 +107,4 @@ def test_JSparser():
 
     parsed = JSparser(contents)
 
-    # assert parsed == 'hello'
-
-    assert md5hash(parsed) == '1379876862c68797d5f9ab3edd60a7f9'
+    assert md5hash(parsed) == '98ceab3bcb66cfe2bc3c07a2bfd56503'
