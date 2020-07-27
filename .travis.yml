@@ -22,10 +22,16 @@ install:
 
 jobs:
   include:
-    - stage: Check, Docs and Py36
+    - stage: Check Build and Deploy Docs
       python: '3.6'
       env: 
-        - TOXENV=check,docs,py36,coveralls
+        - TOXENV=check,docs
+      script: tox -v
+
+    - stage: Python 3.6
+      python: '3.6'
+      env: 
+        - TOXENV=py36,coveralls
       script: tox -v
 
     - stage: Python 3.7
