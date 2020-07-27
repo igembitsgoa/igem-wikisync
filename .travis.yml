@@ -22,26 +22,18 @@ install:
 
 jobs:
   include:
-    - stage: Check
-      python: '3.6'
+    - stage: Check, Docs and Py37
+      python: '3.7'
       env: 
-        - TOXENV=check
+        - TOXENV=check,docs,py37,coveralls
       script: tox -v
-    - stage: Docs
-      python: '3.6'
-      env: 
-        - TOXENV=docs
-      script: tox -v
+      
     - stage: Python 3.6
       python: '3.6'
       env: 
         - TOXENV=py36
       script: tox -v
-    - stage: Python 3.7
-      python: '3.7'
-      env: 
-        - TOXENV=py37,coveralls
-      script: tox -v
+
     - stage: Python 3.8
       python: '3.8'
       env: 
