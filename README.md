@@ -1,6 +1,8 @@
 Overview
 ========
 
+<!-- Badges Start -->
+
 <p align='center'>
     <a href="https://https://pypi.org/project/igem-wikisync/">
         <img alt="PyPI" src="https://img.shields.io/pypi/v/igem-wikisync?style=for-the-badge">
@@ -22,6 +24,8 @@ Overview
     </a>
     <img src="https://img.shields.io/pypi/l/igem-wikisync?style=for-the-badge" alt="License: MIT">
 </p>
+
+<!-- Badges End -->
 
 Automatically deploy iGEM Wikis.
 
