@@ -1,5 +1,5 @@
-Reference
-=========
+Reference for Developers
+========================
 
 .. toctree::
     :glob:

@@ -4,6 +4,10 @@ from hashlib import md5
 from http.cookiejar import LWPCookieJar
 from pathlib import Path
 
+# TODO: Check file size before trying to upload
+# TODO: Return the same URL if media file doesn't exist
+# TODO: Print summary with important errors after execution
+
 import mechanicalsoup
 import yaml
 
