@@ -7,6 +7,14 @@ from pathlib import Path
 # TODO: Check file size before trying to upload
 # TODO: Return the same URL if media file doesn't exist
 # TODO: Print summary with important errors after execution
+# TODO: change asset filename in build_dir
+# TODO: Remove igem_wikisync.logger from logs
+# TODO: Change cookie and log file names 
+# TODO: Tag broken links in the log
+# TODO: Allow only_validate = True
+# TODO: Allow show_skipped = False
+# TODO: Allow broken link check = false
+# TODO: Allow allow_broken = False
 
 import mechanicalsoup
 import yaml
@@ -30,7 +38,7 @@ def run(team: str, src_dir: str, build_dir: str):
         build_dir: Path to the folder where the built files will be stored before uploading
     '''
 
-    # TODO: does it store files in build_dir also?
+    # TODO: does it store files in build_dir also? Now it does.
 
     # * 1. CHECK AND FORMAT INPUTS
     if team is None or not isinstance(team, str):

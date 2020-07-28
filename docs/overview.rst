@@ -24,7 +24,7 @@ As your wiki grows into several pages with dozens images, it becomes hard to man
 
 Modern code editors like `Visual Studio Code <https://code.visualstudio.com>`_ offer `several features <https://medium.com/@bretcameron/7-essential-features-of-visual-studio-code-for-web-developers-be77e235bf62>`_ to make programming easier and writing code inside a web browser deprives you from using them. Even if you write code on a code editor instead of the iGEM webpage, you still need to copy-paste all your files every time you make changes. 
 
-Doing this over and over for several months can quickly become an annoyance and divert focus away from your actual project.
+Doing this over and over for several months can be time taking and divert focus away from your actual project.
 
 WikiSync automates the entire deployment process and allows you to leverage all the features of modern IDEs. You can `see how your wiki looks <https://www.youtube.com/watch?v=WzE0yqwbdgU>`_ as you code and when you're done, you can effortlessly push your code to iGEM servers, by running just one command.
 
@@ -39,6 +39,7 @@ Features
 #. Replaces links in source code
 #. Uploads modified source code
 #. Keeps track of uploads and only upload changes
+#. Renames media and documents according to iGEM specifications
 
 Other Advantages of Using WikiSync
 ----------------------------------

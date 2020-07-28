@@ -42,7 +42,7 @@ Let's assume your wiki folder has the following structure:
         Design/
             index.html
 
-#. Since WikiSync needs to output the modified source code before uploading, we need to modify the directory structure a little:
+#. Since WikiSync saves the modified source code before uploading, the directory structure needs to change a little:
 
     .. parsed-literal::
         wiki/
@@ -52,8 +52,10 @@ Let's assume your wiki folder has the following structure:
             build/
                 # this is where modified code will be stored
 
-#. Now, we add the Python script, ``wikisync.py``, with the following lines of code:
+#. Now, add the Python script, ``wikisync.py``:
 
+    .. _wikisync-snippet:
+    
     .. code-block:: python
 
         import igem_wikisync as sync
@@ -70,15 +72,157 @@ Let's assume your wiki folder has the following structure:
         IGEM_USERNAME=youriGEMusername
         IGEM_PASSWORD=youriGEMpassword
 
-.. warning::
-    We use environment variables for credentials so that they're not committed to Git by mistake. If you're using a bash script to store your credentials, please remember to add it to ``.gitignore``.
+
+#. Run wikisync.py by executing:
+
+    .. code-block:: bash
+
+        python3 wikisync.py
+
+.. caution::
+    We use environment variables for credentials so that they're not accidentally committed to Git. If you're using a bash script to export your credentials, please remember to add it to ``.gitignore``.
 
 And that's all! You're all set to deploy your wiki to iGEM!
 
-If you'd like to test the functionality first, make a test folder with just a few files and try to upload that. Take a look at the following example for that.
+Read on to see how WikiSync performs optimizations by storing cookies and uploading only the files that have changed. 
+
+Maintaining a Session
+---------------------
+
+WikiSync stores cookies to maintain your session as long as iGEM servers permit. This saves you from logging in on every run, reducing overhead on your network connection as well as iGEM servers. This also makes the overall operation faster. 
+
+Cookies are stored in a file called ``wikisync.cookies`` in the directory where WikiSync is run.
+
+.. caution::
+    It is strongly recommended that you add ``wikisync.cookies`` to ``.gitignore``.
+
+
+Keeping Track of Changes
+------------------------
+
+After each run of WikiSync, you'll notice a file called ``upload_map.yml`` in the directory where you run it. 
+
+WikiSync keeps track of all the files it uploads in this file, along with their filenames, URLs and md5 hashes. This ensures that existing files are not uploaded again, but their URLs still can be substituted in the code.
+
+The md5 hashes allow it to check for changes within existing files, so it can upload the modified files.
+
+This file can (and should) be tracked by a version control system, to allow continuous integration and deployment through `Travis <https://travis-ci.com>`_. This also helps you get a bird's eye view of the upload operation without having to read the log.
+
+The upload map should never be edited manually. WikiSync tries to check for errors and inform you before running. In case it does, and you find it hard to fix the file, please contact us and ask for help. If this file is deleted/damaged, WikiSync will upload each file again, which can overload the iGEM servers unnecessarily. This can be especially troublesome when all the teams try to upload their content, close to the Wiki Freeze. WikiSync is a powerful tool and we hope you use it reponsibly.
+
+Tracking Broken Links
+---------------------
+
+Building the iGEM wiki is an endeavour that requires considerable effort. As your wiki grows into several pages and hundreds of links spread across them, it can be hard to find broken links. WikiSync tries to make this easier for you by checking for broken (internal) links. This functionality is enabled by default to enforce good practice, but it can be disabled. Look at the configuration options to know more about this.
+
+Configuration Options
+---------------------
+
+.. admonition:: Under construction.
+    
+    Coming up in a few days.
+
+.. # TODO: Add config options
+
+
+Logging
+-------
+
+WikiSync prints a log of all the operations it carries out, allowing you to oversee them. This log is present in the ``wikisync.log`` file. You can search for specific events using the following keywords:
+
+.. admonition:: Under construction.
+    
+    Coming up in a few days.
+
+.. # TODO: Improve logs
+
+This file doesn't contain any sensitive information, and can be committed to git.
+
 
 Basic Example
 -------------
 
+If you'd like to test the functionality first, make a test folder with just a few files and try to upload that. The following example demonstrates that in more detail.
 
+1. **Start with the following directory structure:**
+
+.. parsed-literal::
+    wiki/
+        src/
+            Test/
+                index.html              # homepage
+                css/
+                    style.css           # custom styles
+                    igem-reset.css      # Resets styles that iGEM injects
+                js/
+                    main.js             # custom JS + iGEM reset
+                assets/
+                    img/
+                        logo.jpg
+                        background.jpg  
+                Description/
+                    index.html          # Description page
+        build/
+            # this will be filled by WikiSync
+        wikisync.py
+
+The source code is inside ``wiki/src/Test/`` instead of just ``wiki/src/`` so that any existing content on your wiki is not affected.
+
+You can find a zipped version of this code `here <https://downgit.github.io/#/home?url=https://github.com/igembitsgoa/igem-wikisync-resources/tree/master/basic-example>`_.
+
+2. **Let's look at individual files now:**
+
+``src/Test/index.html``:
+
+.. code-block:: html
+    :linenos:
+    :emphasize-lines: 5,6,12,13,17,22
+    
+    <html lang="en">
+
+    <head>
+        <title>Testing iGEM WikiSync</title>
+        <link rel="stylesheet" href="css/igem-reset.css">
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+
+    <body>
+        <h1>iGEM Example Wiki</h1>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="./Description/">Description</a></li>
+        </ul>
+        <div class="container">
+            <br><br>
+            <img src="./assets/img/logo.png" alt="iGEM Logo" height=200 width=200>
+            <br><br>
+            <h1>Welcome to iGEM 2020!</h1>
+            <p>This is a sample page, designed for a demonstration for iGEM WikiSync.</p>
+        </div>
+        <script src="./js/main.js"></script>
+    </body>
+
+    </html>
+
+``src/Test/css/style.css``:
+
+.. code-block:: css
+    :linenos:
+    :emphasize-lines: 3
+
+    body {
+        background-color: #f7feff;
+        background-image: url(../assets/img/background.png);
+    }
+
+``wikisync.py`` is the same as shown in the `snippet above <wikisync-snippet>`_. 
+
+
+3. **Export your credentials and run ``wikisync.py`` as described `above <wikisync-snippet>`_.**
+
+.. admonition:: Under construction.
+    
+    Coming up in a few days.
+
+..  # TODO: insert output here
 
