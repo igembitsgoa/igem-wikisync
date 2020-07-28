@@ -4,7 +4,6 @@ from hashlib import md5
 from http.cookiejar import LWPCookieJar
 from pathlib import Path
 
-# TODO: Return the same URL if media file doesn't exist
 # TODO: Print summary with important errors after execution
 # TODO: change asset filename in build_dir
 # TODO: Remove igem_wikisync.logger from logs
@@ -244,10 +243,11 @@ def cache_files(upload_map, config):
                     cache['other'][file_object.path] = file_object
                 else:
                     logger.info(f'{infile} is larger than the 100MB file limit. Skipping.')
+                    continue
 
             else:
-                file_object = None  # just to shut up lintian
                 logger.info(f'{infile} has an unsupported file extension. Skipping.')
+                continue
                 # ? Do we want to support other text files?
                 # Team lead says no.
 

@@ -105,13 +105,14 @@ def test_iGEM_URL():
         == \
         'https://2020.igem.org/somerandomURLthatiGEMgives'
 
-    assert not \
+    assert \
         iGEM_URL(
             config,
             '.',
             upload_map,
             'assets/img/logo.xyz') \
-
+        == \
+        'assets/img/logo.xyz'
 
     assert \
         iGEM_URL(

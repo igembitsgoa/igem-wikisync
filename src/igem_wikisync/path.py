@@ -70,6 +70,9 @@ def iGEM_URL(config: dict, path: Path, upload_map: dict, url: str) -> str:
         Returns false if URL with an unsupported extension is passed
     """
 
+    # Store input for logging and/or returning
+    old_path = url
+
     # Convert to path in case a string was passed
     path = Path(path)
 
@@ -81,7 +84,6 @@ def iGEM_URL(config: dict, path: Path, upload_map: dict, url: str) -> str:
         return 'https://2020.igem.org/Team:' + config['team']
 
     # Resolve relative path to local absolute path
-    old_path = url
     resolved_path = resolve_relative_path(url, path.parent, config['src_dir'])
 
     # check upload_map
@@ -114,9 +116,9 @@ def iGEM_URL(config: dict, path: Path, upload_map: dict, url: str) -> str:
             file_object = JSfile(resolved_path, config)
             url = file_object.link_URL
         else:
-            # TODO: Handle this case
+            # leave unchanged
             logger.error(f"{old_path} is not a source code file and was not found in the upload map.")
-            return False
+
 
     logger.info(f"{old_path} was changed to {url} in {path}.")
 
