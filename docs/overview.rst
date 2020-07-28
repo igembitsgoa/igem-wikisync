@@ -4,9 +4,9 @@
 Overview
 ========
 
-**WikiSync** is a Python library that allows you to easily upload your iGEM wiki. There's no need anymore to manually upload each file, replace your URLs and copy paste your source code into a web form. Building and deployment can now be as simple as a ``git push``, thanks to `Travis <https://travis-ci.com>`_.
+**WikiSync** is a Python library that allows you to easily upload your iGEM wiki. There's no need anymore to manually upload each file, replace each URL and copy paste your source code into a web form. Building and deployment can now be as simple as a ``git push``, thanks to `Travis <https://travis-ci.com>`_.
 
-All you need are five lines of code:
+**All you need are five lines of code:**
 
 .. code-block:: python
 
@@ -18,13 +18,15 @@ All you need are five lines of code:
         build_dir='build_directory'
     )
 
-Creating a team wiki can be quite challenging, specially for a someone new to programming. Under the `existing iGEM wiki infrastucture <https://2020.igem.org/Resources/Wiki_Editing_Help>`_, you're required to upload every image, document or video individually, and create each page by typing code in a text box in your web browser. This presents serious challenges as your wiki grows into several pages with dozens of images and documents.
+Creating a team wiki can be quite challenging, specially for a someone new to programming. Under the `existing iGEM wiki infrastucture <https://2020.igem.org/Resources/Wiki_Editing_Help>`_, you're required to upload every image, document or video individually, and create each page by typing code in a text box in your web browser. 
 
-Modern code editors like `Visual Studio Code <https://code.visualstudio.com>`_ offer `several features <https://medium.com/@bretcameron/7-essential-features-of-visual-studio-code-for-web-developers-be77e235bf62>`_ to make it easier and writing code inside a web browser deprives you from using them. Even if you write code on a code editor instead of the iGEM webpage, you still need to copy-paste all your files every time you make changes. Doing this over and over for several months can quickly become an annoyance and divert focus away from your actual project.
+As your wiki grows into several pages with dozens images, it becomes hard to manage all the components due to lack of simple features like syntax highlighting. Besides, in this age of automation, who likes to sit and upload a hundred pictures, anyway?
 
-WikiSync automates the entire deployment process by allowing you to develop your wiki locally, so you can `look at your wiki as you code <https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer>`_. When you're done, you can effortlessly push your code to iGEM servers, by running just one command.
+Modern code editors like `Visual Studio Code <https://code.visualstudio.com>`_ offer `several features <https://medium.com/@bretcameron/7-essential-features-of-visual-studio-code-for-web-developers-be77e235bf62>`_ to make programming easier and writing code inside a web browser deprives you from using them. Even if you write code on a code editor instead of the iGEM webpage, you still need to copy-paste all your files every time you make changes. 
 
-WikiSync also checks for broken links and keeps track of previously uploaded files. It goes through each file in your wiki source folder and uploads all images and documents. It then reads all your code, changes URLs to those recieved from iGEM and finally uploads the modified code as well. This allows your entire team to collaborate on platforms such as Github, which can then `automatically deploy to iGEM servers using Travis <travis guide link>`_.
+Doing this over and over for several months can quickly become an annoyance and divert focus away from your actual project.
+
+WikiSync automates the entire deployment process and allows you to leverage all the features of modern IDEs. You can `see how your wiki looks <https://www.youtube.com/watch?v=WzE0yqwbdgU>`_ as you code and when you're done, you can effortlessly push your code to iGEM servers, by running just one command.
 
 Please head over to the :ref:`usage-guide` to get started, or take a look at our :ref:`tutorial` for step-by-step examples meant to help you make deployment as easy as a ``git push``.
 

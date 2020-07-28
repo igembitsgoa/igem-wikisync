@@ -1,3 +1,5 @@
+.. _installation:
+
 ============
 Installation
 ============
@@ -5,6 +7,11 @@ Installation
 At the command line::
 
     pip install igem-wikisync
+
+.. _known-issues:
+
+Known Issues
+------------
 
 SSL error:
 
