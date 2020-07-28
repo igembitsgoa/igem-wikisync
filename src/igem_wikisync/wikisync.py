@@ -4,7 +4,6 @@ from hashlib import md5
 from http.cookiejar import LWPCookieJar
 from pathlib import Path
 
-# TODO: Check file size before trying to upload
 # TODO: Return the same URL if media file doesn't exist
 # TODO: Print summary with important errors after execution
 # TODO: change asset filename in build_dir
@@ -15,6 +14,12 @@ from pathlib import Path
 # TODO: Allow show_skipped = False
 # TODO: Allow broken link check = false
 # TODO: Allow allow_broken = False
+# TODO: Generate Travis config from within WikiSync
+# TODO: Don't rename files if they already conform to iGEM spec
+# TODO: Check for filename too long errors
+# TODO: Add year option
+# TODO: Allow failures on Travis to save upload map
+# TODO: Test failures on Travis
 
 import mechanicalsoup
 import yaml
@@ -233,8 +238,12 @@ def cache_files(upload_map, config):
                                        'xlsx', 'docx', 'pptx', 'csv', 'm', 'ogg', 'gb',
                                        'tif', 'tiff', 'fcs', 'otf', 'eot', 'ttf', 'woff', 'svg']:
 
-                file_object = OtherFile(infile, config)
-                cache['other'][file_object.path] = file_object
+                # make sure file size is within limits
+                if (config['src_dir'] / infile).stat().st_size < 1000000:
+                    file_object = OtherFile(infile, config)
+                    cache['other'][file_object.path] = file_object
+                else:
+                    logger.info(f'{infile} is larger than the 100MB file limit. Skipping.')
 
             else:
                 file_object = None  # just to shut up lintian

@@ -175,13 +175,15 @@ def iGEM_upload_page(browser, contents: str, url: str) -> bool:
 def iGEM_upload_file(browser, file_object):
     """
     Upload a file to iGEM servers.
+    iGEM allows files only 100MB large. 
+    That check is performed in wikisync.run(), not here.
 
     Parameters:
         browser: mechanicalsoup.Browser instance
         file_object: igem_wikisync.files.OtherFile object
 
     Returns:
-        True is uploaded, False otherwise.
+        True if uploaded, False otherwise.
     """
 
     # Try opening the iGEM upload page
