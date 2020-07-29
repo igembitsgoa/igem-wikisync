@@ -44,7 +44,8 @@ def test_iGEM_URL():
     config = {
         'src_dir': 'tests/data',
         'build_dir': 'tests/build',
-        'team': 'BITSPilani-Goa_India'
+        'team': 'BITSPilani-Goa_India',
+        'year': '2020'
     }
 
     upload_map = {

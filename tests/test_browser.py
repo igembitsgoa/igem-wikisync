@@ -23,7 +23,8 @@ def config():
     return {
         'team': 'BITSPilani-Goa_India',
         'src_dir': 'tests/data',
-        'build_dir': 'tests/build'
+        'build_dir': 'tests/build',
+        'year': '2020'
     }
 
 
@@ -54,22 +55,22 @@ def md5hash_file(url):
 
 
 def test_is_logged_in_before(config):
-    assert not is_logged_in(pytest.browser, config['team'])
+    assert not is_logged_in(pytest.browser, config['team'], config['year'])
 
 
 def test_credentials(credentials):
     assert credentials['username'] is not None
 
 
-def test_iGEM_login(credentials, caplog):
+def test_iGEM_login(credentials, config, caplog):
     # Login for the first time
-    assert iGEM_login(pytest.browser, credentials)
+    assert iGEM_login(pytest.browser, credentials, config)
     assert 'Successfully logged in' in caplog.text
 
 
-def test_is_logged_in_after(credentials, caplog):
+def test_is_logged_in_after(credentials, config, caplog):
     # Check that once we're logged in, it doesn't login again
-    assert iGEM_login(pytest.browser, credentials)
+    assert iGEM_login(pytest.browser, credentials, config)
     assert 'Already logged in' in caplog.text
 
 
@@ -99,24 +100,24 @@ def test_iGEM_upload_page(config, caplog):
 def test_iGEM_upload_file(config):
     file_object = OtherFile('assets/img/test.jpg', config)
 
-    iGEM_upload_file(pytest.browser, file_object)
+    iGEM_upload_file(pytest.browser, file_object, config['year'])
 
     url = "https://2020.igem.org/wiki/images/5/57/T--BITSPilani-Goa_India--img--test.jpg"
 
     assert file_object.md5_hash == md5hash_file(url)
 
 
-def test_iGEM_login_invalid_username(credentials, caplog):
+def test_iGEM_login_invalid_username(credentials, config, caplog):
     credentials['username'] = 'helloinvalidusername'
 
     browser = mechanicalsoup.StatefulBrowser()
-    assert not iGEM_login(browser, credentials)
+    assert not iGEM_login(browser, credentials, config)
     assert 'username is invalid' in caplog.text
 
 
-def test_iGEM_login_invalid_password(credentials, caplog):
+def test_iGEM_login_invalid_password(credentials, config, caplog):
     credentials['password'] = 'incorrect_password'
 
     browser = mechanicalsoup.StatefulBrowser()
-    assert not iGEM_login(browser, credentials)
+    assert not iGEM_login(browser, credentials, config)
     assert 'the password is not' in caplog.text

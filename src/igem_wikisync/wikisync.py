@@ -3,11 +3,12 @@ import shutil
 from hashlib import md5
 from http.cookiejar import LWPCookieJar
 from pathlib import Path
+from datetime import date
 
 # TODO: Print summary with important errors after execution
 # TODO: change asset filename in build_dir
 # TODO: Remove igem_wikisync.logger from logs
-# TODO: Change cookie and log file names 
+# TODO: Change cookie and log file names
 # TODO: Tag broken links in the log
 # TODO: Allow only_validate = True
 # TODO: Allow show_skipped = False
@@ -31,16 +32,26 @@ from igem_wikisync.logger import logger
 # pylint: disable=too-many-instance-attributes, fixme
 
 
-def run(team: str, src_dir: str, build_dir: str):
+def run(team: str,
+        src_dir: str,
+        build_dir: str,
+        year=date.today().year):
     '''
     Runs iGEM-WikiSync and uploads all files to iGEM servers
     while replacing relative URLs with those on the iGEM server.
 
-    Arguments:
-        # @param team: iGEM Team Name
+    Mandatory Arguments:
+        team: iGEM Team Name
+        src_dir: Path to the folder where the source files are present
+        build_dir: Path to the folder where the built files will be stored before uploading
+
+    Optional Arguments:
+        team: iGEM Team Name
         src_dir: Path to the folder where the source files are present
         build_dir: Path to the folder where the built files will be stored before uploading
     '''
+
+    print(year)
 
     # TODO: does it store files in build_dir also? Now it does.
 
@@ -62,7 +73,8 @@ def run(team: str, src_dir: str, build_dir: str):
     config = {
         'team':      team,
         'src_dir':   src_dir,
-        'build_dir': build_dir
+        'build_dir': build_dir,
+        'year': str(year)
     }
 
     # * 2. Load or create upload_map
@@ -76,15 +88,14 @@ def run(team: str, src_dir: str, build_dir: str):
     # * 4. Get iGEM credentials from environment variables
     credentials = {
         'username': os.environ.get('IGEM_USERNAME'),
-        'password': os.environ.get('IGEM_PASSWORD'),
-        'team': team
+        'password': os.environ.get('IGEM_PASSWORD')
     }
 
     # * 5. Load/create cookie file
     browser, cookiejar = get_browser_with_cookies()
 
     # * 6. Login to iGEM
-    login = iGEM_login(browser, credentials)
+    login = iGEM_login(browser, credentials, config)
     if not login:
         message = 'Failed to login.'
         logger.error(message)
@@ -98,7 +109,7 @@ def run(team: str, src_dir: str, build_dir: str):
     files = cache_files(upload_map, config)
 
     # * 9. Upload all assets and create a map
-    upload_and_write_assets(files['other'], browser, upload_map)
+    upload_and_write_assets(files['other'], browser, upload_map, config)
 
     # * 10. write upload map just in case
     # things go wrong while dealing with code
@@ -261,7 +272,7 @@ def cache_files(upload_map, config):
     return cache
 
 
-def upload_and_write_assets(other_files, browser, upload_map):
+def upload_and_write_assets(other_files, browser, upload_map, config):
     """"
     Uploads and writes all files and stores URLs in upload_map.
 
@@ -269,6 +280,7 @@ def upload_and_write_assets(other_files, browser, upload_map):
         other_files: dictionary containing OtherFile objects
         browser: mechanicalsoup.StatefulBrowser instance
         upload_map: custom upload map
+        config: custom configuration options
 
     Returns:
         True if successful
@@ -309,7 +321,7 @@ def upload_and_write_assets(other_files, browser, upload_map):
                         raise SystemExit
 
                     # And upload file and update hash
-                    successful = iGEM_upload_file(browser, file_object)
+                    successful = iGEM_upload_file(browser, file_object, config['year'])
                     if not successful:
                         # print upload map to save the current state
                         write_upload_map(upload_map)
@@ -346,7 +358,7 @@ def upload_and_write_assets(other_files, browser, upload_map):
                 raise SystemExit
 
             # and then upload
-            successful = iGEM_upload_file(browser, file_object)
+            successful = iGEM_upload_file(browser, file_object, config['year'])
             if not successful:
                 # print upload map to save the current state
                 write_upload_map(upload_map)

@@ -8,7 +8,8 @@ def config():
     return {
         'team': 'BITSPilani-Goa_India',
         'src_dir': 'tests/data',
-        'build_dir': 'tests/build'
+        'build_dir': 'tests/build',
+        'year': '2020'
     }
 
 

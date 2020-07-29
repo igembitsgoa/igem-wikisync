@@ -81,7 +81,7 @@ def iGEM_URL(config: dict, path: Path, upload_map: dict, url: str) -> str:
         return url
 
     if url == '/':
-        return 'https://2020.igem.org/Team:' + config['team']
+        return 'https://' + config['year'] + '.igem.org/Team:' + config['team']
 
     # Resolve relative path to local absolute path
     resolved_path = resolve_relative_path(url, path.parent, config['src_dir'])
@@ -118,7 +118,6 @@ def iGEM_URL(config: dict, path: Path, upload_map: dict, url: str) -> str:
         else:
             # leave unchanged
             logger.error(f"{old_path} is not a source code file and was not found in the upload map.")
-
 
     logger.info(f"{old_path} was changed to {url} in {path}.")
 

@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 from igem_wikisync.logger import logger
 
 
-def iGEM_login(browser, credentials: dict) -> bool:
+def iGEM_login(browser, credentials: dict, config: dict) -> bool:
     """
     Logs into the iGEM server.
 
@@ -13,6 +13,7 @@ def iGEM_login(browser, credentials: dict) -> bool:
         browser: mechanicalsoup.Browser instance
         credentials: dictionary containing 'username'
             and 'password'
+        config: custom configuration dictionary
 
     Returns:
         True if login is successful.
@@ -20,7 +21,7 @@ def iGEM_login(browser, credentials: dict) -> bool:
     """
 
     # Check if we're already logged in
-    if is_logged_in(browser, credentials['team']):
+    if is_logged_in(browser, config['team'], config['year']):
         logger.info(f"Already logged in as {credentials['username']}.")
         return True
 
@@ -87,14 +88,14 @@ def iGEM_login(browser, credentials: dict) -> bool:
     return False
 
 
-def is_logged_in(browser, team: str) -> bool:
+def is_logged_in(browser, team: str, year: str) -> bool:
     """
     Check if we're logged into iGEM websites.
     Opens a random iGEM page and checks for edit access.
 
     Arguments:
         browser: mechanicalsoup.Browser instance
-        team: iGEM team name
+        config: custom config dictionary
 
     Returns:
         True if we're logged in.
@@ -102,7 +103,7 @@ def is_logged_in(browser, team: str) -> bool:
     """
 
     # Try opening a random page within the team
-    url = 'https://2020.igem.org/Team:' + team + \
+    url = 'https://' + year + '.igem.org/Team:' + team + \
         '/' + str(datetime.now().microsecond ** 2)
     try:
         browser.open(url)
@@ -172,10 +173,10 @@ def iGEM_upload_page(browser, contents: str, url: str) -> bool:
     return True
 
 
-def iGEM_upload_file(browser, file_object):
+def iGEM_upload_file(browser, file_object, year):
     """
     Upload a file to iGEM servers.
-    iGEM allows files only 100MB large. 
+    iGEM allows files only 100MB large.
     That check is performed in wikisync.run(), not here.
 
     Parameters:
@@ -225,7 +226,7 @@ def iGEM_upload_file(browser, file_object):
     # Extract relative link from response
     relative_link = browser.get_current_page().find(
         class_='fullMedia').find('a')['href']
-    file_object.set_upload_URL('https://2020.igem.org' + relative_link)
+    file_object.set_upload_URL('https://' + year + '.igem.org' + relative_link)
 
     logger.info(f'Uploaded {file_object.upload_filename} to {file_object.upload_URL}.')
 
