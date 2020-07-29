@@ -238,10 +238,16 @@ def cache_files(upload_map, config):
                 elif (config['src_dir'] / infile).stat().st_size >= 1000000:
                     logger.error(f'{infile} is larger than the 100MB file limit. Skipping.')
                     continue
-                # valid OtherFile
+                # create OtherFile
                 else:
                     file_object = OtherFile(infile, config)
-                    cache['other'][file_object.path] = file_object
+
+                    if len(file_object.upload_filename) < 240:
+                        cache['other'][file_object.path] = file_object
+                    else:
+                        logger.error(f'{infile}: Upload filename too large. Skipping.')
+                        logger.error('Please do not nest assets too deep and take a look at our docs to see how WikiSync renames files.')
+                        continue
 
             else:
                 logger.error(f'{infile} has an unsupported file extension. Skipping.')

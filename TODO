@@ -1,7 +1,8 @@
 Before AIIM:
     ☐ Print summary with important errors after execution
-    ✔ Don't rename files if they already conform to iGEM spec @done(20-07-30 03:13)
-    ☐ Check for filename too long errors
+    ✔ Don't rename files if they already conform to iGEM spec @done(20-07-30 03:14)
+    ✔ Rename assets in build/ as well @done(20-07-30 03:15)
+    ✔ Check for filename too long errors @done(20-07-30 03:22)
     ☐ Allow failures on Travis to save upload map
     ☐ Test failures on Travis
 
