@@ -3,10 +3,8 @@ __pycache__
 
 # iGEM Credentials
 credentials.sh
-igem-wikisync.cookies
-igem-wikisync.log
-igemwiki-upload.cookies
-igemwiki-upload.log
+wikisync.cookies
+wikisync.log
 
 # C extensions
 *.so

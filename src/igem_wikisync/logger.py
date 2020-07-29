@@ -12,8 +12,8 @@ console_handler.setLevel(logging.INFO)
 logger.addHandler(console_handler)
 
 # Create file logger
-file_handler = logging.FileHandler('igemwiki-upload.log', mode='w')
-file_format = logging.Formatter('%(asctime)s : %(name)s : %(levelname)s : %(funcName)s : %(message)s')
+file_handler = logging.FileHandler('wikisync.log', mode='w')
+file_format = logging.Formatter('%(asctime)s : %(levelname)s : %(funcName)s : %(message)s')
 file_handler.setFormatter(file_format)
 file_handler.setLevel(logging.INFO)
 logger.addHandler(file_handler)

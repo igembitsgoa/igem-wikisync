@@ -6,8 +6,6 @@ from pathlib import Path
 from datetime import date
 
 # TODO: Print summary with important errors after execution
-# TODO: Remove igem_wikisync.logger from logs
-# TODO: Change cookie and log file names
 # TODO: Tag broken links in the log
 # TODO: Allow only_validate = True
 # TODO: Allow show_skipped = False
@@ -48,10 +46,6 @@ def run(team: str,
         src_dir: Path to the folder where the source files are present
         build_dir: Path to the folder where the built files will be stored before uploading
     '''
-
-    print(year)
-
-    # TODO: does it store files in build_dir also? Now it does.
 
     # * 1. CHECK AND FORMAT INPUTS
     if team is None or not isinstance(team, str):
@@ -183,7 +177,7 @@ def get_browser_with_cookies():
         cookiejar: browser cookiejar that can be saved after logging in
     """
 
-    cookie_file = 'igemwiki-upload.cookies'
+    cookie_file = 'wikisync.cookies'
     cookiejar = LWPCookieJar(cookie_file)
     if os.path.exists(cookie_file):
         try:
