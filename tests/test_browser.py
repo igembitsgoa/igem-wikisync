@@ -9,7 +9,7 @@ from mechanicalsoup import StatefulBrowser
 import hashlib
 from datetime import date
 
-from igem_wikisync.browser import iGEM_login, is_logged_in, iGEM_upload_page, iGEM_upload_file
+from igem_wikisync.browser import iGEM_login, check_login, iGEM_upload_page, iGEM_upload_file
 from igem_wikisync.files import HTMLfile, OtherFile
 
 # I know this is bad
@@ -55,8 +55,8 @@ def md5hash_file(url):
     return h.hexdigest()
 
 
-def test_is_logged_in_before(config):
-    assert not is_logged_in(pytest.browser, config['team'], config['year'])
+def test_check_login_before(config):
+    assert not check_login(pytest.browser, config['team'], config['year'])
 
 
 def test_credentials(credentials):
@@ -69,7 +69,7 @@ def test_iGEM_login(credentials, config, caplog):
     assert 'Successfully logged in' in caplog.text
 
 
-def test_is_logged_in_after(credentials, config, caplog):
+def test_check_login_after(credentials, config, caplog):
     # Check that once we're logged in, it doesn't login again
     assert iGEM_login(pytest.browser, credentials, config)
     assert 'Already logged in' in caplog.text

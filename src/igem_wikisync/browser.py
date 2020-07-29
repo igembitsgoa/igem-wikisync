@@ -21,7 +21,7 @@ def iGEM_login(browser, credentials: dict, config: dict) -> bool:
     """
 
     # Check if we're already logged in
-    if is_logged_in(browser, config['team'], config['year']):
+    if check_login(browser, config['team'], config['year']):
         logger.info(f"Already logged in as {credentials['username']}.")
         return True
 
@@ -32,8 +32,8 @@ def iGEM_login(browser, credentials: dict, config: dict) -> bool:
     except Exception:
         message = f"Couldn't connect to {url}."
         logger.debug(message, exc_info=True)
-        logger.error(message)
-        return False
+        logger.critical(message)
+        raise SystemExit
 
     # Check if login was successful
     if response.status_code != 200:
@@ -88,7 +88,7 @@ def iGEM_login(browser, credentials: dict, config: dict) -> bool:
     return False
 
 
-def is_logged_in(browser, team: str, year: str) -> bool:
+def check_login(browser, team: str, year: str) -> bool:
     """
     Check if we're logged into iGEM websites.
     Opens a random iGEM page and checks for edit access.
@@ -110,8 +110,8 @@ def is_logged_in(browser, team: str, year: str) -> bool:
     except Exception:
         message = "Couldn't connect to iGEM. Please check your internet connection."
         logger.debug(message, exc_info=True)
-        logger.error(message)
-        return False
+        logger.critical(message)
+        raise SystemExit
 
     soup = browser.get_current_page()
 

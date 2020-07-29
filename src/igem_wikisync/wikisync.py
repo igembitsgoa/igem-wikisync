@@ -90,7 +90,7 @@ def run(team: str,
     login = iGEM_login(browser, credentials, config)
     if not login:
         message = 'Failed to login.'
-        logger.error(message)
+        logger.critical(message)
         raise SystemExit
 
     # * 7. Save cookies
@@ -242,7 +242,7 @@ def cache_files(upload_map, config):
 
                 # make sure file path start with 'assets'
                 if len(str(infile)) < 7 or str(infile)[:7] != 'assets/':
-                    logger.info(f'{infile} is an {extension} file outside the "assets" folder. Skipping.')
+                    logger.error(f'{infile} is an {extension} file outside the "assets" folder. Skipping.')
                     continue
 
                 # make sure file size is within limits
@@ -250,11 +250,11 @@ def cache_files(upload_map, config):
                     file_object = OtherFile(infile, config)
                     cache['other'][file_object.path] = file_object
                 else:
-                    logger.info(f'{infile} is larger than the 100MB file limit. Skipping.')
+                    logger.error(f'{infile} is larger than the 100MB file limit. Skipping.')
                     continue
 
             else:
-                logger.info(f'{infile} has an unsupported file extension. Skipping.')
+                logger.error(f'{infile} has an unsupported file extension. Skipping.')
                 continue
                 # ? Do we want to support other text files?
                 # Team lead says no.
@@ -314,7 +314,7 @@ def upload_and_write_assets(other_files, browser, upload_map, config):
                             'The current upload map has been saved. ' + \
                             'You will not have to upload everything again.'
                         logger.debug(message, exc_info=True)
-                        logger.error(message)
+                        logger.critical(message)
                         raise SystemExit
 
                     # And upload file and update hash
@@ -326,7 +326,7 @@ def upload_and_write_assets(other_files, browser, upload_map, config):
                             'The current upload map has been saved. ' + \
                             'You will not have to upload everything again.'
                         logger.debug(message, exc_info=True)
-                        logger.error(message)
+                        logger.critical(message)
                         raise SystemExit
 
                     # TODO: add error handling
@@ -351,7 +351,7 @@ def upload_and_write_assets(other_files, browser, upload_map, config):
                     'The current upload map has been saved. ' + \
                     'You will not have to upload everything again.'
                 logger.debug(message, exc_info=True)
-                logger.error(message)
+                logger.critical(message)
                 raise SystemExit
 
             # and then upload
@@ -363,7 +363,7 @@ def upload_and_write_assets(other_files, browser, upload_map, config):
                 message += 'The current upload map has been saved. '
                 message += 'You will not have to upload everything again.'
                 logger.debug(message, exc_info=True)
-                logger.error(message)
+                logger.critical(message)
                 raise SystemExit
 
             upload_map['assets'][str(path)] = {
@@ -433,7 +433,7 @@ def build_and_upload(files, browser, config, upload_map):
                         file.write(processed)
                 except Exception:
                     message = f"Couldn not write {str(file_object.build_path)}. Skipping."
-                    logger.info(message)
+                    logger.error(message)
                     continue
                     # FIXME Can this be improved?
 
@@ -441,6 +441,6 @@ def build_and_upload(files, browser, config, upload_map):
                 successful = iGEM_upload_page(browser, processed, file_object.upload_URL)
                 if not successful:
                     message = f'Could not upload {str(file_object.path)}. Skipping.'
-                    logger.info(message)
+                    logger.error(message)
                     continue
                     # FIXME Can this be improved?

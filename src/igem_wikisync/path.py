@@ -99,8 +99,8 @@ def iGEM_URL(config: dict, path: Path, upload_map: dict, url: str) -> str:
         filepath = config['src_dir'] / resolved_path
 
         if not os.path.isfile(filepath):
-            message = f"Warning: {filepath} is referenced in {config['src_dir'] / path} but was not found."
-            logger.error(message)
+            message = f"{filepath} is referenced in {config['src_dir'] / path} but was not found."
+            logger.warning(message)
 
         extension = resolved_path.suffix[1:].lower()
 
@@ -117,7 +117,7 @@ def iGEM_URL(config: dict, path: Path, upload_map: dict, url: str) -> str:
             url = file_object.link_URL
         else:
             # leave unchanged
-            logger.error(f"{old_path} is not a source code file and was not found in the upload map.")
+            logger.warning(f"{old_path} is referenced in {path} but was not found.")
 
     logger.info(f"{old_path} was changed to {url} in {path}.")
 
