@@ -7,6 +7,7 @@ import random
 import string
 from mechanicalsoup import StatefulBrowser
 import hashlib
+from datetime import date
 
 from igem_wikisync.browser import iGEM_login, is_logged_in, iGEM_upload_page, iGEM_upload_file
 from igem_wikisync.files import HTMLfile, OtherFile
@@ -24,7 +25,7 @@ def config():
         'team': 'BITSPilani-Goa_India',
         'src_dir': 'tests/data',
         'build_dir': 'tests/build',
-        'year': '2020'
+        'year': str(date.today().year)
     }
 
 

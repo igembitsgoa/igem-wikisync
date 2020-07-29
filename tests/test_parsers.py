@@ -1,6 +1,7 @@
 from igem_wikisync.parsers import HTMLparser, CSSparser, JSparser
 import pytest
 import hashlib
+from datetime import date
 
 
 @pytest.fixture
@@ -9,7 +10,7 @@ def config():
         'team': 'BITSPilani-Goa_India',
         'src_dir': 'tests/data',
         'build_dir': 'tests/build',
-        'year': '2020'
+        'year': str(date.today().year)
     }
 
 

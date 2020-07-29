@@ -17,7 +17,6 @@ from datetime import date
 # TODO: Generate Travis config from within WikiSync
 # TODO: Don't rename files if they already conform to iGEM spec
 # TODO: Check for filename too long errors
-# TODO: Add year option
 # TODO: Allow failures on Travis to save upload map
 # TODO: Test failures on Travis
 

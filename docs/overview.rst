@@ -36,7 +36,7 @@ Features
 
 #. Uploads media and documents
 #. Checks for broken links
-#. Replaces links in source code
+#. Replaces links in source code (HTML and CSS)
 #. Uploads modified source code
 #. Keeps track of uploads and only upload changes
 #. Renames media and documents according to iGEM specifications
@@ -44,5 +44,5 @@ Features
 Other Advantages of Using WikiSync
 ----------------------------------
 #. Allows you to leverage modern IDEs like Visual Studio Code
-#. Collaboration through `Github <https://github.com>`_
+#. Collaboration through `Github <https://github.com>`_.
 #. Automatic deployment through `Travis CI <https://travis-ci.com>`_

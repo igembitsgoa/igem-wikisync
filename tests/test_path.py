@@ -1,4 +1,5 @@
 from igem_wikisync.path import is_relative, resolve_relative_path, iGEM_URL
+from datetime import date
 
 
 def test_is_relative():
@@ -45,7 +46,7 @@ def test_iGEM_URL():
         'src_dir': 'tests/data',
         'build_dir': 'tests/build',
         'team': 'BITSPilani-Goa_India',
-        'year': '2020'
+        'year': str(date.today().year)
     }
 
     upload_map = {
