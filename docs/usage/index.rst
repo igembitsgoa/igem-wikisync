@@ -93,7 +93,7 @@ Read on to see how WikiSync performs optimizations by storing cookies and upload
 Maintaining a Session
 ---------------------
 
-WikiSync stores cookies to maintain your session as long as iGEM servers permit. This saves you from logging in on every run, reducing overhead on your network connection as well as iGEM servers. This also makes the overall operation faster. 
+WikiSync stores cookies so you don't have to login on every run. This reducing network overhead and also makes the overall operation faster.
 
 Cookies are stored in a file called ``wikisync.cookies`` in the directory where WikiSync is run.
 
@@ -105,22 +105,18 @@ Cookies are stored in a file called ``wikisync.cookies`` in the directory where 
 Keeping Track of Changes
 ------------------------
 
-After each run of WikiSync, you'll notice a file called ``upload_map.yml`` in the directory where you run it. 
-
-WikiSync keeps track of all the files it uploads in this file, along with their filenames, URLs and md5 hashes. This ensures that existing files are not uploaded again, but their URLs still can be substituted in the code.
-
-The md5 hashes allow it to check for changes within existing files, so it can upload the modified files.
+After each run of WikiSync, WikiSync creates a file called ``upload_map.yml`` in the directory where it was run. This is a list of files it has encountered and uploaded till now, along with their URLs and MD5 hashes. This ensures that existing files are not uploaded again, but their URLs still can be substituted in the code. MD5 hashes allow it to check for changes within existing files, so it can upload the modified versions.
 
 This is also useful in case connection to iGEM servers is lost while uploading. WikiSync saves the intermediate state in the upload map, so you can resume from that point when the internet connection is restored.
 
 The upload map can (and should) be tracked by a version control system, to allow `continuous integration`_ and deployment through `Travis <https://travis-ci.com>`_. This also helps you get a bird's eye view of the upload operation without having to read the log.
 
-The upload map should never be edited manually. WikiSync tries to check for errors and inform you before running. In case it does, and you find it hard to fix the file, please contact us and ask for help. If this file is deleted/damaged, WikiSync will upload each file again, which can overload the iGEM servers unnecessarily. This can be especially troublesome when all the teams try to upload their content, close to the Wiki Freeze. WikiSync is a powerful tool and we hope you use it reponsibly.
+The upload map should never be edited manually. If this file is deleted/damaged, WikiSync will upload each file again, which can overload the iGEM servers unnecessarily. This can be especially troublesome when all the teams try to upload their content, close to the Wiki Freeze.
 
 Tracking Broken Links
 ---------------------
 
-Building the iGEM wiki is an endeavour that requires considerable effort. As your wiki grows into several pages and hundreds of links spread across them, it can be hard to find broken links. WikiSync tries to make this easier for you by checking for broken (internal) links. This functionality is enabled by default to enforce good practice, but it can be disabled. Look at the configuration options to know more about this.
+As your wiki grows into several pages and hundreds of links spread across them, it can be hard to find broken links. WikiSync tries to make this easier by checking for broken (internal) links. This functionality is enabled by default to enforce good practice, but it can be disabled. Look at the configuration options to know more about this.
 
 Configuration Options
 ---------------------

@@ -20,9 +20,9 @@ iGEM WikiSync is an elegant and simple way to upload iGEM Wikis.
 
 .. end-badges
 
-We believe that `iGEM <https://igem.org/Main_Page>`_ teams should be allowed to focus more on the technical aspects of their projects, along with the actual content and design of their wikis, instead of worrying about broken links and missing images. It is with this philosophy that iGEM BITS Goa presents iGEM WikiSync. 
+There's no need anymore to manually upload each file, replace each URL and copy paste your source code into a web form. Building and deployment can now be as simple as a ``git push``, thanks to `Travis <https://travis-ci.com>`_.
 
-Please head over to the :ref:`overview` to read more about this project, or dive right in with the :ref:`usage-guide`. We've also created a step-by-step :ref:`tutorial` to get your wiki up and running quickly
+Please head over to the :ref:`overview` to read more about this project, or dive right in with the :ref:`usage-guide`. We've also created a step-by-step :ref:`tutorial` to get your wiki up and running quickly.
 
 ========
 Contents
