@@ -22,10 +22,15 @@ install:
 
 jobs:
   include:
-    - stage: Check Build and Deploy Docs
+    # - stage: Check Build and Deploy Docs
+    #   python: '3.6'
+    #   env: 
+    #     - TOXENV=check,docs
+    #   script: tox -v
+    - stage: Deploy Docs
       python: '3.6'
       env: 
-        - TOXENV=check,docs
+        - TOXENV=docs
       script: tox -v
 
     # - stage: Python 3.6

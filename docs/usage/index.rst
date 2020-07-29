@@ -105,7 +105,7 @@ Cookies are stored in a file called ``wikisync.cookies`` in the directory where 
 Keeping Track of Changes
 ------------------------
 
-After each run of WikiSync, WikiSync creates a file called ``upload_map.yml`` in the directory where it was run. This is a list of files it has encountered and uploaded till now, along with their URLs and MD5 hashes. This ensures that existing files are not uploaded again, but their URLs still can be substituted in the code. MD5 hashes allow it to check for changes within existing files, so it can upload the modified versions.
+After each run of WikiSync, it creates a file called ``upload_map.yml`` in the directory where it was run. This is a list of files it has encountered and uploaded till now, along with their URLs and MD5 hashes. This ensures that existing files are not uploaded again, but their URLs still can be substituted in the code. MD5 hashes allow it to check for changes within existing files, so it can upload the modified versions.
 
 This is also useful in case connection to iGEM servers is lost while uploading. WikiSync saves the intermediate state in the upload map, so you can resume from that point when the internet connection is restored.
 
@@ -140,6 +140,8 @@ WikiSync prints a log of all the operations it carries out, allowing you to over
 .. # TODO: Improve logs
 
 This file doesn't contain any sensitive information, and can be committed to git.
+
+.. _continuous-integration:
 
 Continuous Integration
 ----------------------

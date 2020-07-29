@@ -4,7 +4,7 @@
 Overview
 ========
 
-**WikiSync** is a Python library that allows you to easily upload your iGEM wiki. There's no need anymore to manually upload each file, replace each URL and copy paste your source code into a web form. Building and deployment can now be as simple as a ``git push``, thanks to `Travis <https://travis-ci.com>`_.
+**WikiSync** is a Python library that allows you to easily upload your iGEM wiki. It eliminates the need to manually upload each file, replace each URL and copy paste your source code into a web form. Building and deployment can now be as simple as a ``git push``, thanks to `Travis <https://travis-ci.com>`_.
 
 **All you need are five lines of code:**
 
@@ -18,15 +18,22 @@ Overview
         build_dir='build_directory'
     )
 
-`As of now <https://2020.igem.org/Resources/Wiki_Editing_Help>`_, you're required to upload every image, document or video individually, and create each page by typing code in a text box in your web browser. 
+WikiSync goes through each media file or document in your wiki folder, and uploads them. It then goes through your source code (HTML and CSS files) and replaces all the URLs with those received after uploading files. It then uploads this modified source code as well. It also checks for broken links.
 
-As your wiki grows into several pages with dozens images, it becomes hard to manage all the components due to lack of simple features like syntax highlighting. 
+By automating this, allows you to leverage all the `features of modern code editing software <https://medium.com/@bretcameron/7-essential-features-of-visual-studio-code-for-web-developers-be77e235bf62>`_ like `Visual Studio Code <https://code.visualstudio.com>`_. You can `see how your wiki looks <https://www.youtube.com/watch?v=WzE0yqwbdgU>`_ as you code and when you're done, you can effortlessly push your code to iGEM servers, by running just one command.
 
-Modern code editors like `Visual Studio Code <https://code.visualstudio.com>`_ offer `several features <https://medium.com/@bretcameron/7-essential-features-of-visual-studio-code-for-web-developers-be77e235bf62>`_ to make programming easier and writing code inside a web browser deprives you from using them. Even if you write code on a code editor instead of the iGEM webpage, you still need to copy-paste all your files every time you make changes. 
+It also seamlessly integrates with continuous integration  software, which allows your entire team to collaborate on the wiki, and finally upload it without any extra effort.
 
-WikiSync automates the entire deployment process and allows you to leverage all the features of modern IDEs. You can `see how your wiki looks <https://www.youtube.com/watch?v=WzE0yqwbdgU>`_ as you code and when you're done, you can effortlessly push your code to iGEM servers, by running just one command.
+Installation
+============
 
-Please head over to the :ref:`usage-guide` to get started, or take a look at our :ref:`tutorial` for step-by-step examples meant to help you make deployment as easy as a ``git push``.
+WikiSync can be installed by running this command in your terminal:
+
+    .. code-block:: bash
+	    
+        pip install igem-wikisync
+
+Please head over to the Usage Guide to get started, or take a look at our Tutorial for step-by-step examples meant to help you make deployment as easy as a git push.
 
 
 Features
@@ -43,7 +50,6 @@ Other Advantages of Using WikiSync
 ----------------------------------
 
 WikiSync allows you to leverage 
-
 #. Modern IDEs like Visual Studio Code
 #. Collaboration through `Github <https://github.com>`_.
 #. Automatic deployment through `Travis CI <https://travis-ci.com>`_
