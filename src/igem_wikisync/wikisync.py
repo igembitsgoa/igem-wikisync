@@ -6,7 +6,6 @@ from pathlib import Path
 from datetime import date
 
 # TODO: Print summary with important errors after execution
-# TODO: change asset filename in build_dir
 # TODO: Remove igem_wikisync.logger from logs
 # TODO: Change cookie and log file names
 # TODO: Tag broken links in the log
@@ -247,8 +246,13 @@ def cache_files(upload_map, config):
                                        'xlsx', 'docx', 'pptx', 'csv', 'm', 'ogg', 'gb',
                                        'tif', 'tiff', 'fcs', 'otf', 'eot', 'ttf', 'woff', 'svg']:
 
+                # make sure file path start with 'assets'
+                if len(str(infile)) < 7 or str(infile)[:7] != 'assets/':
+                    logger.info(f'{infile} is an {extension} file outside the "assets" folder. Skipping.')
+                    continue
+
                 # make sure file size is within limits
-                if (config['src_dir'] / infile).stat().st_size < 1000000:
+                elif (config['src_dir'] / infile).stat().st_size < 1000000:
                     file_object = OtherFile(infile, config)
                     cache['other'][file_object.path] = file_object
                 else:

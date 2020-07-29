@@ -57,6 +57,7 @@ def test_JSfile(config):
 
 
 def test_OtherFile(config):
+    # OtherFile assumes that the path starts from 'assets'
     other_file = OtherFile('assets/img/test.jpg', config)
 
     assert str(other_file.path) == 'assets/img/test.jpg'

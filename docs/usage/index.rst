@@ -6,6 +6,8 @@ Usage Guide
 
 .. contents:: Table of Contents
 
+.. # TODO: media must be in assets/
+
 Getting Started
 ---------------
 
