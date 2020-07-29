@@ -1,4 +1,5 @@
 import os
+from os import write
 import shutil
 from hashlib import md5
 from http.cookiejar import LWPCookieJar
@@ -6,11 +7,9 @@ from pathlib import Path
 from datetime import date
 
 # TODO: Print summary with important errors after execution
-# TODO: Tag broken links in the log
+
 # TODO: Allow only_validate = True
-# TODO: Allow show_skipped = False
-# TODO: Allow broken link check = false
-# TODO: Allow allow_broken = False
+
 # TODO: Generate Travis config from within WikiSync
 # TODO: Don't rename files if they already conform to iGEM spec
 # TODO: Check for filename too long errors
@@ -31,7 +30,8 @@ from igem_wikisync.logger import logger
 def run(team: str,
         src_dir: str,
         build_dir: str,
-        year=date.today().year):
+        year=date.today().year,
+        only_validate=False):
     '''
     Runs iGEM-WikiSync and uploads all files to iGEM servers
     while replacing relative URLs with those on the iGEM server.
@@ -66,7 +66,8 @@ def run(team: str,
         'team':      team,
         'src_dir':   src_dir,
         'build_dir': build_dir,
-        'year': str(year)
+        'year': str(year),
+        'only_validate':only_validate
     }
 
     # * 2. Load or create upload_map
@@ -86,6 +87,7 @@ def run(team: str,
     # * 5. Load/create cookie file
     browser, cookiejar = get_browser_with_cookies()
 
+    # if not only_validate:
     # * 6. Login to iGEM
     login = iGEM_login(browser, credentials, config)
     if not login:
@@ -93,13 +95,30 @@ def run(team: str,
         logger.critical(message)
         raise SystemExit
 
-    # * 7. Save cookies
-    # TODO: check if this works, might not
-    cookiejar.save()
+        # * 7. Save cookies
+        # TODO: check if this works, might not
+        cookiejar.save()
 
     # * 8. Cache files
     files = cache_files(upload_map, config)
 
+    # build_assets
+    
+    # write_upload_map
+
+    # upload_assets
+
+    # write_upload_map
+
+    # build_code
+
+    # write_upload_map
+
+    # upload_code
+
+    # write_upload_map
+
+    # if not only_validate:
     # * 9. Upload all assets and create a map
     upload_and_write_assets(files['other'], browser, upload_map, config)
 
@@ -127,8 +146,7 @@ def get_upload_map():
             with open('upload_map.yml', 'r') as file:
                 upload_map = yaml.safe_load(file)
         except Exception:
-            logger.critical('upload_map.yml exists but could not be opened.')
-            logger.critical('Please fix/delete the file and run the program again.')
+            logger.critical('upload_map.yml exists but could not be opened. Please try again.')
             raise SystemExit
 
         if isinstance(upload_map, type(None)):
@@ -141,6 +159,7 @@ def get_upload_map():
             elif not isinstance(upload_map[key], dict):
                 logger.critical('upload_map.yml has an invalid format.')
                 logger.critical('Please fix/delete the file and run the program again.')
+                logger.critical('You can find an example of a valid upload map at http://igem-wikisync.rtfd.io.')
                 raise SystemExit
 
         return upload_map
@@ -287,54 +306,26 @@ def upload_and_write_assets(other_files, browser, upload_map, config):
     # the URLs iGEM assigns are random
     for path in other_files.keys():
         file_object = other_files[path]
-        uploaded = False  # flag to keep track of current file upload
+        
+        # flag to see if file has already been uploaded
+        uploaded = False
 
         # check if the file has already been uploaded
         for asset_path in upload_map['assets'].keys():
 
+            # if current path matches stored path
             if asset_path == str(path):
                 asset = upload_map['assets'][asset_path]
+                # and the md5 hash is also the same
                 if file_object.md5_hash == asset['md5']:
-                    # ? Can't do anything about renames. iGEM API doesn't allow.
-                    # ? Can find the previous URL and use that itself
-                    # ? but is it worth the effort?
-                    # Team lead says no.
-                    pass
+                    # the file has already been uploaded
+                    uploaded = True
+                    break
                 else:
-                    # If file has changed, write to build_dir
-                    try:
-                        # create directory if doesn't exist
-                        if not os.path.isdir(file_object.build_path.parent):
-                            os.makedirs(file_object.build_path.parent)
-                        shutil.copyfile(file_object.src_path, file_object.build_path)
-                    except Exception:
-                        # print upload map to save the current state
-                        write_upload_map(upload_map)
-                        message = f'Failed to write {str(file_object.path)} to build_dir. ' + \
-                            'The current upload map has been saved. ' + \
-                            'You will not have to upload everything again.'
-                        logger.debug(message, exc_info=True)
-                        logger.critical(message)
-                        raise SystemExit
-
-                    # And upload file and update hash
-                    successful = iGEM_upload_file(browser, file_object, config['year'])
-                    if not successful:
-                        # print upload map to save the current state
-                        write_upload_map(upload_map)
-                        message = f'Failed to upload {str(file_object.path)}. ' + \
-                            'The current upload map has been saved. ' + \
-                            'You will not have to upload everything again.'
-                        logger.debug(message, exc_info=True)
-                        logger.critical(message)
-                        raise SystemExit
-
-                    # TODO: add error handling
-                    asset['md5'] = file_object.md5_hash
-                    asset['link_URL'] = file_object.upload_URL
-
-                uploaded = True
-                break
+                    # the file path matches, but the md5 hash doesn't
+                    # this means the file has changed
+                    uploaded = False
+                    break
 
         # if new file
         if not uploaded:
@@ -366,6 +357,10 @@ def upload_and_write_assets(other_files, browser, upload_map, config):
                 logger.critical(message)
                 raise SystemExit
 
+        if str(path) in upload_map['assets'].keys():
+            upload_map['assets'][str(path)]['md5'] = file_object.md5_hash
+            upload_map['assets'][str(path)]['link_URL'] = file_object.upload_URL
+        else:
             upload_map['assets'][str(path)] = {
                 'link_URL': file_object.upload_URL,
                 'md5': file_object.md5_hash,
