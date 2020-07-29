@@ -227,7 +227,10 @@ class OtherFile(BaseFile):
 
     def _generate_upload_filename(self):
         # if len(self._config['assets']) == 1:
-        return 'T--' + self._config['team'] + '--' + '--'.join(self.path.parts[1:])
+        if self.filename[:3] != 'T--':
+            return 'T--' + self._config['team'] + '--' + '--'.join(self.path.parts[1:])
+        else:
+            return self.filename
         # else:
         #   return 'T--' + self._config['team'] + '--' + '--'.join(self.path.parts)
 
@@ -255,5 +258,5 @@ class OtherFile(BaseFile):
         # return the hex representation of digest
         return h.hexdigest()
 
-    def set_upload_URL(self, url):
-        self._upload_URL = url
+    def set_link_URL(self, url):
+        self._link_URL = url

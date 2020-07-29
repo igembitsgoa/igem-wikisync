@@ -118,7 +118,7 @@ def iGEM_URL(config: dict, path: Path, upload_map: dict, url: str) -> str:
         else:
             # leave unchanged
             logger.warning(f"{old_path} is referenced in {path} but was not found.")
+            return old_path
 
     logger.info(f"{old_path} was changed to {url} in {path}.")
-
     return url

@@ -71,5 +71,5 @@ def test_OtherFile(config):
     assert (str(other_file.md5_hash)) == 'd47d3629a83090c33e94c961e03a03d2'
 
     url = 'hello'
-    other_file.set_upload_URL(url)
-    assert str(other_file.upload_URL) == 'hello'
+    other_file.set_link_URL(url)
+    assert str(other_file.link_URL) == 'hello'

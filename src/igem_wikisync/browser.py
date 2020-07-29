@@ -226,8 +226,8 @@ def iGEM_upload_file(browser, file_object, year):
     # Extract relative link from response
     relative_link = browser.get_current_page().find(
         class_='fullMedia').find('a')['href']
-    file_object.set_upload_URL('https://' + year + '.igem.org' + relative_link)
+    file_object.set_link_URL('https://' + year + '.igem.org' + relative_link)
 
-    logger.info(f'Uploaded {file_object.upload_filename} to {file_object.upload_URL}.')
+    logger.info(f'Uploaded {file_object.upload_filename} to {file_object.link_URL}.')
 
     return True

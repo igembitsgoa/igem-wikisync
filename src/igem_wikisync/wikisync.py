@@ -6,16 +6,6 @@ from http.cookiejar import LWPCookieJar
 from pathlib import Path
 from datetime import date
 
-# TODO: Print summary with important errors after execution
-
-# TODO: Allow only_validate = True
-
-# TODO: Generate Travis config from within WikiSync
-# TODO: Don't rename files if they already conform to iGEM spec
-# TODO: Check for filename too long errors
-# TODO: Allow failures on Travis to save upload map
-# TODO: Test failures on Travis
-
 import mechanicalsoup
 import yaml
 
@@ -30,8 +20,7 @@ from igem_wikisync.logger import logger
 def run(team: str,
         src_dir: str,
         build_dir: str,
-        year=date.today().year,
-        only_validate=False):
+        year=date.today().year):
     '''
     Runs iGEM-WikiSync and uploads all files to iGEM servers
     while replacing relative URLs with those on the iGEM server.
@@ -66,8 +55,7 @@ def run(team: str,
         'team':      team,
         'src_dir':   src_dir,
         'build_dir': build_dir,
-        'year': str(year),
-        'only_validate':only_validate
+        'year': str(year)
     }
 
     # * 2. Load or create upload_map
@@ -87,7 +75,6 @@ def run(team: str,
     # * 5. Load/create cookie file
     browser, cookiejar = get_browser_with_cookies()
 
-    # if not only_validate:
     # * 6. Login to iGEM
     login = iGEM_login(browser, credentials, config)
     if not login:
@@ -95,30 +82,13 @@ def run(team: str,
         logger.critical(message)
         raise SystemExit
 
-        # * 7. Save cookies
-        # TODO: check if this works, might not
-        cookiejar.save()
+    # * 7. Save cookies
+    # TODO: check if this works, might not
+    cookiejar.save()
 
     # * 8. Cache files
     files = cache_files(upload_map, config)
 
-    # build_assets
-    
-    # write_upload_map
-
-    # upload_assets
-
-    # write_upload_map
-
-    # build_code
-
-    # write_upload_map
-
-    # upload_code
-
-    # write_upload_map
-
-    # if not only_validate:
     # * 9. Upload all assets and create a map
     upload_and_write_assets(files['other'], browser, upload_map, config)
 
@@ -265,18 +235,17 @@ def cache_files(upload_map, config):
                     continue
 
                 # make sure file size is within limits
-                elif (config['src_dir'] / infile).stat().st_size < 1000000:
-                    file_object = OtherFile(infile, config)
-                    cache['other'][file_object.path] = file_object
-                else:
+                elif (config['src_dir'] / infile).stat().st_size >= 1000000:
                     logger.error(f'{infile} is larger than the 100MB file limit. Skipping.')
                     continue
+                # valid OtherFile
+                else:
+                    file_object = OtherFile(infile, config)
+                    cache['other'][file_object.path] = file_object
 
             else:
                 logger.error(f'{infile} has an unsupported file extension. Skipping.')
                 continue
-                # ? Do we want to support other text files?
-                # Team lead says no.
 
             if extension in ['html', 'css', 'js']:
                 if str(file_object.path) not in upload_map[extension].keys():
@@ -306,7 +275,7 @@ def upload_and_write_assets(other_files, browser, upload_map, config):
     # the URLs iGEM assigns are random
     for path in other_files.keys():
         file_object = other_files[path]
-        
+
         # flag to see if file has already been uploaded
         uploaded = False
 
@@ -334,7 +303,7 @@ def upload_and_write_assets(other_files, browser, upload_map, config):
                 # create directory if doesn't exist
                 if not os.path.isdir(file_object.build_path.parent):
                     os.makedirs(file_object.build_path.parent)
-                shutil.copyfile(file_object.src_path, file_object.build_path)
+                shutil.copyfile(file_object.src_path, file_object.build_path.parent / file_object.upload_filename)
             except Exception:
                 # print upload map to save the current state
                 write_upload_map(upload_map)
@@ -345,7 +314,6 @@ def upload_and_write_assets(other_files, browser, upload_map, config):
                 logger.critical(message)
                 raise SystemExit
 
-            # and then upload
             successful = iGEM_upload_file(browser, file_object, config['year'])
             if not successful:
                 # print upload map to save the current state
@@ -357,15 +325,15 @@ def upload_and_write_assets(other_files, browser, upload_map, config):
                 logger.critical(message)
                 raise SystemExit
 
-        if str(path) in upload_map['assets'].keys():
-            upload_map['assets'][str(path)]['md5'] = file_object.md5_hash
-            upload_map['assets'][str(path)]['link_URL'] = file_object.upload_URL
-        else:
-            upload_map['assets'][str(path)] = {
-                'link_URL': file_object.upload_URL,
-                'md5': file_object.md5_hash,
-                'upload_filename': file_object.upload_filename
-            }
+            if str(path) in upload_map['assets'].keys():
+                upload_map['assets'][str(path)]['md5'] = file_object.md5_hash
+                upload_map['assets'][str(path)]['link_URL'] = file_object.link_URL
+            else:
+                upload_map['assets'][str(path)] = {
+                    'link_URL': file_object.link_URL,
+                    'md5': file_object.md5_hash,
+                    'upload_filename': file_object.upload_filename
+                }
 
     return True
 
