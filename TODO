@@ -1,11 +1,16 @@
 Before AIIM:
-    ☐ Print summary with important errors after execution
-    ✔ Don't rename files if they already conform to iGEM spec @done(20-07-30 03:14)
-    ✔ Rename assets in build/ as well @done(20-07-30 03:15)
-    ✔ Check for filename too long errors @done(20-07-30 03:22)
     ☐ Allow failures on Travis to save upload map
     ☐ Test failures on Travis
-
+    ✔ Print summary after execution @done(20-07-30 10:57)
+    
 Future plans:
     ☐ Allow only-validate = True @low 
     ☐ Generate Travis config from within WikiSync
+    ☐ Print summary with important errors after execution
+    ☐      Number of broken links
+    ☐      Number of skipped files
+
+Done:
+    ✔ Don't rename files if they already conform to iGEM spec @done(20-07-30 03:14)
+    ✔ Rename assets in build/ as well @done(20-07-30 03:15)
+    ✔ Check for filename too long errors @done(20-07-30 03:22)

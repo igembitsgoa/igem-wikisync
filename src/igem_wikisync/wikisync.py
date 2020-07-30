@@ -1,5 +1,4 @@
 import os
-from os import write
 import shutil
 from hashlib import md5
 from http.cookiejar import LWPCookieJar
@@ -90,17 +89,19 @@ def run(team: str,
     files = cache_files(upload_map, config)
 
     # * 9. Upload all assets and create a map
-    upload_and_write_assets(files['other'], browser, upload_map, config)
+    uploaded_assets = upload_and_write_assets(files['other'], browser, upload_map, config)
 
     # * 10. write upload map just in case
     # things go wrong while dealing with code
     write_upload_map(upload_map)
 
     # * 11. Build files and upload changed files
-    build_and_upload(files, browser, config, upload_map)
+    uploaded_code = build_and_upload(files, browser, config, upload_map)
 
     # * 12. Write final upload map
     write_upload_map(upload_map)
+
+    print_summary(uploaded_assets, uploaded_code)
 
 
 def get_upload_map():
@@ -274,9 +275,15 @@ def upload_and_write_assets(other_files, browser, upload_map, config):
         config: custom configuration options
 
     Returns:
-        True if successful
-        Exits if fails
+        Number of files uploaded
+
+    Raises:
+        SystemExit on failure
     """
+
+    # count the number of files uploaded
+    counter = 0
+
     # files have to be uploaded before everything else because
     # the URLs iGEM assigns are random
     for path in other_files.keys():
@@ -330,6 +337,8 @@ def upload_and_write_assets(other_files, browser, upload_map, config):
                 logger.debug(message, exc_info=True)
                 logger.critical(message)
                 raise SystemExit
+            else:
+                counter += 1
 
             if str(path) in upload_map['assets'].keys():
                 upload_map['assets'][str(path)]['md5'] = file_object.md5_hash
@@ -341,7 +350,7 @@ def upload_and_write_assets(other_files, browser, upload_map, config):
                     'upload_filename': file_object.upload_filename
                 }
 
-    return True
+    return counter
 
 
 def build_and_upload(files, browser, config, upload_map):
@@ -355,8 +364,14 @@ def build_and_upload(files, browser, config, upload_map):
         upload_map: custom upload map
 
     Returns:
-        Nothing
+        Dictionary with no. of 'html', 'css' and 'js' files uploaded
     """
+
+    counter = {
+        'html': 0,
+        'css': 0,
+        'js': 0,
+    }
 
     for file_dictionary in [files['html'], files['css'], files['js']]:
         for path in file_dictionary.keys():
@@ -413,3 +428,31 @@ def build_and_upload(files, browser, config, upload_map):
                     logger.error(message)
                     continue
                     # FIXME Can this be improved?
+                else:
+                    counter[ext] += 1
+
+    return counter
+
+
+def print_summary(assets, code):
+
+    total_count = assets + code['html'] + code['css'] + code['js']
+
+    if total_count == 0:
+        print('WikiSync did not find any changes from the previous run. No files were uploaded.')
+    elif total_count == assets:
+        print(f"Done! Successfully uploaded {assets} assets.")
+    elif total_count == code['html']:
+        print(f"Done! Successfully uploaded {code['html']} HTML files.")
+    elif total_count == code['css']:
+        print(f"Done! Successfully uploaded {code['css']} stylesheets.")
+    elif total_count == code['js']:
+        print(f"Done! Successfully uploaded {code['js']} JS scripts.")
+    else:
+        print(f"Done! Successfully uploaded:")
+        print(f"    {assets} assets")
+        print(f"    {code['html']} HTML files")
+        print(f"    {code['css']} stylesheets")
+        print(f"    {code['js']} JS scripts")
+
+    print("Please look at the log for more details.")

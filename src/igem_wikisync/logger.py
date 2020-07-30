@@ -1,20 +1,20 @@
 import logging
 
 
-## LEVELS
+# LEVELS
 
-## CRITICAL: Failed to login / SystemExit worthy
-## ERROR:    Failed to connect
-##           Invalid credentials
-##           Coudln't upload
-##           Filename too large
-##           File too large
-##           Unsupported filetype
-##           Couldn't read/write file
-## WARNING:  File not found/broken link
-## INFO:     Uploaded
-##           Changed URL
-##           Logged in
+# CRITICAL: Failed to login / SystemExit worthy
+# ERROR:    Failed to connect
+# Invalid credentials
+# Coudln't upload
+# Filename too large
+# File too large
+# Unsupported filetype
+# Couldn't read/write file
+# WARNING:  File not found/broken link
+# INFO:     Uploaded
+# Changed URL
+# Logged in
 
 
 # Create a custom logger
