@@ -27,7 +27,7 @@ setup(
     name='igem-wikisync',
     version='0.0.5',
     license='MIT',
-    description='Automatically deploy iGEM Wikis.',
+    description='Continuous integration and deployment for iGEM Wikis.',
     long_description='%s\n%s' % (
         re.compile('^<!-- Badges Start -->.*^<!-- Badges End -->', re.M | re.S).sub('', read('README.md')),
         re.sub(':[a-z]+:`~?(.*?)`', r'``\1``', read('CHANGELOG.rst'))

@@ -27,27 +27,17 @@ Overview
 
 <!-- Badges End -->
 
-Automatically deploy iGEM Wikis.
+iGEM WikiSync is an elegant and simple way to upload [iGEM](https://igem.org) Wikis.
 
-*   Free software: MIT license
+WikiSync eliminates the need to manually upload each file, replace each URL and copy paste your source code into a web form. Building and deployment can now be as simple as a `git push`, thanks to [Travis](https://travis-ci.com).
+
+Please head over to our [documentation](https://igem-wikisync.readthedocs.io) to know more about this project and how you can use it to build your wiki faster.
 
 Installation
 ------------
 
     pip install igem-wikisync
 
-You can also install the in-development version with:
-
-    pip install https://github.com/igembitsgoa/igem-wikisync/archive/master.zip
-
-Documentation
+Collaboration
 -------------
-
-<https://igem-wikisync.readthedocs.io/>
-
-Development
------------
-
-To run the all tests run:
-
-    tox
+Using this software or submitting issues and pull requests can count towards a collaboration for our teams. Please give us a shoutout at [@igem_bits](https://www.instagram.com/igem_bits/) on Instagram if WikiSync has made your iGEM experience easier! For contibuting to this software or discussing further collaborations, please reach out to us at igembitsgoa@gmail.com.
