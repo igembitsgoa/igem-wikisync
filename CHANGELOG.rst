@@ -2,6 +2,20 @@
 Changelog
 =========
 
+0.0.5 (2020-07-30)
+------------------
+
+* Check file size before uploading
+* Don't change URL if file not found
+* Add year configuration option
+* Enforce asset paths to start with 'assets/'
+* Improve logging and change log and cookie filenames
+* Classify logging messages
+* Refactor upload_map
+* Don't rename files if they already follow iGEM spec
+* Check for filename too large
+* Print summary after execution
+
 0.0.4 (2020-07-25)
 ------------------
 
