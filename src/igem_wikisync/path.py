@@ -70,6 +70,9 @@ def iGEM_URL(config: dict, path: Path, upload_map: dict, url: str) -> str:
         Returns false if URL with an unsupported extension is passed
     """
 
+    if config['silence_warnings']:
+        logger.handlers[0].setLevel(40)
+
     # Store input for logging and/or returning
     old_path = url
 
@@ -115,8 +118,8 @@ def iGEM_URL(config: dict, path: Path, upload_map: dict, url: str) -> str:
         elif extension == 'js':
             file_object = JSfile(resolved_path, config)
             url = file_object.link_URL
+        # leave unchanged
         else:
-            # leave unchanged
             logger.warning(f"{old_path} is referenced in {path} but was not found.")
             return old_path
 

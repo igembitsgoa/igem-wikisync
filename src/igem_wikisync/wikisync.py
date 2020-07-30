@@ -19,7 +19,8 @@ from igem_wikisync.logger import logger
 def run(team: str,
         src_dir: str,
         build_dir: str,
-        year=date.today().year):
+        year=date.today().year,
+        silence_warnings=False):
     '''
     Runs iGEM-WikiSync and uploads all files to iGEM servers
     while replacing relative URLs with those on the iGEM server.
@@ -54,7 +55,8 @@ def run(team: str,
         'team':      team,
         'src_dir':   src_dir,
         'build_dir': build_dir,
-        'year': str(year)
+        'year': str(year),
+        'silence_warnings': silence_warnings
     }
 
     # * 2. Load or create upload_map
@@ -450,9 +452,15 @@ def print_summary(assets, code):
         print(f"Done! Successfully uploaded {code['js']} JS scripts.")
     else:
         print(f"Done! Successfully uploaded:")
-        print(f"    {assets} assets")
-        print(f"    {code['html']} HTML files")
-        print(f"    {code['css']} stylesheets")
-        print(f"    {code['js']} JS scripts")
+        if assets != 0:
+            print(f"    {assets} assets")
+        if code['html'] != 0:
+            print(f"    {code['html']} HTML files")
+        if code['css'] != 0:
+            print(f"    {code['css']} stylesheets")
+        if code['js'] != 0:
+            print(f"    {code['js']} JS scripts")
 
     print("Please look at the log for more details.")
+
+    
