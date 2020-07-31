@@ -151,11 +151,9 @@ Since WikiSync can upload your entire wiki automatically, this job can now be fu
 
     In this guide, we assume a familiarity and level of comfort with version control systems and continuous integration. If that doesn't sound like you, head over to our :ref:`tutorial` where we explain everything you need to know.
 
-.. # TODO: WikiSync can generate travis config
+Please find here `a Travis configuration <https://gist.github.com/ballaneypranav/7b5ad1024f9ad2edc721e59c917c915d>`_ file that you can directly include in your project
 
-.. admonition:: Under construction.
-
-    Coming up in a few days.
+.. TODO: Write more about this.
 
 
 Examples
