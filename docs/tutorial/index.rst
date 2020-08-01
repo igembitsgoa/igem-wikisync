@@ -4,6 +4,22 @@ Tutorial
 
 .. contents:: Table of Contents
 
+.. note::
+
+    We'll soon put up a more detailed tutorial. For the time being, please go through the links given below and reach out to us for any queries by emailing us at igembitsgoa@gmail.com.
+
+
+Git and Github
+--------------
+
+1. Git: https://www.youtube.com/watch?v=USjZcfj8yxE&t=217s
+
+2. Github: https://www.youtube.com/watch?v=nhNq2kIvi9s
+
+3. Travis: https://www.youtube.com/watch?v=g0KsiCj3CgQ&t=1s
+
+You'll also need to add ``GITHUB_USERNAME``, ``IGEM_USERNAME`` and ``IGEM_PASSWORD`` along with ``GITHUB_TOKEN`` as environment variables on Travis. We will have more details on the process up here soon.
+
 Examples
 --------
 

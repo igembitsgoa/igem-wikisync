@@ -153,6 +153,8 @@ Since WikiSync can upload your entire wiki automatically, this job can now be fu
 
 Please find here `a Travis configuration <https://gist.github.com/ballaneypranav/7b5ad1024f9ad2edc721e59c917c915d>`_ file that you can directly include in your project
 
+You'll also need to add ``GITHUB_USERNAME``, ``IGEM_USERNAME`` and ``IGEM_PASSWORD`` along with ``GITHUB_TOKEN`` as environment variables on Travis. We will have more details on the process up here soon.
+
 .. TODO: Write more about this.
 
 
