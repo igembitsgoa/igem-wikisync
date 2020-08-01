@@ -49,7 +49,8 @@ Features
 Other Advantages of Using WikiSync
 ----------------------------------
 
-WikiSync allows you to leverage 
+WikiSync allows you to leverage:
+
 #. Modern IDEs like Visual Studio Code
 #. Collaboration through `Github <https://github.com>`_.
 #. Automatic deployment through `Travis CI <https://travis-ci.com>`_
