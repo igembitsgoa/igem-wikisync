@@ -22,7 +22,7 @@ def iGEM_login(browser, credentials: dict, config: dict) -> bool:
 
     # Check if we're already logged in
     if check_login(browser, config['team'], config['year']):
-        logger.info(f"Already logged in.")
+        logger.info("Already logged in.")
         return True
 
     # Try opening the login page

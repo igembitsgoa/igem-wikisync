@@ -57,7 +57,7 @@ def run(team: str,
     if not isinstance(silence_warnings, bool):
         logger.critical('silence_warnings must have a boolean value.')
         raise SystemExit
-    
+
     config = {
         'team':      team,
         'src_dir':   src_dir,
@@ -457,7 +457,7 @@ def print_summary(assets, code):
     elif total_count == code['js']:
         print(f"Done! Successfully uploaded {code['js']} JS scripts.")
     else:
-        print(f"Done! Successfully uploaded:")
+        print("Done! Successfully uploaded:")
         if assets != 0:
             print(f"    {assets} assets")
         if code['html'] != 0:
