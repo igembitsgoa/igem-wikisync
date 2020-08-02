@@ -139,7 +139,6 @@ def get_upload_map():
             elif not isinstance(upload_map[key], dict):
                 logger.critical('upload_map.yml has an invalid format.')
                 logger.critical('Please fix/delete the file and run the program again.')
-                logger.critical('You can find an example of a valid upload map at http://igem-wikisync.rtfd.io.')
                 raise SystemExit
 
         return upload_map

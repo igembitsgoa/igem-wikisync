@@ -8,27 +8,13 @@ Tutorial
 
 .. note::
 
-    We'll soon put up a more detailed tutorial. For the time being, please go through the links given below and reach out to us for any queries by emailing us at igembitsgoa@gmail.com.
+    We'll soon put up more detailed tutorials. For the time being, please go through the following and reach out for any queries at ballaneypranav@gmail.com.
 
-
-Git, Github and Travis
-----------------------
-
-1. Git: https://www.youtube.com/watch?v=USjZcfj8yxE&t=217s
-
-2. Github: https://www.youtube.com/watch?v=nhNq2kIvi9s
-
-3. Travis: https://www.youtube.com/watch?v=g0KsiCj3CgQ&t=1s
-
-You'll also need to add ``GITHUB_USERNAME``, ``IGEM_USERNAME`` and ``IGEM_PASSWORD`` along with ``GITHUB_TOKEN`` as environment variables on Travis. We will have more details on the process up here soon.
-
-Examples
---------
-
-In this section, common use cases have been illustrated. If you need a more in-depth explanation, please head over to our :ref:`tutorial` where we explain everything you need to know.
 
 A Basic Example
-===============
+---------------
+
+In this section, common use cases have been illustrated. If you need a more in-depth explanation, please head over to our :ref:`tutorial` where we explain everything you need to know.
 
 If you'd like to test the functionality first, make a test folder with just a few files and try to upload that. The following example demonstrates that in more detail.
 
@@ -106,15 +92,21 @@ You can find a zipped version of this code `here <https://downgit.github.io/#/ho
 ``wikisync.py`` is the same as shown in the `snippet above <#wikisync-snippet>`_. 
 
 
-#3 **Export your credentials and run** ``wikisync.py``
+#3 **Export your credentials and run** ``wikisync.py``::
 
-This is described `above <#wikisync-snippet>`_. You should now see the following output:
+    python3 wikisync.py
 
-.. admonition:: Under construction.
-    
-    Coming up in a few days.
+This is described in the :ref:`usage-guide` in more detail. You should now see the following output:
 
-..  # TODO: insert output here
+.. code-block:: console
+
+    > python3 wikisync.py
+    Done! Successfully uploaded:
+        2 assets
+        2 HTML files
+        2 stylesheets
+        1 JS scripts
+    Please look at the log for more details.
 
 #4 **Let's look at the files WikiSync has written in** ``build/`` **now:**
 
@@ -165,6 +157,31 @@ There are a few things to note here:
 #. All the files have been uploaded and their URLs substituted in the code.
 #. The filenames have been changed according to iGEM specification. 
 #. HTML files have been uploaded at ``igem.org/Team:`` but CSS and JS files have been uploaded at ``igem.org/Template:``, and appended with the required URL parameters.
-#. A file called ``upload_map.yml`` should have appeared in your directory. Read more about it `here <#tracking-changes>`_.
-#. A file called ``wikisync.cookies`` should have appeared in your directory. Read more about it `here <#cookies>`_ and make sure you add it to your ``.gitignore``.
-#. A file called ``wikisync.log`` should have appeared in your directory. Read more about it `here <#logging>`_.
+#. A file called ``upload_map.yml`` should have appeared in your directory. Read more about it the section about :ref:`tracking-changes`.
+#. A file called ``wikisync.cookies`` should have appeared in your directory. Read more about in the section about :ref:`cookies` and make sure you add it to your ``.gitignore``.
+#. A file called ``wikisync.log`` should have appeared in your directory. Read more about it in the section about :ref:`logging`.
+
+.. note:: 
+
+    We're working on some more tutorials. They will be up soon.
+
+
+Collaborating with your Team using Github
+-----------------------------------------
+
+Git: https://www.youtube.com/watch?v=USjZcfj8yxE&t=217s
+
+Github: https://www.youtube.com/watch?v=nhNq2kIvi9s
+
+Continuous Deployment with Travis
+---------------------------------
+
+Travis: https://www.youtube.com/watch?v=g0KsiCj3CgQ&t=1s
+
+You'll also need to add ``GITHUB_USERNAME``, ``IGEM_USERNAME`` and ``IGEM_PASSWORD`` along with ``GITHUB_TOKEN`` as environment variables on Travis. We will have more details on the process up here soon.
+
+Please read the :ref:`continuous-integration` section in the :ref:`usage-guide` for now. We will have this tutorial up soon.
+
+Testing before Deployment with Github Pages
+-------------------------------------------
+
