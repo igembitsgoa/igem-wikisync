@@ -41,15 +41,23 @@ def run(team: str,
         raise SystemExit
 
     if src_dir is None or not isinstance(src_dir, str):
-        logger.critical('Please specify where we should look for your code ' +
+        logger.critical('Please specify where your code is stored ' +
                         'using the src_dir argument.')
         raise SystemExit
 
     if build_dir is None or not isinstance(build_dir, str):
-        logger.critical('Please specify where we should build your code ' +
+        logger.critical('Please specify where your code should be temporarily stored ' +
                         'using the build_dir argument.')
         raise SystemExit
 
+    if not isinstance(year, int) or len(str(year)) > 4:
+        logger.critical('Year should be a four digit integer.')
+        raise SystemExit
+
+    if not isinstance(silence_warnings, bool):
+        logger.critical('silence_warnings must have a boolean value.')
+        raise SystemExit
+    
     config = {
         'team':      team,
         'src_dir':   src_dir,
