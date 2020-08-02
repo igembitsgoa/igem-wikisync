@@ -4,6 +4,8 @@ Changelog
 
 0.0.6 (2020-07-30)
 ------------------
+* Allow silencing warnings
+* Add WikiSync to upload description
 
 0.0.5 (2020-07-30)
 ------------------

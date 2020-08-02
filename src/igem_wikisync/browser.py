@@ -208,6 +208,7 @@ def iGEM_upload_file(browser, file_object, year):
         return False
 
     browser['wpUploadFile'] = str(file_object.src_path)
+    browser['wpUploadDescription'] = 'Uploaded using WikiSync'
     browser['wpDestFile'] = file_object.upload_filename
 
     # * Ignore all warnings
