@@ -49,7 +49,7 @@ def test_iGEM_URL():
         'src_dir': 'tests/data',
         'build_dir': 'tests/build',
         'team': 'BITSPilani-Goa_India',
-        'year': str(date.today().year), 
+        'year': str(date.today().year),
         'silence_warnings': False
     }
 
