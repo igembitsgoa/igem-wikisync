@@ -14,7 +14,8 @@ def config():
         'team': 'BITSPilani-Goa_India',
         'src_dir': 'tests/data',
         'build_dir': 'tests/build',
-        'year': str(date.today().year)
+        'year': str(date.today().year),
+        'silence_warnings': False
     }
 
 
