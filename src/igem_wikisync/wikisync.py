@@ -31,9 +31,8 @@ def run(team: str,
         build_dir: Path to the folder where the built files will be stored before uploading
 
     Optional Arguments:
-        team: iGEM Team Name
-        src_dir: Path to the folder where the source files are present
-        build_dir: Path to the folder where the built files will be stored before uploading
+        year: Subdomain for igem.org. Current year by default.
+        silence_warnings: Broken link warnings are not printed to console if true. The log still contains everything.
     '''
 
     # * 1. CHECK AND FORMAT INPUTS
@@ -462,5 +461,3 @@ def print_summary(assets, code):
             print(f"    {code['js']} JS scripts")
 
     print("Please look at the log for more details.")
-
-    
