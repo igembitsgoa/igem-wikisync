@@ -1,17 +1,24 @@
 import os
 import shutil
+from datetime import date
 from hashlib import md5
 from http.cookiejar import LWPCookieJar
 from pathlib import Path
-from datetime import date
 
 import mechanicalsoup
 import yaml
 
-from igem_wikisync.browser import iGEM_login, iGEM_upload_file, iGEM_upload_page
-from igem_wikisync.parsers import HTMLparser, CSSparser, JSparser
-from igem_wikisync.files import HTMLfile, CSSfile, JSfile, OtherFile
+from igem_wikisync.browser import iGEM_login
+from igem_wikisync.browser import iGEM_upload_file
+from igem_wikisync.browser import iGEM_upload_page
+from igem_wikisync.files import CSSfile
+from igem_wikisync.files import HTMLfile
+from igem_wikisync.files import JSfile
+from igem_wikisync.files import OtherFile
 from igem_wikisync.logger import logger
+from igem_wikisync.parsers import CSSparser
+from igem_wikisync.parsers import HTMLparser
+from igem_wikisync.parsers import JSparser
 
 # pylint: disable=too-many-instance-attributes, fixme
 

@@ -1,7 +1,11 @@
-from igem_wikisync.parsers import HTMLparser, CSSparser, JSparser
-import pytest
 import hashlib
 from datetime import date
+
+import pytest
+
+from igem_wikisync.parsers import CSSparser
+from igem_wikisync.parsers import HTMLparser
+from igem_wikisync.parsers import JSparser
 
 
 @pytest.fixture

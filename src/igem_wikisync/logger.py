@@ -1,6 +1,5 @@
 import logging
 
-
 # LEVELS
 
 # CRITICAL: Failed to login / SystemExit worthy

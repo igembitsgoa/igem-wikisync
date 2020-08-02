@@ -1,16 +1,20 @@
+import hashlib
 import os
+import random
+import string
+from datetime import date
 
 import mechanicalsoup
 import pytest
 import requests
-import random
-import string
 from mechanicalsoup import StatefulBrowser
-import hashlib
-from datetime import date
 
-from igem_wikisync.browser import iGEM_login, check_login, iGEM_upload_page, iGEM_upload_file
-from igem_wikisync.files import HTMLfile, OtherFile
+from igem_wikisync.browser import check_login
+from igem_wikisync.browser import iGEM_login
+from igem_wikisync.browser import iGEM_upload_file
+from igem_wikisync.browser import iGEM_upload_page
+from igem_wikisync.files import HTMLfile
+from igem_wikisync.files import OtherFile
 
 # I know this is bad
 # but I couldn't find a better way to

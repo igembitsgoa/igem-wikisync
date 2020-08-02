@@ -1,9 +1,12 @@
-from igem_wikisync.wikisync import run, get_upload_map, write_upload_map
-
 import os
-import yaml
-import pytest
 import shutil
+
+import pytest
+import yaml
+
+from igem_wikisync.wikisync import get_upload_map
+from igem_wikisync.wikisync import run
+from igem_wikisync.wikisync import write_upload_map
 
 
 @pytest.fixture

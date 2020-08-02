@@ -1,5 +1,8 @@
-from igem_wikisync.path import is_relative, resolve_relative_path, iGEM_URL
 from datetime import date
+
+from igem_wikisync.path import iGEM_URL
+from igem_wikisync.path import is_relative
+from igem_wikisync.path import resolve_relative_path
 
 
 def test_is_relative():
