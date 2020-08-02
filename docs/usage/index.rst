@@ -84,7 +84,7 @@ Let's assume your wiki folder has the following structure:
 .. caution::
     We use environment variables for credentials so that they're not accidentally committed to Git. If you're using a bash script to export your credentials, please remember to add it to ``.gitignore``.
 
-And that's all! You're all set to deploy your wiki to iGEM!
+And that's all! Your wiki has been deployed to iGEM!
 
 Read on to see how WikiSync performs optimizations by storing cookies and uploading only the files that have changed. 
 
@@ -118,15 +118,10 @@ Tracking Broken Links
 
 As your wiki grows into several pages and hundreds of links spread across them, it can be hard to find broken links. WikiSync tries to make this easier by checking for broken (internal) links. This functionality is enabled by default to enforce good practice, but it can be disabled. Look at the configuration options to know more about this.
 
-Configuration Options
----------------------
+.. note::
+    Broken link warnings can be silenced by passing ``silence_warnings=True`` in the call to ``wikisync.run()``.
 
-.. admonition:: Under construction.
-    
-    Coming up in a few days.
-
-.. # TODO: Add config options
-
+.. _logging:
 
 Logging
 -------

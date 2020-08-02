@@ -1,3 +1,5 @@
+.. _tutorial:
+
 ========
 Tutorial
 ========
@@ -9,8 +11,8 @@ Tutorial
     We'll soon put up a more detailed tutorial. For the time being, please go through the links given below and reach out to us for any queries by emailing us at igembitsgoa@gmail.com.
 
 
-Git and Github
---------------
+Git, Github and Travis
+----------------------
 
 1. Git: https://www.youtube.com/watch?v=USjZcfj8yxE&t=217s
 
@@ -35,30 +37,30 @@ If you'd like to test the functionality first, make a test folder with just a fe
 .. parsed-literal::
     wiki/
         src/
-            Test/
+            WS-basic/
                 index.html              # homepage
                 css/
                     style.css           # custom styles
                     igem-reset.css      # Resets styles that iGEM injects
                 js/
                     main.js             # custom JS + iGEM reset
-                assets/
-                    img/
-                        logo.jpg
-                        background.jpg  
+            assets/                     # everything else must be in the assets folder
+                img/
+                    logo.jpg
+                    background.jpg  
                 Description/
                     index.html          # Description page
         build/
             # this will be filled by WikiSync
         wikisync.py
 
-The source code is inside ``wiki/src/Test/`` instead of just ``wiki/src/`` so that any existing content on your wiki is not affected.
+The source code is inside ``wiki/src/WS-basic/`` instead of just ``wiki/src/`` so that any existing content on your wiki is not affected.
 
 You can find a zipped version of this code `here <https://downgit.github.io/#/home?url=https://github.com/igembitsgoa/igem-wikisync-resources/tree/master/basic-example>`_.
 
 #2 **Let's look at individual files now:**
 
-``src/Test/index.html``:
+``src/WS-basic/index.html``:
 
 .. code-block:: html
     :linenos:
@@ -90,7 +92,7 @@ You can find a zipped version of this code `here <https://downgit.github.io/#/ho
 
     </html>
 
-``src/Test/css/style.css``:
+``src/WS-basic/css/style.css``:
 
 .. code-block:: css
     :linenos:
@@ -116,7 +118,7 @@ This is described `above <#wikisync-snippet>`_. You should now see the following
 
 #4 **Let's look at the files WikiSync has written in** ``build/`` **now:**
 
-``build/Test/index.html``:
+``build/WS-basic/index.html``:
 
 .. code-block:: html
     :linenos:
@@ -147,7 +149,7 @@ This is described `above <#wikisync-snippet>`_. You should now see the following
     </body></html>
 
 
-``build/Test/css/style.css``:
+``build/WS-basic/css/style.css``:
 
 .. code-block:: css
     :linenos:

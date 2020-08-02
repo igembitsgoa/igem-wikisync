@@ -4,19 +4,26 @@
 Installation
 ============
 
-At the command line::
+WikiSync is a Python package, so it can be installed like any other.
+
+Execute the following at the command line::
 
     pip install igem-wikisync
 
-.. _known-issues:
+.. note::
+    WikiSync is supported only on Python 3.5 to 3.8.
 
-Known Issues
-------------
+If you don't have ``pip`` installed, please click `here <https://pip.pypa.io/en/stable/installing/#installing-with-get-pip-py>`_ for instructions. 
 
-SSL error:
+.. .. _known-issues:
 
-* Check pyopenssl installation with --force-reinstall
+.. Known Issues
+.. ------------
 
-* Install python3.6 using deadsnakes ppa
+.. SSL error:
 
-* Check location of installed pyopenssl without :code:`--force-reinstall` and ensure that the location is present in :code:`$PATH`
+.. * Check pyopenssl installation with --force-reinstall
+
+.. * Install python3.6 using deadsnakes ppa
+
+.. * Check location of installed pyopenssl without :code:`--force-reinstall` and ensure that the location is present in :code:`$PATH`

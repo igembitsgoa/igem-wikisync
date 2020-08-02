@@ -24,16 +24,7 @@ By automating this, allows you to leverage all the `features of modern code edit
 
 It also seamlessly integrates with continuous integration  software, which allows your entire team to collaborate on the wiki, and finally upload it without any extra effort.
 
-Installation
-============
-
-WikiSync can be installed by running this command in your terminal:
-
-    .. code-block:: bash
-	    
-        pip install igem-wikisync
-
-Please head over to the Usage Guide to get started, or take a look at our Tutorial for step-by-step examples meant to help you make deployment as easy as a git push.
+To get started, proceed to the :ref:`installation` instructions. Then, head over to the :ref:`usage-guide` or take a look at our :ref:`tutorial` for step-by-step examples meant to help you make deployment as easy as a git push.
 
 
 Features
