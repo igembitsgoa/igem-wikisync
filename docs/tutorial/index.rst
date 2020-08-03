@@ -102,18 +102,18 @@ Please download a zipped version of this code `here <https://downgit.github.io/#
 
 #4 **Export your credentials as environment variables**:
 
-On Windows:
+On Windows Powershell:
 
     .. code-block:: bash
 
-        set IGEM_USERNAME=youriGEMusername
-        set IGEM_PASSWORD=youriGEMpassword
+        $env:IGEM_USERNAME = 'youriGEMusername'
+        $env:IGEM_PASSWORD = 'youriGEMpassword'
     
 You can verify by running:
 
     .. code-block:: bash
 
-        echo %IGEM_USERNAME% 
+        Get-ChildItem Env:IGEM_USERNAME
 
 On Mac or Linux:
 
@@ -132,13 +132,13 @@ You can verify by running:
 
 #5 **Run** ``wikisync.py``::
 
-    python3 wikisync.py
+    python wikisync.py
 
 You should now see the following output:
 
 .. code-block:: console
 
-    > python3 wikisync.py
+    > python wikisync.py
     Done! Successfully uploaded:
         2 assets
         2 HTML files
