@@ -2,7 +2,11 @@
 Changelog
 =========
 
-0.0.6 (2020-07-30)
+0.0.7 (2020-08-03)
+------------------
+* Fix Python version in setup.py
+
+0.0.6 (2020-08-02)
 ------------------
 * Allow silencing warnings
 * Add WikiSync to upload description
