@@ -2,6 +2,10 @@
 Changelog
 =========
 
+0.0.8 (2020-08-03)
+------------------
+* Fix assets path error in Windows
+
 0.0.7 (2020-08-03)
 ------------------
 * Fix Python version in setup.py

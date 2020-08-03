@@ -246,7 +246,7 @@ def cache_files(upload_map, config):
                                        'tif', 'tiff', 'fcs', 'otf', 'eot', 'ttf', 'woff', 'svg']:
 
                 # make sure file path start with 'assets'
-                if len(str(infile)) < 7 or str(infile)[:7] != 'assets/':
+                if len(str(infile)) < 7 or infile.parts[0] != 'assets':
                     logger.error(f'{infile} is an {extension} file outside the "assets" folder. Skipping.')
                     continue
 
