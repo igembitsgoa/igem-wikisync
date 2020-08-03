@@ -11,10 +11,8 @@ Tutorial
     We'll soon put up more detailed tutorials. For the time being, please go through the following and reach out for any queries at ballaneypranav@gmail.com.
 
 
-A Basic Example
----------------
-
-In this section, common use cases have been illustrated. If you need a more in-depth explanation, please head over to our :ref:`tutorial` where we explain everything you need to know.
+Uploading a Test Folder
+------------------------
 
 If you'd like to test the functionality first, make a test folder with just a few files and try to upload that. The following example demonstrates that in more detail.
 
@@ -42,7 +40,7 @@ If you'd like to test the functionality first, make a test folder with just a fe
 
 The source code is inside ``wiki/src/WS-basic/`` instead of just ``wiki/src/`` so that any existing content on your wiki is not affected.
 
-You can find a zipped version of this code `here <https://downgit.github.io/#/home?url=https://github.com/igembitsgoa/igem-wikisync-resources/tree/master/basic-example>`_.
+Please download a zipped version of this code `here <https://downgit.github.io/#/home?url=https://github.com/igembitsgoa/igem-wikisync-resources/tree/master/basic-example>`_.
 
 #2 **Let's look at individual files now:**
 
@@ -89,14 +87,54 @@ You can find a zipped version of this code `here <https://downgit.github.io/#/ho
         background-image: url(../assets/img/background.png);
     }
 
-``wikisync.py`` is the same as shown in the `snippet above <#wikisync-snippet>`_. 
+
+#3 **Create ``wikisync.py``**:
+
+.. code-block:: python
+
+    import igem_wikisync as sync
+
+    sync.run(
+        team='your_team_name', 
+        src_dir='source_directory'      # folder where your wiki is stored
+        build_dir='build_directory'     # folder where WikiSync will temporarily store your wiki before uploading
+    )
+
+#4 **Export your credentials as environment variables**:
+
+On Windows:
+
+    .. code-block:: bash
+
+        set IGEM_USERNAME=youriGEMusername
+        set IGEM_PASSWORD=youriGEMpassword
+    
+You can verify by running:
+
+    .. code-block:: bash
+
+        echo %IGEM_USERNAME% 
+
+On Mac or Linux:
+
+    .. code-block:: bash
+
+        export IGEM_USERNAME=youriGEMusername
+        export IGEM_PASSWORD=youriGEMpassword
+    
+You can verify by running:
+
+    .. code-block:: bash
+
+        echo $IGEM_USERNAME
 
 
-#3 **Export your credentials and run** ``wikisync.py``::
+
+#5 **Run** ``wikisync.py``::
 
     python3 wikisync.py
 
-This is described in the :ref:`usage-guide` in more detail. You should now see the following output:
+You should now see the following output:
 
 .. code-block:: console
 
@@ -108,7 +146,7 @@ This is described in the :ref:`usage-guide` in more detail. You should now see t
         1 JS scripts
     Please look at the log for more details.
 
-#4 **Let's look at the files WikiSync has written in** ``build/`` **now:**
+#6 **Let's look at the files WikiSync has written in** ``build/`` **now:**
 
 ``build/WS-basic/index.html``:
 
