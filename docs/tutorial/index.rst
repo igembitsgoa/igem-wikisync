@@ -21,24 +21,25 @@ If you'd like to test the functionality first, make a test folder with just a fe
 .. parsed-literal::
     wiki/
         src/
-            WS-basic/
+            WS-basic/                   # just so that your main wiki is not affected
                 index.html              # homepage
                 css/
                     style.css           # custom styles
                     igem-reset.css      # Resets styles that iGEM injects
                 js/
                     main.js             # custom JS + iGEM reset
-            assets/                     # everything else must be in the assets folder
-                img/
-                    logo.jpg
-                    background.jpg  
                 Description/
                     index.html          # Description page
+            assets/                     # everything else must be in the assets folder
+                WS-basic/               # just so that your main wiki is not affected
+                    img/
+                        logo.jpg
+                        background.jpg  
         build/
             # this will be filled by WikiSync
         wikisync.py
 
-The source code is inside ``wiki/src/WS-basic/`` instead of just ``wiki/src/`` so that any existing content on your wiki is not affected.
+The source code is inside ``wiki/src/WS-basic/`` instead of just ``wiki/src/`` so that any existing content on your wiki is not affected. Similarly, images are inside ``assets/WS-basic/img/`` instead of just ``assets/img``.
 
 Please download a zipped version of this code `here <https://downgit.github.io/#/home?url=https://github.com/igembitsgoa/igem-wikisync-resources/tree/master/basic-example>`_.
 
