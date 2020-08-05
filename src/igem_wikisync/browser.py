@@ -33,7 +33,7 @@ def iGEM_login(browser, credentials: dict, config: dict) -> bool:
         message = f"Couldn't connect to {url}."
         logger.debug(message, exc_info=True)
         logger.critical(message)
-        raise SystemExit
+        return False
 
     # Check if login was successful
     if response.status_code != 200:
@@ -111,7 +111,7 @@ def check_login(browser, team: str, year: str) -> bool:
         message = "Couldn't connect to iGEM. Please check your internet connection."
         logger.debug(message, exc_info=True)
         logger.critical(message)
-        raise SystemExit
+        return False
 
     soup = browser.get_current_page()
 

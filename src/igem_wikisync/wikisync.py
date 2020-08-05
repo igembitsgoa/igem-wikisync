@@ -1,4 +1,5 @@
 import os
+import sys
 import shutil
 from datetime import date
 from hashlib import md5
@@ -40,30 +41,36 @@ def run(team: str,
     Optional Arguments:
         year: Subdomain for igem.org. Current year by default.
         silence_warnings: Broken link warnings are not printed to console if true. The log still contains everything.
+
+    Returns:
+        1: Incorrect input in function call.
+        2: Connection problem.
+        3: Invalid upload map.
+        4: Failed to write/upload file.
     '''
 
     # * 1. CHECK AND FORMAT INPUTS
     if team is None or not isinstance(team, str):
         logger.critical('Please specify your team name.')
-        raise SystemExit
+        sys.exit(1)
 
     if src_dir is None or not isinstance(src_dir, str):
         logger.critical('Please specify where your code is stored ' +
                         'using the src_dir argument.')
-        raise SystemExit
+        sys.exit(1)
 
     if build_dir is None or not isinstance(build_dir, str):
         logger.critical('Please specify where your code should be temporarily stored ' +
                         'using the build_dir argument.')
-        raise SystemExit
+        sys.exit(1)
 
     if not isinstance(year, int) or len(str(year)) > 4:
         logger.critical('Year should be a four digit integer.')
-        raise SystemExit
+        sys.exit(1)
 
     if not isinstance(silence_warnings, bool):
         logger.critical('silence_warnings must have a boolean value.')
-        raise SystemExit
+        sys.exit(1)
 
     config = {
         'team':      team,
@@ -95,7 +102,7 @@ def run(team: str,
     if not login:
         message = 'Failed to login.'
         logger.critical(message)
-        raise SystemExit
+        sys.exit(2)
 
     # * 7. Save cookies
     # TODO: check if this works, might not
@@ -134,7 +141,7 @@ def get_upload_map():
                 upload_map = yaml.safe_load(file)
         except Exception:
             logger.critical('upload_map.yml exists but could not be opened. Please try again.')
-            raise SystemExit
+            sys.exit(3)
 
         if isinstance(upload_map, type(None)):
             upload_map = {}
@@ -146,7 +153,7 @@ def get_upload_map():
             elif not isinstance(upload_map[key], dict):
                 logger.critical('upload_map.yml has an invalid format.')
                 logger.critical('Please fix/delete the file and run the program again.')
-                raise SystemExit
+                sys.exit(3)
 
         return upload_map
     else:
@@ -340,7 +347,7 @@ def upload_and_write_assets(other_files, browser, upload_map, config):
                     'You will not have to upload everything again.'
                 logger.debug(message, exc_info=True)
                 logger.critical(message)
-                raise SystemExit
+                sys.exit(4)
 
             successful = iGEM_upload_file(browser, file_object, config['year'])
             if not successful:
@@ -351,7 +358,7 @@ def upload_and_write_assets(other_files, browser, upload_map, config):
                 message += 'You will not have to upload everything again.'
                 logger.debug(message, exc_info=True)
                 logger.critical(message)
-                raise SystemExit
+                sys.exit(4)
             else:
                 counter += 1
 

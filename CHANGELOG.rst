@@ -2,6 +2,10 @@
 Changelog
 =========
 
+0.0.9 (2020-08-04)
+------------------
+* Fix return values
+
 0.0.8 (2020-08-03)
 ------------------
 * Fix assets path error in Windows
