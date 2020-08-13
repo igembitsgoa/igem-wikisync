@@ -9,8 +9,8 @@ from igem_wikisync.logger import logger
 
 
 def is_relative(url: str) -> bool:
-    """ 
-        Returns whether given URL is relative. 
+    """
+        Returns whether given URL is relative.
     """
     if url == "":
         return False
