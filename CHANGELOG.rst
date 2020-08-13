@@ -2,6 +2,11 @@
 Changelog
 =========
 
+0.0.10 (2020-08-14)
+-------------------
+* Check if URL is empty in is_relative()
+* File size limit was 1mb instead of 100mb
+
 0.0.9 (2020-08-04)
 ------------------
 * Fix return values
