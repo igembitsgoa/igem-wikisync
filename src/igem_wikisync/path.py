@@ -9,7 +9,12 @@ from igem_wikisync.logger import logger
 
 
 def is_relative(url: str) -> bool:
-    """ Returns whether given URL is relative. """
+    """ 
+        Returns whether given URL is relative. 
+    """
+    if url == "":
+        return False
+
     # https://stackoverflow.com/a/31991870/1907830
     absolute = bool(re.match(r'(?:^[a-z][a-z0-9+.-]*:|\/\/)', url))
     # absolute = bool(re.match('(?:^[a-z][a-z0-9+.-]*:|\/\/)', url))
