@@ -3,9 +3,7 @@ from datetime import date
 
 import pytest
 
-from igem_wikisync.parsers import CSSparser
-from igem_wikisync.parsers import HTMLparser
-from igem_wikisync.parsers import JSparser
+from igem_wikisync.parsers import CSSparser, HTMLparser, JSparser
 
 
 @pytest.fixture

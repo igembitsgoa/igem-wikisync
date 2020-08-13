@@ -2,10 +2,7 @@ from datetime import date
 
 import pytest
 
-from igem_wikisync.files import CSSfile
-from igem_wikisync.files import HTMLfile
-from igem_wikisync.files import JSfile
-from igem_wikisync.files import OtherFile
+from igem_wikisync.files import CSSfile, HTMLfile, JSfile, OtherFile
 
 
 @pytest.fixture

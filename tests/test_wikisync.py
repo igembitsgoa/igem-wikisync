@@ -4,9 +4,7 @@ import shutil
 import pytest
 import yaml
 
-from igem_wikisync.wikisync import get_upload_map
-from igem_wikisync.wikisync import run
-from igem_wikisync.wikisync import write_upload_map
+from igem_wikisync.wikisync import get_upload_map, run, write_upload_map
 
 
 @pytest.fixture
