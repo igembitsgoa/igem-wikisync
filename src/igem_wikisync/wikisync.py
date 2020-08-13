@@ -258,7 +258,7 @@ def cache_files(upload_map, config):
                     continue
 
                 # make sure file size is within limits
-                elif (config['src_dir'] / infile).stat().st_size >= 1000000:
+                elif (config['src_dir'] / infile).stat().st_size >= 100000000:
                     logger.error(f'{infile} is larger than the 100MB file limit. Skipping.')
                     continue
                 # create OtherFile
