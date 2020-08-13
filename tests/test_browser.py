@@ -9,8 +9,7 @@ import pytest
 import requests
 from mechanicalsoup import StatefulBrowser
 
-from igem_wikisync.browser import (check_login, iGEM_login, iGEM_upload_file,
-                                   iGEM_upload_page)
+from igem_wikisync.browser import check_login, iGEM_login, iGEM_upload_file, iGEM_upload_page
 from igem_wikisync.files import HTMLfile, OtherFile
 
 # I know this is bad
