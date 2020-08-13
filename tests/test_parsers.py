@@ -41,7 +41,7 @@ def test_HTMLparser(config, upload_map):
 
     parsed = HTMLparser(config, 'Test/index.html', contents, upload_map)
 
-    assert md5hash(parsed) == 'b60c03b1765bdb7657d91ae0a3951581'
+    assert md5hash(parsed) == '3efd614407d7bfac36b2832ea47d2512'
 
 
 def test_HTMLparser_link(config, upload_map):
