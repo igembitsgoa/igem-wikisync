@@ -2,22 +2,9 @@
 Changelog
 =========
 
-0.0.10 (2020-08-14)
+0.0.11 (2020-08-14)
 -------------------
-* Check if URL is empty in is_relative()
-* File size limit was 1mb instead of 100mb
-
-0.0.9 (2020-08-04)
-------------------
-* Fix return values
-
-0.0.8 (2020-08-03)
-------------------
-* Fix assets path error in Windows
-
-0.0.7 (2020-08-03)
-------------------
-* Fix Python version in setup.py
+* Bug fixes
 
 0.0.6 (2020-08-02)
 ------------------
