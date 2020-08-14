@@ -92,7 +92,7 @@ def CSSparser(config: dict, path, contents: str, upload_map: dict) -> str:
     # 3) Replace all links with the absolute path
     for link in links:
 
-        css = css.replace(link, iGEM_URL(config, path, upload_map, link))
+        css = css.replace(link, iGEM_URL(config, path, upload_map, link.strip()))
 
     return css
 
