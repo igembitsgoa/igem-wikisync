@@ -1,5 +1,5 @@
-Overview
-========
+iGEM WikiSync
+=============
 
 <!-- Badges Start -->
 
