@@ -129,6 +129,9 @@ class HTMLfile(BaseFile):
         return 'https://' + self._config['year'] + '.igem.org/wiki/index.php?title=Team:' + \
             self._config['team'] + self._upload_path + '&action=raw'
 
+class PUGfile(BaseFile):
+    # TODO: Insert PUGfile class here
+    pass
 
 class CSSfile(BaseFile):
     def __init__(self, path, config):

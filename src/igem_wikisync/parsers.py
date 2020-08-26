@@ -61,6 +61,11 @@ def HTMLparser(config: dict, path, contents: str, upload_map: dict) -> str:
     return contents
 
 
+def PUGparser():
+    # TODO: Insert PUG parser here
+    pass
+
+
 def CSSparser(config: dict, path, contents: str, upload_map: dict) -> str:
     """
     Parses a given CSS string and

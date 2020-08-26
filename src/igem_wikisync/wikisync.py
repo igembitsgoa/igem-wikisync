@@ -12,7 +12,7 @@ import yaml
 from igem_wikisync.browser import iGEM_login, iGEM_upload_file, iGEM_upload_page
 from igem_wikisync.files import CSSfile, HTMLfile, JSfile, OtherFile
 from igem_wikisync.logger import logger
-from igem_wikisync.parsers import CSSparser, HTMLparser, JSparser
+from igem_wikisync.parsers import CSSparser, HTMLparser, JSparser, PUGparser
 
 # pylint: disable=too-many-instance-attributes, fixme
 
@@ -125,7 +125,7 @@ def get_upload_map():
     Opens existing upload_map.yml or creates and empty upload map.
 
     Upload map is a dictionary that contains previously uploaded
-    html, css, js and other files, along with their URLs and hashes.
+    html, css, js, pug and other files, along with their URLs and hashes.
     """
 
     if os.path.isfile('upload_map.yml'):
@@ -140,7 +140,7 @@ def get_upload_map():
             upload_map = {}
 
         # make sure upload map has all the keys
-        for key in ['assets', 'html', 'css', 'js']:
+        for key in ['assets', 'html', 'css', 'js', 'pug']:
             if key not in upload_map.keys() or isinstance(upload_map[key], type(None)):
                 upload_map[key] = {}
             elif not isinstance(upload_map[key], dict):
@@ -154,7 +154,8 @@ def get_upload_map():
             'assets': {},
             'html': {},
             'css': {},
-            'js': {}
+            'js': {},
+            'pug': {}
         }
 
 
@@ -208,13 +209,14 @@ def cache_files(upload_map, config):
         config: configuration for this run
 
     Returns:
-        cache: dictionary with html, css, js and other file objects
+        cache: dictionary with html, css, js, pug and other file objects
     """
 
     cache = {
         'html': {},
         'css': {},
         'js': {},
+        'pug': {},
         'other': {}
     }
 
@@ -239,6 +241,10 @@ def cache_files(upload_map, config):
             elif extension == 'js':
                 file_object = JSfile(infile, config)
                 cache['js'][file_object.path] = file_object
+
+            elif extension == 'pug':
+                file_object = PUGfile(infile, config)
+                cache['pug'][file_object.path] = file_object
 
             elif extension.lower() in ['png', 'gif', 'jpg', 'jpeg', 'pdf', 'ppt', 'txt',
                                        'zip', 'mp3', 'mp4', 'webm', 'mov', 'swf', 'xls',
@@ -269,7 +275,7 @@ def cache_files(upload_map, config):
                 logger.error(f'{infile} has an unsupported file extension. Skipping.')
                 continue
 
-            if extension in ['html', 'css', 'js']:
+            if extension in ['html', 'css', 'js', 'pug']:
                 if str(file_object.path) not in upload_map[extension].keys():
                     upload_map[extension][str(file_object.path)] = {
                         'md5': '',
@@ -379,16 +385,17 @@ def build_and_upload(files, browser, config, upload_map):
         upload_map: custom upload map
 
     Returns:
-        Dictionary with no. of 'html', 'css' and 'js' files uploaded
+        Dictionary with no. of 'html', 'css', 'js' and 'pug' files uploaded
     """
 
     counter = {
         'html': 0,
         'css': 0,
         'js': 0,
+        'pug': 0,
     }
 
-    for file_dictionary in [files['html'], files['css'], files['js']]:
+    for file_dictionary in [files['html'], files['css'], files['js'], files['pug']]:
         for path in file_dictionary.keys():
             file_object = file_dictionary[path]
             path_str = str(file_object.path)
@@ -413,6 +420,9 @@ def build_and_upload(files, browser, config, upload_map):
                     config, file_object.path, contents, upload_map)
             elif ext == 'js':
                 processed = JSparser(contents)
+            elif ext == 'pug':
+                processed = PUGparser(
+                    config, file_object.path, contents, upload_map)
 
             # calculate and store md5 hash of the modified contents
             build_hash = md5(processed.encode('utf-8')).hexdigest()
@@ -451,7 +461,7 @@ def build_and_upload(files, browser, config, upload_map):
 
 def print_summary(assets, code):
 
-    total_count = assets + code['html'] + code['css'] + code['js']
+    total_count = assets + code['html'] + code['css'] + code['js'] + code['pug']
 
     if total_count == 0:
         print('WikiSync did not find any changes from the previous run. No files were uploaded.')
@@ -463,6 +473,8 @@ def print_summary(assets, code):
         print(f"Done! Successfully uploaded {code['css']} stylesheets.")
     elif total_count == code['js']:
         print(f"Done! Successfully uploaded {code['js']} JS scripts.")
+    elif total_count == code['pug']:
+        print(f"Done! Successfully uploaded {code['pug']} PUG files.")
     else:
         print("Done! Successfully uploaded:")
         if assets != 0:
@@ -473,5 +485,7 @@ def print_summary(assets, code):
             print(f"    {code['css']} stylesheets")
         if code['js'] != 0:
             print(f"    {code['js']} JS scripts")
+        if code['pug'] != 0:
+            print(f"    {code['pug']} PUG files")
 
     print("Please look at the log for more details.")

@@ -2,7 +2,7 @@ import os
 import re
 from pathlib import Path
 
-from igem_wikisync.files import CSSfile, HTMLfile, JSfile
+from igem_wikisync.files import CSSfile, HTMLfile, JSfile, PUGfile
 from igem_wikisync.logger import logger
 
 
@@ -53,7 +53,7 @@ def resolve_relative_path(path: str, parent: Path, src_dir: str) -> Path:
         full_path = (src_dir / parent / path).resolve()
 
     if full_path.is_dir() or full_path.suffix == '':
-        return (full_path / 'index.html').relative_to(src_dir)
+        return (full_path / 'index.html').relative_to(src_dir) # TODO: return index.pug somehow?
     else:
         return full_path.relative_to(src_dir)
 
@@ -120,6 +120,9 @@ def iGEM_URL(config: dict, path: Path, upload_map: dict, url: str) -> str:
             url = file_object.link_URL
         elif extension == 'js':
             file_object = JSfile(resolved_path, config)
+            url = file_object.link_URL
+        elif extension == 'pug':
+            file_object = PUGfile(resolved_path, config)
             url = file_object.link_URL
         # leave unchanged
         else:
