@@ -41,12 +41,12 @@ def resolve_relative_path(path: str, parent: Path, src_dir: str) -> Path:
 
     src_dir = Path(src_dir).resolve()
 
-    # remove trailing /
-    if path[-1] == '/':
+    # remove trailing / or \
+    if path[-1] == '/' or path[-1] == '\\':
         path = path[:-1]
 
-    # remove leading /
-    if path[0] == '/':
+    # remove leading / or \
+    if path[0] == '/' or path[0] == '\\':
         path = path[1:]
         full_path = (src_dir / path).resolve()
     else:

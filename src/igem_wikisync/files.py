@@ -103,7 +103,7 @@ class HTMLfile(BaseFile):
         if upload_path == '.':
             return ''
         else:
-            return '/' + upload_path
+            return '/' + upload_path.replace('\\', '/')
 
     def _generate_upload_URL(self):
         '''
@@ -148,7 +148,7 @@ class CSSfile(BaseFile):
         # add 'CSS'
         upload_path = str(upload_path).replace('.', '-') + 'CSS'
 
-        return '/' + upload_path
+        return '/' + upload_path.replace('\\', '/')
 
     def _generate_upload_URL(self):
         '''
@@ -157,7 +157,7 @@ class CSSfile(BaseFile):
         '''
 
         return 'https://' + self._config['year'] + '.igem.org/wiki/index.php?title=Template:' + self._config['team'] + \
-            self._upload_path + '&action=edit'
+            self._upload_path.replace('\\', '/') + '&action=edit'
 
     def _generate_link_URL(self):
         '''
@@ -185,7 +185,7 @@ class JSfile(BaseFile):
         # add 'JS'
         upload_path = str(upload_path).replace('.', '-') + 'JS'
 
-        return '/' + upload_path
+        return '/' + upload_path.replace('\\', '/')
 
     def _generate_upload_URL(self):
         '''
