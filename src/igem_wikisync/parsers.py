@@ -41,7 +41,9 @@ def HTMLparser(config: dict, path, contents: str, upload_map: dict) -> str:
                ('track', 'src'), ('video', 'poster'), ('video', 'src')]
 
     # TODO: Replace URLs for AJAX loads as well
-    # TODO: img srcset
+
+    
+    
 
     for (tag_name, attr) in queries:
         # don't replace if data-nosub is set
@@ -50,11 +52,14 @@ def HTMLparser(config: dict, path, contents: str, upload_map: dict) -> str:
             tag[attr] = iGEM_URL(config, path, upload_map, tag[attr])
             # TODO: Add error handling
 
-    # pass inline_styles to CSSparser
-    inline_styles = soup.findAll('style')
-    for style in inline_styles:
+    # pass internal_styles to CSSparser
+    internal_styles = soup.findAll('style')
+    for style in internal_styles:
         style.string = CSSparser(config, path, style.string, upload_map)
         pass
+
+    # TODO: Add support for inline styles
+
 
     # return soup as string
     contents = str(soup)

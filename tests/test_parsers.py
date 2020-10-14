@@ -58,10 +58,10 @@ def test_HTMLparser_script(config, upload_map):
     assert md5hash(parsed) == '727d10aa1f48361ff0fb5236becc3f63'
 
 
-def test_HTMLparser_inline_styles(config, upload_map):
-    with open('tests/data/Test/html/inline-styles.html', 'r') as file:
+def test_HTMLparser_internal_styles(config, upload_map):
+    with open('tests/data/Test/html/internal-styles.html', 'r') as file:
         contents = file.read()
-    parsed = HTMLparser(config, 'Test/html/inline-styles.html', contents, upload_map)
+    parsed = HTMLparser(config, 'Test/html/internal-styles.html', contents, upload_map)
     assert md5hash(parsed) == 'f1bf98174c3a74ceb670af98514f069f'
 
 
