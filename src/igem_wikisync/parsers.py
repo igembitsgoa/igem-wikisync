@@ -42,9 +42,6 @@ def HTMLparser(config: dict, path, contents: str, upload_map: dict) -> str:
 
     # TODO: Replace URLs for AJAX loads as well
 
-    
-    
-
     for (tag_name, attr) in queries:
         # don't replace if data-nosub is set
         query = soup.findAll(tag_name, attrs={attr: True, 'data-nosub': False})
@@ -59,7 +56,6 @@ def HTMLparser(config: dict, path, contents: str, upload_map: dict) -> str:
         pass
 
     # TODO: Add support for inline styles
-
 
     # return soup as string
     contents = str(soup)
