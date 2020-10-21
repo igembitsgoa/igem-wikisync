@@ -72,13 +72,28 @@ def test_HTMLparser_img(config, upload_map):
     assert md5hash(parsed) == 'ba2d3f459a58bb24113e481a169016b4'
 
 
-def test_HTMLparser_srcset(config, upload_map):
-    with open('tests/data/Test/html/srcset.html', 'r') as file:
+def test_HTMLparser_srcset1(config, upload_map):
+    with open('tests/data/Test/html/srcset1.html', 'r') as file:
         contents = file.read()
-    parsed = HTMLparser(config, 'Test/html/srcset.html', contents, upload_map)
+    parsed = HTMLparser(config, 'Test/html/srcset1.html', contents, upload_map)
     print(parsed)
-    print(md5hash(parsed))
-    assert md5hash(parsed) == 'ba2d3f459a58bb24113e481a169016b4'
+    assert md5hash(parsed) == '44dc59824574b54e8f5894f2978fab22'
+
+
+def test_HTMLparser_srcset2(config, upload_map):
+    with open('tests/data/Test/html/srcset2.html', 'r') as file:
+        contents = file.read()
+    parsed = HTMLparser(config, 'Test/html/srcset2.html', contents, upload_map)
+    print(parsed)
+    assert md5hash(parsed) == '767a59b62c5b661d3d0c997b314b83de'
+
+
+def test_HTMLparser_srcset3(config, upload_map):
+    with open('tests/data/Test/html/srcset3.html', 'r') as file:
+        contents = file.read()
+    parsed = HTMLparser(config, 'Test/html/srcset3.html', contents, upload_map)
+    print(parsed)
+    assert md5hash(parsed) == '644159856c926d23d6f137ee92a694a3'
 
 
 def test_CSSparser_without_quotes(config, upload_map):

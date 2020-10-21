@@ -66,8 +66,15 @@ def HTMLparser(config: dict, path, contents: str, upload_map: dict) -> str:
         attr = 'srcset'
         query = soup.findAll(tag_name, attrs={attr: True, 'data-nosub': False})
         for tag in query:
-            components = tag[attr].split(',').strip()
-            print(components)
+            # replace multiple whitespaces with a single space
+            sources = ' '.join(tag[attr].split())
+            sources = sources.split(',')
+            for i in range(len(sources)):
+                source = sources[i].strip().split()
+                source[0] = iGEM_URL(config, path, upload_map, source[0])
+                sources[i] = ' '.join(source)
+
+            tag[attr] = ','.join(sources)
 
     # pass internal_styles to CSSparser
     internal_styles = soup.findAll('style')
