@@ -49,6 +49,28 @@ def HTMLparser(config: dict, path, contents: str, upload_map: dict) -> str:
             tag[attr] = iGEM_URL(config, path, upload_map, tag[attr])
             # TODO: Add error handling
 
+    # srcset queries
+    # https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images
+    # 
+    # srcset example:
+    # <img srcset="elva-fairy-480w.jpg 480w,
+    #              elva-fairy-800w.jpg 800w"
+    #      sizes="(max-width: 600px) 480px, 
+    #             800px"
+    #      src="elva-fairy-800w.jpg"
+    #      alt="Elva dressed as a fairy">
+    
+    srcset_queries = ['img', 'source']
+
+    for tag_name in srcset_queries:
+        attr = 'srcset'
+        query = soup.findAll(tag_name, attrs={attr: True, 'data-nosub': False})
+        for tag in query:
+            components = tag[attr].split(',').strip()
+            print(components)
+            
+
+
     # pass internal_styles to CSSparser
     internal_styles = soup.findAll('style')
     for style in internal_styles:

@@ -72,6 +72,13 @@ def test_HTMLparser_img(config, upload_map):
     assert md5hash(parsed) == 'ba2d3f459a58bb24113e481a169016b4'
 
 
+def test_HTMLparser_srcset(config, upload_map):
+    with open('tests/data/Test/html/srcset.html', 'r') as file:
+        contents = file.read()
+    parsed = HTMLparser(config, 'Test/html/srcset.html', contents, upload_map)
+    assert md5hash(parsed) == 'ba2d3f459a58bb24113e481a169016b4'
+
+
 def test_CSSparser_without_quotes(config, upload_map):
     with open('tests/data/Test/css/without_quotes.css', 'r') as file:
         contents = file.read()

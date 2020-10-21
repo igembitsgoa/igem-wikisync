@@ -28,17 +28,17 @@ jobs:
         - TOXENV=check
       script: tox -v
       
-    - stage: Deploy Docs
-      python: '3.6'
-      env: 
-        - TOXENV=docs
-      script: tox -v
+    # - stage: Deploy Docs
+    #   python: '3.6'
+    #   env: 
+    #     - TOXENV=docs
+    #   script: tox -v
 
-    - stage: Python 3.6
-      python: '3.6'
-      env: 
-        - TOXENV=py36,coveralls
-      script: tox -v
+    # - stage: Python 3.6
+    #   python: '3.6'
+    #   env: 
+    #     - TOXENV=py36,coveralls
+    #   script: tox -v
 
     - stage: Python 3.7
       python: '3.7'
@@ -46,11 +46,11 @@ jobs:
         - TOXENV=py37,coveralls
       script: tox -v
 
-    - stage: Python 3.8
-      python: '3.8'
-      env: 
-        - TOXENV=py38,coveralls
-      script: tox -v
+    # - stage: Python 3.8
+    #   python: '3.8'
+    #   env: 
+    #     - TOXENV=py38,coveralls
+    #   script: tox -v
 
 after_failure:
   - more .tox/log/* | cat
