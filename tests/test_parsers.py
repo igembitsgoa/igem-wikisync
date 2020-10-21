@@ -76,6 +76,8 @@ def test_HTMLparser_srcset(config, upload_map):
     with open('tests/data/Test/html/srcset.html', 'r') as file:
         contents = file.read()
     parsed = HTMLparser(config, 'Test/html/srcset.html', contents, upload_map)
+    print(parsed)
+    print(md5hash(parsed))
     assert md5hash(parsed) == 'ba2d3f459a58bb24113e481a169016b4'
 
 
