@@ -20,7 +20,7 @@ def read(*names, **kwargs):
 
 setup(
     name='igem-wikisync',
-    version='0.0.14',
+    version='0.0.15',
     license='MIT',
     description='Continuous integration and deployment for iGEM Wikis.',
     long_description='%s\n%s' % (
