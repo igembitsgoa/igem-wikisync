@@ -224,9 +224,19 @@ def iGEM_upload_file(browser, file_object, year):
         logger.error(message)
         return False
 
+    # Check whether there were any errors while uploading
+    return_url = browser.get_url()
+    if return_url == file_object.upload_URL:
+        message = "The following error occured while uploading " + file_object.upload_filename + ': '
+        message += browser.get_current_page().find(class_='error').text
+        logger.debug(message, exc_info=True)
+        logger.error(message)
+        return False
+    # TODO: Write test for this using KillSwitch svg from Ameya
+
     # Extract relative link from response
-    relative_link = browser.get_current_page().find(
-        class_='fullMedia').find('a')['href']
+    print(str(file_object.src_path), file_object.upload_filename, browser.get_url())
+    relative_link = browser.get_current_page().find(class_='fullMedia').find('a')['href']
     file_object.set_link_URL('https://' + year + '.igem.org' + relative_link)
 
     logger.info(f'Uploaded {file_object.upload_filename} to {file_object.link_URL}.')
