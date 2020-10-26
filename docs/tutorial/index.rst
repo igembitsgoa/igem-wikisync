@@ -6,9 +6,7 @@ Tutorial
 
 .. contents:: Table of Contents
 
-.. note::
-
-    We'll soon put up more detailed tutorials. For the time being, please go through the following and reach out for any queries at ballaneypranav@gmail.com.
+Please reach out for any queries at ballaneypranav@gmail.com.
 
 
 Uploading a Test Folder
