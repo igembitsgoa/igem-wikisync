@@ -20,7 +20,7 @@ iGEM WikiSync
         <img src="https://img.shields.io/coveralls/github/igembitsgoa/igem-wikisync?logo=coveralls&style=for-the-badge" alt="Coverage Status">
     </a>
     <a href="https://github.com/igembitsgoa/igem-wikisync/">
-        <img src="https://img.shields.io/github/commits-since/igembitsgoa/igem-wikisync/v1.0.0?logo=github&style=for-the-badge" alt="Commits since latest release">
+        <img src="https://img.shields.io/github/commits-since/igembitsgoa/igem-wikisync/v1.1.0?logo=github&style=for-the-badge" alt="Commits since latest release">
     </a>
     <img src="https://img.shields.io/pypi/l/igem-wikisync?style=for-the-badge" alt="License: MIT">
 </p>
