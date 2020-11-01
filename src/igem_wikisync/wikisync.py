@@ -21,7 +21,8 @@ def run(team: str,
         src_dir: str,
         build_dir: str,
         year=date.today().year,
-        silence_warnings=False):
+        silence_warnings=False,
+        poster_mode=False):
     '''
     Runs iGEM-WikiSync and uploads all files to iGEM servers
     while replacing relative URLs with those on the iGEM server.
@@ -34,6 +35,10 @@ def run(team: str,
     Optional Arguments:
         year: Subdomain for igem.org. Current year by default.
         silence_warnings: Broken link warnings are not printed to console if true. The log still contains everything.
+        poster_mode: Run WikiSync in poster mode. 
+            * Renames files to T--[TeamName]--Poster_[filename].extension
+            * Adds the poster template the HTML file
+            * Fails if any other HTML/CSS/JS file is provided
 
     Returns:
         1: Incorrect input in function call.
@@ -70,7 +75,8 @@ def run(team: str,
         'src_dir':   src_dir,
         'build_dir': build_dir,
         'year': str(year),
-        'silence_warnings': silence_warnings
+        'silence_warnings': silence_warnings,
+        'poster_mode': poster_mode
     }
 
     # * 2. Load or create upload_map
@@ -225,6 +231,23 @@ def cache_files(upload_map, config):
             # Store path and extension
             infile = (Path(root) / Path(filename)).relative_to(config['src_dir'])
             extension = infile.suffix[1:].lower()
+
+            # * In poster mode, make sure 
+            if config['poster_mode']:
+                # no JS/CSS files are uploaded
+                if extension in ['css', 'js']:
+                    message = f'No CSS/JS files can be uploaded in Poster mode.'
+                    logger.debug(message, exc_info=True)
+                    logger.critical(message)
+                    raise Exception
+
+                # if one HTML file has been uploaded, exit
+                if len(cache['html']) == 1:
+                    message = f'Only one HTML file can be uploaded in Poster mode.'
+                    logger.debug(message, exc_info=True)
+                    logger.critical(message)
+                    raise Exception
+                    
 
             # create appropriate file object
             # file objects contain corresponding paths and URLs

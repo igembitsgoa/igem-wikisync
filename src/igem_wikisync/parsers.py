@@ -85,7 +85,11 @@ def HTMLparser(config: dict, path, contents: str, upload_map: dict) -> str:
     # TODO: Add support for inline styles
 
     # return soup as string
-    contents = str(soup)
+    if config['poster_mode']:
+        contents = "{{ Poster }}\n\n" + str(soup)
+    else:
+        contents = str(soup)
+    
     return contents
 
 
