@@ -2,8 +2,12 @@
 Changelog
 =========
 
-1.1.0-alpha (2020-11-01)
-------------------------
+1.1.0-alpha1 (2020-11-01)
+-------------------------
+* Fix typo
+
+1.1.0-alpha0 (2020-11-01)
+-------------------------
 * Alpha release that supports poster mode. 
 * Has not been tested because wikis have been frozen.
 * Use at your own risk!
