@@ -35,7 +35,7 @@ def run(team: str,
     Optional Arguments:
         year: Subdomain for igem.org. Current year by default.
         silence_warnings: Broken link warnings are not printed to console if true. The log still contains everything.
-        poster_mode: Run WikiSync in poster mode. 
+        poster_mode: Run WikiSync in poster mode.
             * Renames files to T--[TeamName]--Poster_[filename].extension
             * Adds the poster template the HTML file
             * Fails if any other HTML/CSS/JS file is provided
@@ -232,22 +232,21 @@ def cache_files(upload_map, config):
             infile = (Path(root) / Path(filename)).relative_to(config['src_dir'])
             extension = infile.suffix[1:].lower()
 
-            # * In poster mode, make sure 
+            # * In poster mode, make sure
             if config['poster_mode']:
                 # no JS/CSS files are uploaded
                 if extension in ['css', 'js']:
-                    message = f'No CSS/JS files can be uploaded in Poster mode.'
+                    message = 'No CSS/JS files can be uploaded in Poster mode.'
                     logger.debug(message, exc_info=True)
                     logger.critical(message)
                     raise Exception
 
                 # if one HTML file has been uploaded, exit
                 if len(cache['html']) == 1:
-                    message = f'Only one HTML file can be uploaded in Poster mode.'
+                    message = 'Only one HTML file can be uploaded in Poster mode.'
                     logger.debug(message, exc_info=True)
                     logger.critical(message)
                     raise Exception
-                    
 
             # create appropriate file object
             # file objects contain corresponding paths and URLs

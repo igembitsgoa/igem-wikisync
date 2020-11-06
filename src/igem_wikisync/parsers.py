@@ -89,7 +89,7 @@ def HTMLparser(config: dict, path, contents: str, upload_map: dict) -> str:
         contents = "{{ Poster }}\n\n" + str(soup)
     else:
         contents = str(soup)
-    
+
     return contents
 
 
