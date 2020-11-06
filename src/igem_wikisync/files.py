@@ -227,7 +227,7 @@ class OtherFile(BaseFile):
 
     def _generate_upload_filename(self):
         if self.filename[:3] != 'T--':
-            if self.config['poster_mode']:
+            if self._config['poster_mode']:
                 return 'T--' + self._config['team'] + '--Poster_' + '--'.join(self.path.parts[1:])
             else:
                 return 'T--' + self._config['team'] + '--' + '--'.join(self.path.parts[1:])
