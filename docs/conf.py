@@ -23,7 +23,7 @@ project = 'igem-wikisync'
 year = '2020'
 author = 'Pranav Ballaney'
 copyright = '{0}, {1}'.format(year, author)
-version = release = '1.1.0-alpha1'
+version = release = '1.1.0-alpha2'
 
 pygments_style = 'trac'
 templates_path = ['.']
