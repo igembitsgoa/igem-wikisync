@@ -87,21 +87,21 @@ def run(team: str,
         os.mkdir(build_dir)
         # ? error handling here?
 
-    # # * 4. Get iGEM credentials from environment variables
-    # credentials = {
-    #     'username': os.environ.get('IGEM_USERNAME'),
-    #     'password': os.environ.get('IGEM_PASSWORD')
-    # }
+    # * 4. Get iGEM credentials from environment variables
+    credentials = {
+        'username': os.environ.get('IGEM_USERNAME'),
+        'password': os.environ.get('IGEM_PASSWORD')
+    }
 
-    # # * 5. Load/create cookie file
-    # browser, cookiejar = get_browser_with_cookies()
+    # * 5. Load/create cookie file
+    browser, cookiejar = get_browser_with_cookies()
 
-    # # * 6. Login to iGEM
-    # login = iGEM_login(browser, credentials, config)
-    # if not login:
-    #     message = 'Failed to login.'
-    #     logger.critical(message)
-    #     sys.exit(2)
+    # * 6. Login to iGEM
+    login = iGEM_login(browser, credentials, config)
+    if not login:
+        message = 'Failed to login.'
+        logger.critical(message)
+        sys.exit(2)
 
     # # * 7. Save cookies
     # # TODO: check if this works, might not
