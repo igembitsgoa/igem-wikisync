@@ -2,7 +2,12 @@
 Changelog
 =========
 
-1.1.0-alpha1 (2020-11-01)
+1.1.0-alpha2 (2020-11-08)
+-------------------------
+* Poster mode allows uploading multiple code files
+  as long as they start with /Poster
+
+1.1.0-alpha1 (2020-11-05)
 -------------------------
 * Fix typo
 
