@@ -87,25 +87,25 @@ def run(team: str,
         os.mkdir(build_dir)
         # ? error handling here?
 
-    # * 4. Get iGEM credentials from environment variables
-    credentials = {
-        'username': os.environ.get('IGEM_USERNAME'),
-        'password': os.environ.get('IGEM_PASSWORD')
-    }
+    # # * 4. Get iGEM credentials from environment variables
+    # credentials = {
+    #     'username': os.environ.get('IGEM_USERNAME'),
+    #     'password': os.environ.get('IGEM_PASSWORD')
+    # }
 
-    # * 5. Load/create cookie file
-    browser, cookiejar = get_browser_with_cookies()
+    # # * 5. Load/create cookie file
+    # browser, cookiejar = get_browser_with_cookies()
 
-    # * 6. Login to iGEM
-    login = iGEM_login(browser, credentials, config)
-    if not login:
-        message = 'Failed to login.'
-        logger.critical(message)
-        sys.exit(2)
+    # # * 6. Login to iGEM
+    # login = iGEM_login(browser, credentials, config)
+    # if not login:
+    #     message = 'Failed to login.'
+    #     logger.critical(message)
+    #     sys.exit(2)
 
-    # * 7. Save cookies
-    # TODO: check if this works, might not
-    cookiejar.save()
+    # # * 7. Save cookies
+    # # TODO: check if this works, might not
+    # cookiejar.save()
 
     # * 8. Cache files
     files = cache_files(upload_map, config)
@@ -232,35 +232,31 @@ def cache_files(upload_map, config):
             infile = (Path(root) / Path(filename)).relative_to(config['src_dir'])
             extension = infile.suffix[1:].lower()
 
-            # * In poster mode, make sure
-            if config['poster_mode']:
-                # no JS/CSS files are uploaded
-                if extension in ['css', 'js']:
-                    message = 'No CSS/JS files can be uploaded in Poster mode.'
-                    logger.debug(message, exc_info=True)
-                    logger.critical(message)
-                    raise Exception
-
-                # if one HTML file has been uploaded, exit
-                if len(cache['html']) == 1:
-                    message = 'Only one HTML file can be uploaded in Poster mode.'
-                    logger.debug(message, exc_info=True)
-                    logger.critical(message)
-                    raise Exception
-
             # create appropriate file object
-            # file objects contain corresponding paths and URLs
-            if extension == 'html':
-                file_object = HTMLfile(infile, config)
-                cache['html'][file_object.path] = file_object
+            # file objects contain corresponding paths and 
+            if extension in ['html', 'css', 'js']:
+                
+                file_object = None
+                if extension == 'html':
+                    file_object = HTMLfile(infile, config)
 
-            elif extension == 'css':
-                file_object = CSSfile(infile, config)
-                cache['css'][file_object.path] = file_object
+                elif extension == 'css':
+                    file_object = CSSfile(infile, config)
 
-            elif extension == 'js':
-                file_object = JSfile(infile, config)
-                cache['js'][file_object.path] = file_object
+                elif extension == 'js':
+                    file_object = JSfile(infile, config)
+
+                # In poster mode, make sure URL starts with /Poster after team
+                if config['poster_mode']:
+                    link_URL = file_object.link_URL
+                    after_team = link_URL.split(config['team'])[1]
+                    if len(after_team) < 7 or after_team[0:7] != "/Poster":
+                        message = 'All files must start with /Poster in poster mode.'
+                        logger.debug(message, exc_info=True)
+                        logger.critical(message)
+                        raise Exception
+            
+                cache[extension][file_object.path] = file_object
 
             elif extension.lower() in ['png', 'gif', 'jpg', 'jpeg', 'pdf', 'ppt', 'txt',
                                        'zip', 'mp3', 'mp4', 'webm', 'mov', 'swf', 'xls',
