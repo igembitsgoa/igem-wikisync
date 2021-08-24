@@ -55,7 +55,7 @@ def resolve_relative_path(path: str, parent: Path, src_dir: str) -> Path:
     if full_path.is_dir() or full_path.suffix == '':
         return (full_path / 'index.html').relative_to(src_dir)
     else:
-        return full_path.relative_to(src_dir)
+        return Path(os.path.relpath(full_path, src_dir))
 
 
 def iGEM_URL(config: dict, path: Path, upload_map: dict, url: str) -> str:
