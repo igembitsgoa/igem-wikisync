@@ -65,7 +65,7 @@ Please download a zipped version of this code `here <https://downgit.github.io/#
         </ul>
         <div class="container">
             <br><br>
-            <img src="./assets/img/logo.png" alt="iGEM Logo" height=200 width=200>
+            <img src="./assets/WS-basic/img/logo.png" alt="iGEM Logo" height=200 width=200>
             <br><br>
             <h1>Welcome to iGEM 2020!</h1>
             <p>This is a sample page, designed for a demonstration for iGEM WikiSync.</p>
@@ -83,7 +83,7 @@ Please download a zipped version of this code `here <https://downgit.github.io/#
 
     body {
         background-color: #f7feff;
-        background-image: url(../assets/img/background.png);
+        background-image: url(../assets/WS-basic/img/background.png);
     }
 
 
