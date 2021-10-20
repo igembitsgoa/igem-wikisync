@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# coding: utf8
+
 import os
 import shutil
 import sys
@@ -21,8 +24,7 @@ def run(team: str,
         src_dir: str,
         build_dir: str,
         year=date.today().year,
-        silence_warnings=False,
-        poster_mode=False):
+        silence_warnings=False):
     '''
     Runs iGEM-WikiSync and uploads all files to iGEM servers
     while replacing relative URLs with those on the iGEM server.
@@ -35,10 +37,6 @@ def run(team: str,
     Optional Arguments:
         year: Subdomain for igem.org. Current year by default.
         silence_warnings: Broken link warnings are not printed to console if true. The log still contains everything.
-        poster_mode: Run WikiSync in poster mode.
-            * Renames files to T--[TeamName]--Poster_[filename].extension
-            * Adds the poster template the HTML file
-            * Fails if any other HTML/CSS/JS file is provided
 
     Returns:
         1: Incorrect input in function call.
@@ -75,8 +73,7 @@ def run(team: str,
         'src_dir':   src_dir,
         'build_dir': build_dir,
         'year': str(year),
-        'silence_warnings': silence_warnings,
-        'poster_mode': poster_mode
+        'silence_warnings': silence_warnings
     }
 
     # * 2. Load or create upload_map
@@ -103,9 +100,9 @@ def run(team: str,
         logger.critical(message)
         sys.exit(2)
 
-    # # * 7. Save cookies
-    # # TODO: check if this works, might not
-    # cookiejar.save()
+    # * 7. Save cookies
+    # TODO: check if this works, might not
+    cookiejar.save()
 
     # * 8. Cache files
     files = cache_files(upload_map, config)
@@ -233,30 +230,18 @@ def cache_files(upload_map, config):
             extension = infile.suffix[1:].lower()
 
             # create appropriate file object
-            # file objects contain corresponding paths and 
-            if extension in ['html', 'css', 'js']:
-                
-                file_object = None
-                if extension == 'html':
-                    file_object = HTMLfile(infile, config)
+            # file objects contain corresponding paths and URLs
+            if extension == 'html':
+                file_object = HTMLfile(infile, config)
+                cache['html'][file_object.path] = file_object
 
-                elif extension == 'css':
-                    file_object = CSSfile(infile, config)
+            elif extension == 'css':
+                file_object = CSSfile(infile, config)
+                cache['css'][file_object.path] = file_object
 
-                elif extension == 'js':
-                    file_object = JSfile(infile, config)
-
-                # In poster mode, make sure URL starts with /Poster after team
-                if config['poster_mode']:
-                    link_URL = file_object.link_URL
-                    after_team = link_URL.split(config['team'])[1]
-                    if len(after_team) < 7 or after_team[0:7] != "/Poster":
-                        message = 'All files must start with /Poster in poster mode.'
-                        logger.debug(message, exc_info=True)
-                        logger.critical(message)
-                        raise Exception
-            
-                cache[extension][file_object.path] = file_object
+            elif extension == 'js':
+                file_object = JSfile(infile, config)
+                cache['js'][file_object.path] = file_object
 
             elif extension.lower() in ['png', 'gif', 'jpg', 'jpeg', 'pdf', 'ppt', 'txt',
                                        'zip', 'mp3', 'mp4', 'webm', 'mov', 'swf', 'xls',
@@ -414,7 +399,7 @@ def build_and_upload(files, browser, config, upload_map):
 
             # open file
             try:
-                with open(file_object.src_path, 'r') as file:
+                with open(file_object.src_path, 'r', encoding='utf-8') as file:
                     contents = file.read()
             except Exception:
                 message = f'Could not open/read {file_object.path}. Skipping.'
@@ -446,7 +431,7 @@ def build_and_upload(files, browser, config, upload_map):
                     if not os.path.isdir(build_path.parent):
                         os.makedirs(build_path.parent)
                     # and write the processed contents
-                    with open(build_path, 'w') as file:
+                    with open(build_path, 'w', encoding='utf-8') as file:
                         file.write(processed)
                 except Exception:
                     message = f"Couldn not write {str(file_object.build_path)}. Skipping."
