@@ -1,6 +1,9 @@
 
 Changelog
 =========
+1.1.0-alpha4 (2021-10-20)
+-------------------------
+* fixed utf-8 errors (some special characters were printed wrong on uploaded pages)
 
 1.1.0-alpha3 (2020-11-08)
 -------------------------
